@@ -1,0 +1,244 @@
+// col2rgb("steelblue") |> as.numeric() |> as.hexmode() |> paste0(collapse = "")
+$steelblue: #4682b4;
+// col2rgb("firebrick") |> as.numeric() |> as.hexmode() |> paste0(collapse = "")
+$firebrick: #b22222;
+// col2rgb("forestgreen") |> as.numeric() |> as.hexmode() |> paste0(collapse = "")
+$forestgreen: #228b22;
+
+$bugreen:#bf5700;
+
+$bugold: white;
+
+// "gray70" |> farver::decode_colour() |> farver::encode_colour()
+$gray70: #b3b3b3;
+
+// rgb(152, 122, 90, maxColorValue = 255)
+$keynotebrown: #987a5a;
+
+.callout {
+  background-color: white;
+}
+
+body ::-webkit-scrollbar {
+  display: none;
+}
+
+body {
+  scrollbar-width: none;
+}
+
+p {
+  font-size: 1em;
+}
+
+ul {
+  font-size: 1em;
+}
+
+li {
+  font-size: 1em;
+}
+
+.cell {
+  font-size:     1em;
+  margin-left:   8px;
+  margin-right:  8px;
+  margin-top:    8px;
+  margin-bottom: 8px;
+}
+
+.example {
+  font-size:     .85em;
+  color: $firebrick;
+}
+
+.subtext {
+  font-size:     .85em;
+  color: $gray70;
+}
+
+.subsubtext {
+  font-size:     .70em;
+  color: $gray70;
+}
+
+.firebricktext {
+  color:        $firebrick;
+}
+
+.steelbluetext {
+  color:        $steelblue;
+}
+
+.forestgreentext {
+  color:        $forestgreen;
+}
+
+.bugreentext {
+  color:        $bugreen;
+}
+
+.bugoldtext {
+  color:        $bugold;
+}
+
+.defn {
+  font-size:     1em;
+  font-style: italic;
+  text-decoration: underline;
+  color:        $steelblue;
+}
+
+.emph {
+  font-size:     1em;
+  font-style: italic;
+  font-weight: bold;
+  text-decoration: underline;
+}
+
+.source {
+  font-size:     .4em;
+  text-align: right;
+  // justify-content: bottom; 
+  bottom: 20px; // similar to aside
+}
+
+.insert {
+  background-color: white;
+  border-radius: 10px; 
+  padding: 0; // top right left bottom
+}
+
+
+// https://github.com/quarto-dev/quarto-cli/discussions/1386
+.v-center-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 90%;
+}
+
+.quote-attribution {
+  text-align: right;
+  justify-content: top;
+  font-size: .80em;
+  color: gray;
+}
+
+
+/*-- scss:defaults --*/
+// https://developer.mozilla.org/en-US/docs/Web/CSS/border-radius
+// see https://github.com/quarto-dev/quarto-cli/blob/main/src/resources/formats/revealjs/quarto.scss
+
+// set base font size
+$presentation-font-size-root: 28px !default;
+
+// Base document colors
+// $body-color: white;??
+//$link-color: $steelblue;
+
+
+
+
+// Code blocks
+$body-color: #222 !default;
+$code-block-border-color: lighten($body-color, 60%) !default;
+
+.reveal h2 {
+  background-color: $bugreen;
+  padding: 5px 0px 5px 10px;
+  border-radius: 10px;
+  color: $bugold !important;
+}
+
+.reveal .slides section h2 {
+  font-size: 1.5em !important;
+}
+
+.reveal .slide-background-content::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 10px;
+  background-color: $bugreen;
+  z-index: 0;
+}
+
+.reveal .progress span {
+  background: #f8971f !important;
+}
+
+.center {
+  text-align: center;
+}
+
+.title-slide {
+  text-align: left;
+}
+
+.quarto-title-authors {
+  display: flex;
+  justify-content: left;
+
+  .quarto-title-author {
+    padding-left: 0em;
+    padding-right: 0em;
+    width: 100%;
+  }
+}
+
+.quarto-title-author::before {
+  content: "";
+  display: block;
+  border: none;
+  background-color: $bugreen;
+  height: 5px;
+  width: 100%;
+}
+
+/* Base bullet style applied to ALL bullet levels */
+.reveal .slide ul li {
+  position: relative;
+  padding-left: 1em;
+  margin-bottom: 0.6em;
+  font-weight: 300;
+  list-style: none;
+}
+
+/* Top-level ➤ bullet */
+.reveal .slide ul li::before {
+  content: '➤';
+  position: absolute;
+  left: 0;
+  color: $bugreen;
+}
+
+/* Second-level ➤ bullet (indented + green) */
+.reveal .slide ul ul li::before {
+  content: '➤';
+  color: #333f48;
+}
+
+/* Third-level ➤ bullet (gray) */
+.reveal .slide ul ul ul li::before {
+  content: '➤';
+  color: $gray70;
+}
+
+.bullet_subtext {
+  font-size: .85em;
+}
+
+.underline {
+  text-decoration: underline;
+}
+
+/*-- scss:rules --*/
+
+.reveal .slide-logo {
+  max-height: 3.0rem !important;
+  bottom: -2px;
+  right: 10px;
+}
