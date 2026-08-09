@@ -2,6 +2,8 @@
 title: "Introduction to SDS 320E"
 author: "SDS 320E"
 format: live-revealjs
+revealjs-plugins:
+  - drop
 # filters:
 #   - webr
 footer: "Derik Boonstra"
@@ -170,5 +172,35 @@ mean(data)
 :::
 :::
 
-## Test
 
+## Understanding R and Rstudio
+:::{.incremental}
+- [[R](https://cran.r-project.org){preview-link=true}]{.underline}[^1] is a programming language and environment for statistical computing.
+  - Again, R is similar to an advanced calculator, but with no interface.
+  - You write code and it runs. But there’s no editor or additional tools for help.
+
+:::{.fragment .center}
+<img src="figures/R_logo.png" width="100px" style="vertical-align: middle;" /> $\approx$ English
+:::
+
+::: {.fragment .center}
+![](figures/yoda.gif){.content-visible when="format == 'revealjs'"}
+:::
+
+:::{.fragment .absolute top=300px left=300px width=500px}
+![](figures/white.png)
+:::
+:::
+
+:::{.incremental .absolute top=325px}
+- [Rstudio](https://posit.co/download/rstudio-desktop/){preview-link=true} is an editor built for R
+  - Makes R more accessible, organized, and efficient. Rstudio provides:
+    - An interactive console editor for writing and saving code
+    - Panels for plots, packages, and variable environments
+:::
+
+:::{.fragment .absolute bottom=15px left=400px}
+<img src="figures/rstudio.png" width="150px" style="vertical-align: middle;" /> $\approx$ <img src="figures/word.png" width="50px" style="vertical-align: middle;" />
+:::
+
+[^1]: R and Rstudio can be downloaded by clicking the links. More information is given in syllabus.

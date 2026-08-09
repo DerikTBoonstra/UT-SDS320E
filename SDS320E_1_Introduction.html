@@ -37,6 +37,7 @@
   <link href="SDS320E_1_Introduction_files/libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
   <link href="SDS320E_1_Introduction_files/libs/revealjs/plugin/reveal-chalkboard/font-awesome/css/all.css" rel="stylesheet">
   <link href="SDS320E_1_Introduction_files/libs/revealjs/plugin/reveal-chalkboard/style.css" rel="stylesheet">
+  <link href="SDS320E_1_Introduction_files/libs/revealjs/plugin/reveal-drop/drop-runtime.css" rel="stylesheet">
   <link href="SDS320E_1_Introduction_files/libs/revealjs/plugin/quarto-support/footer.css" rel="stylesheet">
   <style type="text/css">
     .reveal div.sourceCode {
@@ -303,8 +304,39 @@ eyJhdHRyIjp7ImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoiZGF0YSA8LSBjKDEsIDUsIDEw
 </div>
 </div>
 </section>
-<section id="test" class="slide level2">
-<h2>Test</h2>
+<section id="understanding-r-and-rstudio" class="slide level2">
+<h2>Understanding R and Rstudio</h2>
+<ul>
+<li class="fragment"><u><a href="https://cran.r-project.org" data-preview-link="true">R</a></u><sup>1</sup> is a programming language and environment for statistical computing.
+<ul>
+<li class="fragment">Again, R is similar to an advanced calculator, but with no interface.</li>
+<li class="fragment">You write code and it runs. But there’s no editor or additional tools for help.</li>
+</ul></li>
+</ul>
+<div class="fragment center">
+<p><img src="figures/R_logo.png" width="100px" style="vertical-align: middle;"> <span class="math inline">\(\approx\)</span> English</p>
+</div>
+<div class="fragment center">
+<p><img data-src="figures/yoda.gif" class="content-visible" data-when="format == 'revealjs'"></p>
+</div>
+<div class="fragment absolute" style="top: 300px; left: 300px; width: 500px; ">
+<p><img data-src="figures/white.png"></p>
+</div>
+<div class="absolute" style="top: 325px; ">
+<ul>
+<li class="fragment"><a href="https://posit.co/download/rstudio-desktop/" data-preview-link="true">Rstudio</a> is an editor built for R
+<ul>
+<li class="fragment">Makes R more accessible, organized, and efficient. Rstudio provides:
+<ul>
+<li class="fragment">An interactive console editor for writing and saving code</li>
+<li class="fragment">Panels for plots, packages, and variable environments</li>
+</ul></li>
+</ul></li>
+</ul>
+</div>
+<div class="fragment absolute" style="left: 400px; bottom: 15px; ">
+<p><img src="figures/rstudio.png" width="150px" style="vertical-align: middle;"> <span class="math inline">\(\approx\)</span> <img src="figures/word.png" width="50px" style="vertical-align: middle;"></p>
+</div>
 
 <script type="webr-data">
 eyJvcHRpb25zIjp7ImJhc2VVcmwiOiJodHRwczovL3dlYnIuci13YXNtLm9yZy92MC42LjAvIn0sInBhY2thZ2VzIjp7InBrZ3MiOlsiZXZhbHVhdGUiLCJrbml0ciIsImh0bWx0b29scyJdLCJyZXBvcyI6W119LCJyZW5kZXJfZGYiOiJkZWZhdWx0In0=
@@ -323,7 +355,8 @@ eyJjb250ZW50cyI6W3siY2VsbE5hbWUiOiJ3ZWJyLXdpZGdldC0yIiwiaW5saW5lIjpmYWxzZSwibWV0
 <script type="vfs-file">
 W10=
 </script>
-</section>
+<aside><ol class="aside-footnotes"><li id="fn1"><p>R and Rstudio can be downloaded by clicking the links. More information is given in syllabus.</p></li></ol></aside></section>
+
     </div>
   <div class="quarto-auto-generated-content" style="display: none;">
 <p><img src="quarto-assets/logo.png" class="slide-logo"></p>
@@ -340,6 +373,7 @@ W10=
   <script src="SDS320E_1_Introduction_files/libs/revealjs/plugin/reveal-menu/menu.js"></script>
   <script src="SDS320E_1_Introduction_files/libs/revealjs/plugin/reveal-menu/quarto-menu.js"></script>
   <script src="SDS320E_1_Introduction_files/libs/revealjs/plugin/reveal-chalkboard/plugin.js"></script>
+  <script src="SDS320E_1_Introduction_files/libs/revealjs/plugin/reveal-drop/drop-runtime.js"></script>
   <script src="SDS320E_1_Introduction_files/libs/revealjs/plugin/quarto-support/support.js"></script>
   
 
@@ -363,6 +397,7 @@ W10=
 'jumpToSlide': true,
 'menu': {"side":"left","useTextContentForMissingTitles":false,"markers":false,"loadIcons":false,"custom":[{"title":"Tools","icon":"<i class=\"fas fa-gear\"></i>","content":"<ul class=\"slide-menu-items\">\n<li class=\"slide-tool-item active\" data-item=\"0\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.fullscreen(event)\"><kbd>f</kbd> Fullscreen</a></li>\n<li class=\"slide-tool-item\" data-item=\"1\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.speakerMode(event)\"><kbd>s</kbd> Speaker View</a></li>\n<li class=\"slide-tool-item\" data-item=\"2\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.overview(event)\"><kbd>o</kbd> Slide Overview</a></li>\n<li class=\"slide-tool-item\" data-item=\"3\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.togglePdfExport(event)\"><kbd>e</kbd> PDF Export Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"4\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.toggleScrollView(event)\"><kbd>r</kbd> Scroll View Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"5\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.toggleChalkboard(event)\"><kbd>b</kbd> Toggle Chalkboard</a></li>\n<li class=\"slide-tool-item\" data-item=\"6\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.toggleNotesCanvas(event)\"><kbd>c</kbd> Toggle Notes Canvas</a></li>\n<li class=\"slide-tool-item\" data-item=\"7\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.downloadDrawings(event)\"><kbd>d</kbd> Download Drawings</a></li>\n<li class=\"slide-tool-item\" data-item=\"8\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.keyboardHelp(event)\"><kbd>?</kbd> Keyboard Help</a></li>\n</ul>"}],"openButton":true,"titleSelector":"h1","hideMissingTitles":true},
 'chalkboard': {"buttons":true},
+'drop': {"button":true,"shortcut":"`","engine":"webr","webr":{"packages":[]},"pyodide":{"packages":[]}},
 'smaller': false,
  
         // Display controls in the bottom right corner
@@ -533,7 +568,7 @@ W10=
         },
 
         // reveal.js plugins
-        plugins: [QuartoLineHighlight, PdfExport, RevealMenu, RevealChalkboard, QuartoSupport,
+        plugins: [QuartoLineHighlight, PdfExport, RevealMenu, RevealChalkboard, RevealDrop, QuartoSupport,
 
           RevealMath,
           RevealNotes,
