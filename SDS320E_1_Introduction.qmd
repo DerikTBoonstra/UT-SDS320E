@@ -51,15 +51,15 @@ library("tidyverse");library("qqplotr");theme_set(theme_minimal());library("patc
 ::: {.columns .absolute top=100px left=250px}
 
 :::{.column width=25%}
-![](figures/Khali1.png)
+![](figures/khali1.jpg)
 :::
 
 :::{.column width=25%}
-![](figures/Khali2.png)
+![](figures/khali2.jpg)
 :::
 
 :::{.column width=25%}
-![](figures/Khali3.png)
+![](figures/khali3.jpg)
 :::
 
 :::
@@ -67,15 +67,15 @@ library("tidyverse");library("qqplotr");theme_set(theme_minimal());library("patc
 ::: {.columns .absolute top=375px left=250px}
 
 :::{.column width=25%}
-![](figures/Khali4.png)
+![](figures/khali4.jpg)
 :::
 
 :::{.column width=25%}
-![](figures/Khali5.png)
+![](figures/khali5.jpg)
 :::
 
 :::{.column width=25%}
-![](figures/Khali6.png)
+![](figures/khali6.jpg)
 :::
 
 :::
