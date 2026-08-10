@@ -6,9 +6,8 @@ revealjs-plugins:
   - drop
 # filters:
 #   - webr
-footer: "Derik Boonstra"
+footer: "Derik Boonstra, Ph.D."
 theme: quarto-assets/presentation-theme.scss
-# self-contained: true
 embed-resources: false
 slide-number: "c"
 auto-animate: false
@@ -49,19 +48,37 @@ library("tidyverse");library("qqplotr");theme_set(theme_minimal());library("patc
 
 - Khali (Khaleesi)
 
-::: {.center}
-<div style="display: flex; flex-wrap: wrap; justify-content: center; gap: .10em;">
+::: {.columns .absolute top=100px left=250px}
 
-  <img src="figures/Khali1.png" style="width: 15%;" />
-  <img src="figures/Khali2.png" style="width: 15%;" />
-  <img src="figures/Khali3.png" style="width: 15%;" />
-  
-  <img src="figures/Khali4.png" style="width: 15%;" />
-  <img src="figures/Khali5.png" style="width: 15%;" />
-  <img src="figures/Khali6.png" style="width: 15%;" />
-</div>
+:::{.column width=25%}
+![](figures/Khali1.png)
 :::
 
+:::{.column width=25%}
+![](figures/Khali2.png)
+:::
+
+:::{.column width=25%}
+![](figures/Khali3.png)
+:::
+
+:::
+
+::: {.columns .absolute top=375px left=250px}
+
+:::{.column width=25%}
+![](figures/Khali4.png)
+:::
+
+:::{.column width=25%}
+![](figures/Khali5.png)
+:::
+
+:::{.column width=25%}
+![](figures/Khali6.png)
+:::
+
+:::
 ## About Me Cont. 
 
 - Girlfriend - Paxton 
