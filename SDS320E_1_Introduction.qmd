@@ -64,7 +64,7 @@ library("tidyverse");library("qqplotr");theme_set(theme_minimal());library("patc
 
 :::
 
-::: {.columns .absolute top=375px left=250px}
+::: {.columns .absolute top=376px left=250px}
 
 :::{.column width=25%}
 ![](figures/khali4.jpg)
