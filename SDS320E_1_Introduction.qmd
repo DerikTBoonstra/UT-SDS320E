@@ -81,7 +81,7 @@ library("tidyverse");library("qqplotr");theme_set(theme_minimal());library("patc
 :::
 ## About Me Cont. 
 
-- Girlfriend - Paxton 
+- Fiance - Paxton 
 
 :::{.absolute top="100px" left="225px" width="20%"}
 ![](figures/Paxton1.jpg)
@@ -210,7 +210,7 @@ mean(data)
 :::
 
 :::{.incremental .absolute top=325px}
-- [Rstudio](https://posit.co/download/rstudio-desktop/){preview-link=true} is an editor built for R
+- [[Rstudio](https://posit.co/download/rstudio-desktop/){preview-link=true}]{.underline} is an editor built for R
   - Makes R more accessible, organized, and efficient. Rstudio provides:
     - An interactive console editor for writing and saving code
     - Panels for plots, packages, and variable environments
@@ -221,3 +221,265 @@ mean(data)
 :::
 
 [^1]: R and Rstudio can be downloaded by clicking the links. More information is given in syllabus.
+
+## About the Course {auto-animate=true auto-animating-easing=ease-in-out}
+:::{.incremental}
+- Statistics is used to analyze **anything** that has data
+:::
+
+::: {.r-hstack .fragment}
+
+::: {data-id="circle1" style="position: absolute; top: 250px; left: 375px; width: 350px; height: 350px; border-radius: 50%; background: #ADD8E6;"}
+:::
+
+::: {data-id="label1" style="position: absolute; top: 380px; left: 435px; font-size: 30px; font-weight: bold;"}
+Math & Statistics
+:::
+
+::: {data-id="line1" style="position: absolute;top: 250px; left: 400px; width: 100px; height: 5px; background: black;transform: rotate(45deg);"}
+:::
+
+::: {data-id="label2" style="position: absolute; top: 175px; left: 375px; font-size: 24px; font-weight: bold;"}
+Finance
+:::
+
+::: {data-id="line2" style="position: absolute;top: 250px; left: 500px; width: 100px; height: 5px; background: black;transform: rotate(90deg);"}
+:::
+
+::: {data-id="label3" style="position: absolute; top: 165px; left: 475px; font-size: 24px; font-weight: bold;"}
+Pharmaceuticals
+:::
+
+::: {data-id="line3" style="position: absolute;top: 250px; right: 350px; width: 100px; height: 5px; background: black;transform: rotate(135deg);"}
+:::
+
+::: {data-id="label4" style="position: absolute; top: 175px; right: 300px; font-size: 24px; font-weight: bold;"}
+Marketing
+:::
+
+::: {data-id="line4" style="position: absolute;bottom: 100px; left: 400px; width: 100px; height: 5px; background: black;transform: rotate(135deg);"}
+:::
+
+::: {data-id="label5" style="position: absolute; bottom: 25px; left: 375px; font-size: 24px; font-weight: bold;"}
+Economics
+:::
+
+::: {data-id="line5" style="position: absolute;bottom: 100px; left: 500px; width: 100px; height: 5px; background: black;transform: rotate(90deg);"}
+:::
+
+::: {data-id="label6" style="position: absolute; bottom: 15px; left: 500px; font-size: 24px; font-weight: bold;"}
+Genomics
+:::
+
+::: {data-id="line6" style="position: absolute;bottom: 100px; right: 350px; width: 100px; height: 5px; background: black;transform: rotate(45deg);"}
+:::
+
+::: {data-id="label7" style="position: absolute; bottom: 25px; right: 300px; font-size: 24px; font-weight: bold;"}
+Probability
+:::
+
+:::
+
+
+## About the Course Cont. {auto-animate=true auto-animating-easing=ease-in-out}
+
+- [**Computer Science**](https://en.wikipedia.org/wiki/Computer_science){preview-link=true} - *the study of computation, information, and automation.*
+  - [All computations would have to be by hand without computer science]{.subtext}
+
+::: {.r-stack}
+::: {data-id="circle1" style="position: absolute; top: 120px; right: 100px; width: 100px; height: 100px; border-radius: 50%; background: #ADD8E6;"}
+:::
+
+::: {data-id="label1" style="position: absolute; top: 145px; right: 115px; font-size: 10px; font-weight: bold;"}
+Math & Statistics
+:::
+:::
+
+::: {.r-hstack}
+
+::: {data-id="circle2" style="position: absolute; top: 250px; left: 375px; width: 350px; height: 350px; border-radius: 50%; background: #88E788;"}
+:::
+
+::: {data-id="label8" style="position: absolute; top: 380px; left: 435px; font-size: 30px; font-weight: bold;"}
+Computer Science
+:::
+
+::: {data-id="line7" style="position: absolute;top: 250px; left: 400px; width: 100px; height: 5px; background: black;transform: rotate(45deg);"}
+:::
+
+::: {data-id="label9" style="position: absolute; top: 175px; left: 325px; font-size: 24px; font-weight: bold;"}
+Programming
+:::
+
+::: {data-id="line8" style="position: absolute;top: 250px; left: 500px; width: 100px; height: 5px; background: black;transform: rotate(90deg);"}
+:::
+
+::: {data-id="label10" style="position: absolute; top: 165px; left: 535px; font-size: 24px; font-weight: bold;"}
+IT
+:::
+
+::: {data-id="line9" style="position: absolute;top: 250px; right: 350px; width: 100px; height: 5px; background: black;transform: rotate(135deg);"}
+:::
+
+::: {data-id="label11" style="position: absolute; top: 175px; right: 225px; font-size: 24px; font-weight: bold;"}
+Hardware Development
+:::
+
+:::
+
+
+--- 
+
+## About the Course Cont. {auto-animate=true auto-animating-easing=ease-in-out}
+
+
+::: {.r-hstack}
+::: {data-id="circle1" style="position: absolute; top: 120px; right: 100px; width: 100px; height: 100px; border-radius: 50%; background: #ADD8E6;"}
+:::
+
+::: {data-id="label1" style="position: absolute; top: 145px; right: 115px; font-size: 10px; font-weight: bold;"}
+Math & Statistics
+:::
+
+
+::: {data-id="circle2" style="position: absolute; top: 220px; right: 100px; width: 100px; height: 100px; border-radius: 50%; background: #88E788;"}
+:::
+
+::: {data-id="label8" style="position: absolute; top: 245px; right: 115px; font-size: 10px; font-weight: bold;"}
+Computer Science
+:::
+
+:::
+
+::: {.r-hstack}
+
+::: {data-id="circle3" style="position: absolute; top: 250px; left: 375px; width: 350px; height: 350px; border-radius: 50%; background: #FF7F7F;"}
+:::
+
+::: {data-id="label12" style="position: absolute; top: 380px; left: 435px; font-size: 30px; font-weight: bold;"}
+Domain Knowledge
+:::
+
+::: {data-id="line10" style="position: absolute;top: 250px; left: 400px; width: 100px; height: 5px; background: black;transform: rotate(45deg);"}
+:::
+
+::: {data-id="label13" style="position: absolute; top: 175px; left: 345px; font-size: 24px; font-weight: bold;"}
+Disease Expertise
+:::
+
+
+::: {data-id="line11" style="position: absolute;top: 250px; right: 350px; width: 100px; height: 5px; background: black;transform: rotate(135deg);"}
+:::
+
+::: {data-id="label14" style="position: absolute; top: 175px; right: 300px; font-size: 24px; font-weight: bold;"}
+Drug Approval
+:::
+
+::: {data-id="line12" style="position: absolute;bottom: 100px; left: 400px; width: 100px; height: 5px; background: black;transform: rotate(135deg);"}
+:::
+
+::: {data-id="label15" style="position: absolute; bottom: 25px; left: 345px; font-size: 24px; font-weight: bold;"}
+Stock Valuation
+:::
+
+
+::: {data-id="line13" style="position: absolute;bottom: 100px; right: 350px; width: 100px; height: 5px; background: black;transform: rotate(45deg);"}
+:::
+
+::: {data-id="label16" style="position: absolute; bottom: 25px; right: 300px; font-size: 24px; font-weight: bold;"}
+Policy
+:::
+
+:::
+
+## About the Course Cont. {auto-animate=true auto-animating-easing=ease-in-out}
+
+- In this course, we will be drawing from statistics, computer science, and  real data to make informed and optimal decisions
+
+::: {.r-hstack}
+::: {data-id="circle1" style="position: absolute; top: 120px; right: 100px; width: 100px; height: 100px; border-radius: 50%; background: #ADD8E6;"}
+:::
+
+::: {data-id="label1" style="position: absolute; top: 145px; right: 115px; font-size: 10px; font-weight: bold;"}
+Math & Statistics
+:::
+
+
+::: {data-id="circle2" style="position: absolute; top: 220px; right: 100px; width: 100px; height: 100px; border-radius: 50%; background: #88E788;"}
+:::
+
+::: {data-id="label8" style="position: absolute; top: 245px; right: 115px; font-size: 10px; font-weight: bold;"}
+Computer Science
+:::
+
+
+::: {data-id="circle3" style="position: absolute; top: 320px; right:  100px; width:   100px; height: 100px; border-radius: 50%; background: #FF7F7F;"}
+:::
+
+::: {data-id="label12" style="position: absolute; top: 345px; right: 110px; font-size: 10px; font-weight: bold;"}
+Domain Knowledge
+:::
+
+:::
+
+## About the Course Cont. {auto-animate=true auto-animating-easing=ease-in-out}
+
+- In this course, we will be drawing from statistics, computer science, and  real data to make informed and optimal decisions
+
+::: {.r-hstack}
+::: {data-id="circle1" style="position: absolute; top: 150px; left: 225px; width: 355px; height: 355px; border-radius: 50%; background: rgba(173, 216, 230, 0.5);"}
+:::
+
+::: {data-id="label1" style="position: absolute; top: 300px; left: 275px; font-size: 24px; font-weight: bold;"}
+Math & Statistics
+:::
+
+
+::: {data-id="circle2" style="position: absolute; top: 150px; right: 225px; width: 355px; height: 355px; border-radius: 50%; background: rgba(136, 231, 136, 0.5);"}
+:::
+
+::: {data-id="label8" style="position: absolute; top: 300px; right: 275px; font-size: 24px; font-weight: bold;"}
+Computer Science
+:::
+
+
+::: {data-id="circle3" style="position: absolute; top: 325px; left: 350px; width:   355px; height: 355px; border-radius: 50%; background: rgba(255, 127, 127, 0.5);"}
+:::
+
+::: {data-id="label12" style="position: absolute; top: 510px; left: 40.5%; font-size: 24px; font-weight: bold;"}
+Domain Knowledge
+:::
+
+::: {data-id="label17" style="position: absolute; top: 255px; left: 45%; font-size: 14px; font-weight: bold;" .center}
+AI & 
+
+Machine Learning
+:::
+
+::: {data-id="label18" style="position: absolute; top: 385px; left: 37.5%; font-size: 14px; font-weight: bold;" .center}
+Quantitative
+
+Analysis
+:::
+
+::: {data-id="label19" style="position: absolute; top: 385px; right: 34.25%; font-size: 14px; font-weight: bold;" .center}
+Data Mining & 
+
+Software Development
+:::
+:::
+
+:::{.fragment}
+::: {data-id="line14" style="position: absolute;top: 460px; left: 26.5%; width: 130px; height: 5px; background: red;"}
+:::
+
+::: {data-id="label20" style="position: absolute; top: 440px; left: 2.5%; font-size: 14px; font-weight: bold; color: red;" .center}
+$P(X \leq 5) = \sum_{k=0}^{5} \binom{10}{k} (0.3)^k (0.7)^{10 - k}$
+:::
+:::
+
+::: {.fragment data-id="label17" style="position: absolute; top: 325px; left: 46.5%; font-size: 18px; font-weight: bold;" .center .underline}
+Data
+
+Science
+:::
