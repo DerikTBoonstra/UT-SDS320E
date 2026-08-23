@@ -231,6 +231,27 @@ $code-block-border-color: lighten($body-color, 60%) !default;
   font-size: .85em;
 }
 
+/* Manual sub-bullet look for lists that live in their own fragment,
+   not nested under a parent <li> */
+.reveal .slide .subbullets {
+  margin-left: 40px; // matches the indent real ul-ul nesting gets
+}
+
+.reveal .slide .subbullets li {
+  position: relative;
+  padding-left: 1em;
+  margin-bottom: 0.6em;
+  font-weight: 300;
+  list-style: none;
+}
+
+.reveal .slide .subbullets li::before {
+  content: '➤';
+  position: absolute;
+  left: 0;
+  color: #333f48; // same color as your real second-level arrow
+}
+
 .underline {
   text-decoration: underline;
 }
@@ -238,7 +259,15 @@ $code-block-border-color: lighten($body-color, 60%) !default;
 /*-- scss:rules --*/
 
 .reveal .slide-logo {
-  max-height: 3.0rem !important;
+  max-height: 4.0rem !important;
   bottom: -2px;
   right: 10px;
+}
+
+.solution {
+  color: red;
+}
+
+.hide-solutions .solution {
+  visibility: hidden;
 }
