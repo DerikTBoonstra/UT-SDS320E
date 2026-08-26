@@ -1,7 +1,7 @@
 ---
 title: "Populations/Samples and Descriptive Statistics"
 author: "SDS 320E"
-# body-classes: hide-solutions
+body-classes: hide-solutions
 format:
   live-revealjs:
     # webr:
@@ -504,9 +504,9 @@ The methods and analyses we apply to data and the conclusions we can draw depend
 :::
 ::::
 
-## Types and Sources of Data Cont. 
+<!-- ## Types and Sources of Data Cont.  -->
 
-Example with shoes size and one more
+<!-- Example with shoes size and one more -->
 
 ## Measures of Data: Parameter vs Statistic 
 - When we take a measure of data, we are dealing with either a *parameter* or a *statistic*
@@ -1127,8 +1127,8 @@ answer1 <- cov(price, units_sold)
 ```
 :::
 
-:::{.fragment .mysolution data-fragment-index="3" style="font-size:.8em;"}
-[1] `{r} round(answer1, 2)`
+:::{.fragment data-fragment-index="3" style="font-size:.8em;"}
+[[1] `{r} round(answer1, 2)`]{.mysolution}
 :::
 
 :::{.fragment data-fragment-index="2" style="font-size:.8em;"}
@@ -1140,8 +1140,8 @@ answer2 <- cov(delivery_time, units_sold)
 ```
 :::
 
-:::{.fragment .mysolution data-fragment-index="4" style="font-size:.8em;"}
-[1] `{r} round(answer2, 2)`
+:::{.fragment data-fragment-index="4" style="font-size:.8em;"}
+[[1] `{r} round(answer2, 2)`]{.mysolution}
 :::
 
 ## Correlation
@@ -1193,8 +1193,8 @@ cor(delivery_time, units_sold)
 ```
 :::
 
-:::{.fragment .mysolution}
-Correlation correctly indicates Price has a stronger linear relationship with Units Sold. 
+:::{.fragment}
+[Correlation correctly indicates Price has a stronger linear relationship with Units Sold.]{.mysolution}
 :::
 
 ## Correlation Cont.
