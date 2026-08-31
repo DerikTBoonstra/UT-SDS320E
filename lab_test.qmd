@@ -1,0 +1,413 @@
+---
+format: live-html
+webr:
+  packages:
+    - dplyr
+---
+
+{{< include ./_extensions/r-wasm/live/_knitr.qmd >}}
+{{< include ./_extensions/r-wasm/live/_gradethis.qmd >}}
+
+```{webr}
+#| autorun: true
+#| echo: false
+library(gradethis)
+```
+
+:::{.center style="font-size:2em; margin-left:7em;"}
+SDS 320E R Demo Lab 
+:::
+
+
+---
+
+[1. Complete the code by filling in the blank such that `1 + _ = 2`]{style="font-size:1.2em;"}
+
+::::{.panel-tabset}
+
+## Exercise
+```{webr}
+#| caption: Exercise 1
+#| exercise: ex_1
+1 + _
+```
+
+
+## Hint
+::: {.hint exercise="ex_1"}
+Remember, at its basics R works just like a calculator.
+:::
+
+::::
+
+::: {.solution exercise="ex_1"}
+```{webr}
+#| exercise: ex_1
+#| solution: true
+1 + 1
+```
+:::
+
+```{webr}
+#| exercise: ex_1
+#| check: true
+#| echo: false
+gradethis::grade_this_code()
+```
+
+---
+
+[2. Fix the following code to make it run.]{style="font-size:1.2em;"}
+
+::::{.panel-tabset}
+
+## Exercise
+```{webr}
+#| caption: Exercise 2
+#| exercise: ex_2
+50 + "67"
+```
+
+
+## Hint
+::: {.hint exercise="ex_2"}
+Is "67" a number, or a string of characters?
+:::
+
+::::
+
+::: {.solution exercise="ex_2"}
+```{webr}
+#| exercise: ex_2
+#| solution: true
+50 + 67
+```
+:::
+
+```{webr}
+#| exercise: ex_2
+#| check: true
+#| echo: false
+gradethis::grade_this_code()
+```
+
+
+---
+
+[3. Fix the following code to ensure we are using proper variable names.  ]{style="font-size:1.2em;"}
+
+::::{.panel-tabset}
+
+## Exercise
+```{webr}
+#| caption: a).
+#| exercise: ex_3a
+1variable <- c(TRUE, FALSE, TRUE, TRUE)
+```
+
+
+## Hint
+::: {.hint exercise="ex_3a"}
+Where can #'s go when creating a variable name?
+:::
+
+::::
+
+::: {.solution exercise="ex_3a"}
+```{webr}
+#| exercise: ex_3a
+#| solution: true
+variable <- c(TRUE, FALSE, TRUE, TRUE)
+```
+:::
+
+```{webr}
+#| exercise: ex_3a
+#| check: true
+#| echo: false
+gradethis::grade_this_code()
+```
+
+::::{.panel-tabset}
+
+## Exercise
+```{webr}
+#| caption: b).
+#| exercise: ex_3b
+_my2ndvariable <- c("cat", "dog", "dog", "cat")
+```
+
+
+## Hint
+::: {.hint exercise="ex_3b"}
+Where can `_`'s go when creating a variable name?
+:::
+
+::::
+
+::: {.solution exercise="ex_3b"}
+```{webr}
+#| exercise: ex_3b
+#| solution: true
+my2ndvariable <- c("cat", "dog", "dog", "cat")
+```
+:::
+
+```{webr}
+#| exercise: ex_3b
+#| check: true
+#| echo: false
+gradethis::grade_this_code()
+```
+
+---
+
+[4. Consider the variables `A`, `B`, `C`, and `D` below. ]{style="font-size:1.2em;"}
+
+```{r}
+A <- 56
+B <- 23
+C <- 5
+D <- 103
+```
+
+
+[Fix the following code that performs mathematical operations on the variables.]{style="font-size:1.2em;"}
+
+::::{.panel-tabset}
+
+## Exercise
+```{webr}
+#| setup: true
+#| exercise: ex_4
+A <- 56
+B <- 23
+C <- 5
+D <- 103
+```
+
+```{webr}
+#| caption: Exercise 4
+#| exercise: ex_4
+a*B + c + D/4
+```
+
+
+## Hint
+::: {.hint exercise="ex_4"}
+Does capitalization matter for variable names?
+:::
+
+::::
+
+::: {.solution exercise="ex_4"}
+```{webr}
+#| exercise: ex_4
+#| solution: true
+A*B + C + D/4
+```
+:::
+
+```{webr}
+#| exercise: ex_4
+#| check: true
+#| echo: false
+gradethis::grade_this_code(
+  incorrect = "Not quite — look at the variable names carefully!"
+)
+```
+
+---
+
+[5. Consider the vector of numbers below.]{style="font-size:1.2em;"}
+
+```{r, eval = FALSE}
+c(-1, 1, -2, -1.67, -1.33, -1, -0.67, -0.33, 0, 0.33, 0.67, 1, 1.33, 1.67, 2)
+```
+
+
+[Create a vector named `x_variable` that contains the numbers given above.]{style="font-size:1.2em;"}
+
+::::{.panel-tabset}
+
+## Exercise
+```{webr}
+#| caption: Exercise 5
+#| exercise: ex_5
+
+```
+
+
+## Hint
+::: {.hint exercise="ex_5"}
+Creating objects is done by use `<-` or `=`
+:::
+
+::::
+
+::: {.solution exercise="ex_5"}
+```{webr}
+#| exercise: ex_5
+#| solution: true
+# arrow assignment ----
+x_variable <- c(-1, 1, -2, -1.67, -1.33, -1, -0.67, -0.33, 0, 0.33, 0.67, 1, 1.33, 1.67, 2)
+
+# equals assignment ----
+x_variable = c(-1, 1, -2, -1.67, -1.33, -1, -0.67, -0.33, 0, 0.33, 0.67, 1, 1.33, 1.67, 2)
+```
+:::
+
+```{webr}
+#| exercise: ex_5
+#| check: true
+#| echo: false
+gradethis::grade_this_code(
+)
+```
+
+---
+
+[6. I have created another variable called `y_variable`. Using the `plot()` function, plot the `x_variable` from above on the x-axis and the `y_variable` on the y-axis.]{style="font-size:1.2em;"}
+
+::::{.panel-tabset}
+
+## Exercise
+```{webr}
+#| setup: true
+#| exercise: ex_6
+
+x_variable <- c(-1, 1, -2, -1.67, -1.33, -1, -0.67, -0.33, 0, 0.33, 0.67, 1, 1.33, 1.67, 2)
+y_variable <- c(1, 1, -0.5, -0.81, -1.06, -1.25, -1.39, -1.47, -1.5, -1.47, -1.39, -1.25, -1.06, -0.81, -0.5)
+```
+
+```{webr}
+#| caption: Exercise 6
+#| exercise: ex_6
+plot()
+```
+
+
+## Hint
+::: {.hint exercise="ex_6"}
+Make sure you entered the variable names correctly and have the x and y variables in the right order. 
+:::
+
+::::
+
+::: {.solution exercise="ex_6"}
+```{webr}
+#| exercise: ex_6
+#| solution: true
+plot(x_variable, y_variable)
+```
+:::
+
+```{webr}
+#| exercise: ex_6
+#| check: true
+#| echo: false
+gradethis::grade_this_code(
+)
+```
+
+
+---
+
+[7. There is a dataset in `R` called starwars. The dataset is given below.]{style="font-size:1.2em;"}
+
+```{r, echo=FALSE, results='hide', message=FALSE}
+library(dplyr)
+```
+```{r}
+starwars
+```
+
+[You can use the `$` operator to pull out a variable from dataset. For example `my_data$variable3` will pull the variable named `variable3` from `my_data`. ]{style="font-size:1.2em;"}
+
+::::{.panel-tabset}
+
+## Exercise
+
+a). For the `starwars` dataset use the `$` to pull out the hair color variable. 
+
+```{webr}
+#| setup: true
+#| exercise: ex_7a
+library(dplyr)
+```
+
+```{webr}
+#| caption: 
+#| exercise: ex_7a
+starwars
+```
+
+
+## Hint
+::: {.hint exercise="ex_7a"}
+Did you spell the variable correctly?
+:::
+
+::::
+
+::: {.solution exercise="ex_7a"}
+```{webr}
+#| exercise: ex_7a
+#| solution: true
+starwars$hair_color
+```
+:::
+
+```{webr}
+#| exercise: ex_7a
+#| check: true
+#| echo: false
+gradethis::grade_this_code(
+)
+```
+
+---
+
+[You can use also use `[r,c]` to pull specific rows and columns from a dataset. For example, the pull rows 5 and 6 and columns 10, 11, 12 from `my_data`, we would do `my_data[c(5, 6), c(10, 11, 12)]`. ]{style="font-size:1.2em;"}
+
+::::{.panel-tabset}
+
+## Exercise
+
+b). `homeworld` is the 10th variable, Darth Maul is the 43rd observation. Type in the code to determine Darth Mauls homeworld
+
+```{webr}
+#| setup: true
+#| exercise: ex_7b
+library(dplyr)
+```
+
+```{webr}
+#| caption: 
+#| exercise: ex_7b
+starwars
+```
+
+
+## Hint
+::: {.hint exercise="ex_7b"}
+Did you use the right rows and columns?
+:::
+
+::::
+
+::: {.solution exercise="ex_7b"}
+```{webr}
+#| exercise: ex_7b
+#| solution: true
+starwars[43, 10]
+```
+:::
+
+```{webr}
+#| exercise: ex_7b
+#| check: true
+#| echo: false
+gradethis::grade_this_code(
+)
+```
