@@ -368,13 +368,13 @@ gradethis::grade_this_code(
 
 ---
 
-[You can use also use `[r,c]` to pull specific rows and columns from a dataset. For example, the pull rows 5 and 6 and columns 10, 11, 12 from `my_data`, we would do `my_data[c(5, 6), c(10, 11, 12)]`. ]{style="font-size:1.2em;"}
+[You can use also use `[row #'s you want, column #'s you want]` to pull specific rows and columns from a dataset. For example, the pull rows 5 and 6 and columns 10, 11, 12 from `my_data`, we would do `my_data[c(5, 6), c(10, 11, 12)]`. ]{style="font-size:1.2em;"}
 
 ::::{.panel-tabset}
 
 ## Exercise
 
-b). `homeworld` is the 10th variable, Darth Maul is the 43rd observation. Type in the code to determine Darth Mauls homeworld
+b). `homeworld` is the 10th variable, Darth Maul is the 43rd observation. Type in the code to determine Darth Mauls homeworld. 
 
 ```{webr}
 #| setup: true
@@ -400,7 +400,27 @@ Did you use the right rows and columns?
 ```{webr}
 #| exercise: ex_7b
 #| solution: true
+
+# ----
 starwars[43, 10]
+
+# ----
+starwars[c(43), c(10)]
+
+# ----
+starwars[(43), (10)]
+
+# ----
+starwars[c(43), 10]
+
+# ----
+starwars[43, c(10)]
+
+# ----
+starwars[43, (10)]
+
+# ----
+starwars[(43), 10]
 ```
 :::
 

@@ -467,12 +467,12 @@ eyJhdHRyIjp7ImNoZWNrIjp0cnVlLCJlY2hvIjpmYWxzZSwiZWRpdCI6ZmFsc2UsImV2YWwiOnRydWUs
 </script>
 </div>
 <hr>
-<p><span style="font-size:1.2em;">You can use also use <code>[r,c]</code> to pull specific rows and columns from a dataset. For example, the pull rows 5 and 6 and columns 10, 11, 12 from <code>my_data</code>, we would do <code>my_data[c(5, 6), c(10, 11, 12)]</code>.</span></p>
+<p><span style="font-size:1.2em;">You can use also use <code>[row #'s you want, column #'s you want]</code> to pull specific rows and columns from a dataset. For example, the pull rows 5 and 6 and columns 10, 11, 12 from <code>my_data</code>, we would do <code>my_data[c(5, 6), c(10, 11, 12)]</code>.</span></p>
 <div class="tabset-margin-container"></div><div class="panel-tabset">
 <ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-9-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-9-1" role="tab" aria-controls="tabset-9-1" aria-selected="true" href="">Exercise</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-9-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-9-2" role="tab" aria-controls="tabset-9-2" aria-selected="false" href="">Hint</a></li></ul>
 <div class="tab-content">
 <div id="tabset-9-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-9-1-tab">
-<p>b). <code>homeworld</code> is the 10th variable, Darth Maul is the 43rd observation. Type in the code to determine Darth Mauls homeworld</p>
+<p>b). <code>homeworld</code> is the 10th variable, Darth Maul is the 43rd observation. Type in the code to determine Darth Mauls homeworld.</p>
 <div class="cell" data-setup="true" data-exercise="ex_7b">
 <script type="exercise-setup-ex_7b-contents">
 eyJhdHRyIjp7ImVkaXQiOnRydWUsImV2YWwiOnRydWUsImV4ZXJjaXNlIjoiZXhfN2IiLCJzZXR1cCI6dHJ1ZX0sImNvZGUiOiJsaWJyYXJ5KGRwbHlyKSJ9
@@ -499,8 +499,48 @@ eyJhdHRyIjp7ImNhcHRpb24iOltdLCJlZGl0Ijp0cnVlLCJldmFsIjp0cnVlLCJleGVyY2lzZSI6ImV4
 <div class="webr-ojs-exercise exercise-solution d-none" data-exercise="ex_7b">
 <div class="cell" data-exercise="ex_7b" data-solution="true">
 <div class="webr-ojs-exercise exercise-solution d-none" data-exercise="ex_7b">
-<code id="interpolate-49" class="solution-code d-none">starwars[43, 10]</code>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="interpolate-50"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="interpolate-50-1"><a href="#interpolate-50-1" aria-hidden="true" tabindex="-1"></a>starwars[<span class="dv">43</span>, <span class="dv">10</span>]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<code id="interpolate-49" class="solution-code d-none">
+# ----
+starwars[43, 10]
+
+# ----
+starwars[c(43), c(10)]
+
+# ----
+starwars[(43), (10)]
+
+# ----
+starwars[c(43), 10]
+
+# ----
+starwars[43, c(10)]
+
+# ----
+starwars[43, (10)]
+
+# ----
+starwars[(43), 10]</code>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="interpolate-50"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="interpolate-50-1"><a href="#interpolate-50-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="interpolate-50-2"><a href="#interpolate-50-2" aria-hidden="true" tabindex="-1"></a><span class="co"># ----</span></span>
+<span id="interpolate-50-3"><a href="#interpolate-50-3" aria-hidden="true" tabindex="-1"></a>starwars[<span class="dv">43</span>, <span class="dv">10</span>]</span>
+<span id="interpolate-50-4"><a href="#interpolate-50-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="interpolate-50-5"><a href="#interpolate-50-5" aria-hidden="true" tabindex="-1"></a><span class="co"># ----</span></span>
+<span id="interpolate-50-6"><a href="#interpolate-50-6" aria-hidden="true" tabindex="-1"></a>starwars[<span class="fu">c</span>(<span class="dv">43</span>), <span class="fu">c</span>(<span class="dv">10</span>)]</span>
+<span id="interpolate-50-7"><a href="#interpolate-50-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="interpolate-50-8"><a href="#interpolate-50-8" aria-hidden="true" tabindex="-1"></a><span class="co"># ----</span></span>
+<span id="interpolate-50-9"><a href="#interpolate-50-9" aria-hidden="true" tabindex="-1"></a>starwars[(<span class="dv">43</span>), (<span class="dv">10</span>)]</span>
+<span id="interpolate-50-10"><a href="#interpolate-50-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="interpolate-50-11"><a href="#interpolate-50-11" aria-hidden="true" tabindex="-1"></a><span class="co"># ----</span></span>
+<span id="interpolate-50-12"><a href="#interpolate-50-12" aria-hidden="true" tabindex="-1"></a>starwars[<span class="fu">c</span>(<span class="dv">43</span>), <span class="dv">10</span>]</span>
+<span id="interpolate-50-13"><a href="#interpolate-50-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="interpolate-50-14"><a href="#interpolate-50-14" aria-hidden="true" tabindex="-1"></a><span class="co"># ----</span></span>
+<span id="interpolate-50-15"><a href="#interpolate-50-15" aria-hidden="true" tabindex="-1"></a>starwars[<span class="dv">43</span>, <span class="fu">c</span>(<span class="dv">10</span>)]</span>
+<span id="interpolate-50-16"><a href="#interpolate-50-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="interpolate-50-17"><a href="#interpolate-50-17" aria-hidden="true" tabindex="-1"></a><span class="co"># ----</span></span>
+<span id="interpolate-50-18"><a href="#interpolate-50-18" aria-hidden="true" tabindex="-1"></a>starwars[<span class="dv">43</span>, (<span class="dv">10</span>)]</span>
+<span id="interpolate-50-19"><a href="#interpolate-50-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="interpolate-50-20"><a href="#interpolate-50-20" aria-hidden="true" tabindex="-1"></a><span class="co"># ----</span></span>
+<span id="interpolate-50-21"><a href="#interpolate-50-21" aria-hidden="true" tabindex="-1"></a>starwars[(<span class="dv">43</span>), <span class="dv">10</span>]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </div>
 </div>
