@@ -368,7 +368,7 @@ gradethis::grade_this_code(
 
 ---
 
-[You can use also use `[row #'s you want, column #'s you want]` to pull specific rows and columns from a dataset. For example, the pull rows 5 and 6 and columns 10, 11, 12 from `my_data`, we would do `my_data[c(5, 6), c(10, 11, 12)]`. ]{style="font-size:1.2em;"}
+[You can use also use `[row #'s you want, column #'s you want]` to pull specific rows and columns from a dataset. For example, to pull the rows 5 and 6 and columns 10, 11, 12 from `my_data`, we would do `my_data[c(5, 6), c(10, 11, 12)]`. ]{style="font-size:1.2em;"}
 
 ::::{.panel-tabset}
 
