@@ -10,5 +10,6 @@ Introduction to statistics. Topics may include: probability; principles of obser
 
 [1. Intro to Statistics and Descriptive Statistics](https://deriktboonstra.github.io/UT-SDS320E/SDS320E_1_Descriptive_Statistics.html#/title-slide)
 
+[2. Data Visualization](https://deriktboonstra.github.io/UT-SDS320E/SDS320E_2_Data_Visualization.html) (*Work in Progress*)
 ## R Labs
 [1. R Demo Exercises](https://deriktboonstra.github.io/UT-SDS320E/R_Demo.html)
