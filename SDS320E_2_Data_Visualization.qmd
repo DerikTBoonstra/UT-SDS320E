@@ -566,7 +566,7 @@ ggplot(aes(x_cords, y_cords), data = mydata)+ # using a data frame
 - Typically the ggplot syntax is cleaner and you do not need to reference each argument
 ```{r, eval=FALSE}
 #| code-line-numbers: "1"
-ggplot(aes(x_cords, y_cords), data = mydata)+ # not using a data frame
+ggplot(aes(x_cords, y_cords), data = NULL)+ # not using a data frame
   geom_point()
 ```
 
