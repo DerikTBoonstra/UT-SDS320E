@@ -886,7 +886,7 @@ pbinom(_, 20, 0.50) - pbinom(_, 20, 0.50)
 Suppose $X$ is a continuous random variable with a mean $\mu$ and standard deviation $\sigma$. Further suppose that $X$ is normally distributed, denoted as 
 
 :::{.fragment}
-[$$X \sim \mathcal{N}(\mu, \sigma).$$]{.mysolution}
+[$$X \sim N(\mu, \sigma).$$]{.mysolution}
 :::
 
 :::{.fragment}
@@ -989,7 +989,7 @@ ggplot() +
 ## Standard Normal Distribution
 
 :::{.callout-note title="Standard Normal Distribution" style="font-size:1.05em;"}
-The *Standard Normal* distribution is a special case of the *Normal* distribution with mean $\mu = 0$ and $\sigma = 1$ and is denoted by [[$Z \sim \mathcal{N}(0, 1).$]{.mysolution}]{.fragment}
+The *Standard Normal* distribution is a special case of the *Normal* distribution with mean $\mu = 0$ and $\sigma = 1$ and is denoted by [[$Z \sim N(0, 1).$]{.mysolution}]{.fragment}
 
 :::
 
@@ -1027,7 +1027,7 @@ $z$ is referred to as the *z-score*.
 :::
 
 :::{.callout-tip title="Example" .fragment style="font-size:1.2em;"}
-Suppose $X \sim \mathcal{N}(20, 5)$. Find the z-score for the following.
+Suppose $X \sim N(20, 5)$. Find the z-score for the following.
 
 :::{.incremental}
 1. $X = 25$ [[z = 1 [i.e. 1 stand dev. above mean]{.subtext style="color:red;"}]{.mysolution}]{.fragment}
@@ -1470,7 +1470,7 @@ sdHistogram = Plot.plot({
 ## Distribution of $\overline{X}$ when X is Normal
 
 :::{.callout-tip title = "Example"}
-Suppose $X \sim \mathcal{N}(\mu, \sigma).$ What is the distribution of $\bar{X}$?
+Suppose $X \sim N(\mu, \sigma).$ What is the distribution of $\bar{X}$?
 :::
 
 :::{.fragment}
@@ -1545,10 +1545,10 @@ xdnHistogram = Plot.plot({
 ## Distribution of $\overline{X}$ when X is Normal Cont.
 
 :::{.callout-note title="Theorem" style="font-size:1.2em;"}
-Suppose $X$ is normally distributed with mean $\mu$ and standard deviation $\sigma$, i.e $X \sim \mathcal{N}(\mu, \sigma)$. Then, the sampling distribution of $\bar{X}$ is 
+Suppose $X$ is normally distributed with mean $\mu$ and standard deviation $\sigma$, i.e $X \sim N(\mu, \sigma)$. Then, the sampling distribution of $\bar{X}$ is 
 
 :::{.fragment}
-[$$\bar{X} \sim \mathcal{N}(\mu, \sigma/\sqrt{n})$$]{.mysolution}
+[$$\bar{X} \sim N(\mu, \sigma/\sqrt{n})$$]{.mysolution}
 :::
 
 :::
@@ -1572,7 +1572,7 @@ Coca-Cola cans are labeled as 12 oz. However, the 12 oz is not an exact amount i
 1. What is the distribution of $X =$ the fill amount of Coca-Cola cans?
 
 :::{.fragment}
-[$X \sim \mathcal{N}(\mu = 12, \sigma = 0.5)$]{.mysolution}
+[$X \sim N(\mu = 12, \sigma = 0.5)$]{.mysolution}
 :::
 
 :::{.fragment}
@@ -1580,7 +1580,7 @@ Coca-Cola cans are labeled as 12 oz. However, the 12 oz is not an exact amount i
 :::
 
 :::{.fragment}
-[$\bar{X} \sim \mathcal{N}(12, 0.5/\sqrt{10})$]{.mysolution}
+[$\bar{X} \sim N(12, 0.5/\sqrt{10})$]{.mysolution}
 :::
 
 :::{.fragment}
@@ -1690,7 +1690,7 @@ subtitle: `Distribution of x̄ for ${cltDist}, n = ${cltN}, 1000 samples`
 Suppose $X$ is distributed with mean $\mu$ and standard deviation $\sigma$. Then, for a "sufficiently large" sample size $n$, the sampling distribution of $\bar{X}$ is 
 
 :::{.fragment}
-[$$\bar{X} \stackrel{\cdot}{\sim} \mathcal{N}(\mu, \sigma/\sqrt{n}).$$]{.mysolution} [note: $\stackrel{\cdot}{\sim}$ means approximately distributed]{.subtext}
+[$$\bar{X} \stackrel{\cdot}{\sim} N(\mu, \sigma/\sqrt{n}).$$]{.mysolution} [note: $\stackrel{\cdot}{\sim}$ means approximately distributed]{.subtext}
 :::
 
 
@@ -1723,7 +1723,7 @@ Medical labs periodically check that their testing equipment is reading accurate
 :::
 
 :::{.fragment}
-[$\bar{X} \stackrel{\cdot}{\sim} \mathcal{N}(100, 10/\sqrt{49})$]{.mysolution}
+[$\bar{X} \stackrel{\cdot}{\sim} N(100, 10/\sqrt{49})$]{.mysolution}
 :::
 
 :::{.fragment}
