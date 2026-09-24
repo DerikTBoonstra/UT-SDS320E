@@ -1,0 +1,1773 @@
+---
+title: "Probability and Distributions"
+author: "SDS 320E"
+body-classes: hide-solutions
+format:
+  live-revealjs:
+    # webr:
+    #   cell-options:
+    revealjs-plugins:
+      - drop
+    theme: quarto-assets/presentation-theme.scss
+    embed-resources: false
+    slide-number: "c"
+    auto-animate: false
+    scrollable: false
+    logo: quarto-assets/logo.png
+    footer: "Derik Boonstra, Ph.D."
+    chalkboard: true
+    preview-links: auto
+    multiplex: false
+    menu:
+      titleSelector: 'h1'
+      useTextContentForMissingTitles: false
+      hideMissingTitles: true
+execute: 
+  echo: true
+  cache: false
+engine: knitr
+---
+
+```{r, echo=FALSE, results='hide', message=FALSE}
+library("tidyverse");theme_set(theme_minimal());library("patchwork");library("ggfunction")
+```
+
+
+{{< include ./_extensions/r-wasm/live/_knitr.qmd >}}
+
+# Basics of Probability
+
+## The Role of Probability
+
+:::{.callout-tip title="Reminder" style="font-size:1.25em;"}
+Statistics can be described as *the art of collecting, organizing, summarizing,
+and describing data as well as drawing inferences from the data.*[- Dr. Amy Maddox]{.subtext} 
+
+<!-- :::{.fragment} -->
+<!-- That is, statistics helps us quantifies our uncertainty about our data.  -->
+<!-- ::: -->
+:::
+
+:::{.incremental}
+- In statistics, we can never be certain whether our conclusion about our data is right or wrong
+- Thus, we try to quantify the uncertainty about our decision using *probability*
+:::
+
+## Basics of Probability
+:::{.incremental}
+- Probability is a measure of uncertainty 
+  - Probability ranges from 0 to 1
+:::
+
+:::{.incremental}
+- If $P(A) = 1$, then the event $A$ must always occur
+
+:::{.fragment .center}
+[$A$ is referred to as a certain event]{.mysolution}
+:::
+
+- If $P(B) = 0$, then the event $B$ must never occur
+
+:::{.fragment .center}
+[$B$ is referred to as an impossible event]{.mysolution}
+:::
+
+- If $P(C)$ is "large" (closer to 1), then that implies that $C$ is  very *likely* to occur
+- If $P(C)$ is "small" (closer to 0), then that implies that $C$ is  very *unlikely* to occur
+
+:::
+
+## Basics of Probability Cont. 
+
+:::{.incremental}
+- Most people confuse *probability* with *possibility* 
+- *Possibility* is binary such that something either *can* or *cannot* occur
+- *Probability* tells us how likely something is to happen, not just *whether* it can happen
+:::
+
+:::{.center .fragment}
+<br>
+
+{{< video https://www.youtube.com/watch?v=X4jHYdHgg-E width="50%" height="300px" >}}
+
+[Note: This is a video on probability vs possibility and not a comment on the existence of a God.]{.subtext}
+:::
+
+## Set Theory 
+
+
+:::{.incremental}
+- The mathematical foundation of probability is established through *set theory*
+:::
+
+:::{.incremental}
+- *Experiment:* a process in which the outcome cannot be determined in advance
+  - Ex: rolling a die, flipping a coin, pulling a card out of a deck
+
+- *Sample Space:* set of all possible outcomes of an experiment
+:::
+
+:::{.callout-tip title="Example" style="font-size:1.2em;" .fragment}
+Suppose our experiment is flipping a coin 2 times. We want to construct the sample space for the experiment. 
+:::
+
+:::{.fragment}
+[Let $h =$ heads and $t =$ tails.]{.mysolution} [[Then, the sample space is given by <br> [$S =$]{.absolute left=40%}]{.mysolution}]{.fragment} [[$\{hh, tt, ht, th\}$]{.mysolution}]{.fragment .absolute left=46%}
+:::
+
+## Events
+
+- Event: a subset of the sample space
+
+:::{.callout-tip title="Example" style="font-size:1.2em;" .fragment}
+Suppose our experiment is flipping a coin 2 times. What is the probability we get two tails?
+:::
+
+:::{.fragment}
+[Let $E$ be the event we get two tails.]{.mysolution} 
+:::
+
+:::{.fragment}
+[The size of our sample space was $4$ [i.e there were 4 possible outcomes]{.subtext}]{.mysolution}
+::: 
+
+:::{.fragment}
+[There is only 1 way we can get two tails]{.mysolution}
+:::
+
+
+:::{.fragment .center} 
+[Thus, $P(E) = 1/4$]{.mysolution}
+:::
+
+## Different Types of Events
+
+- *Equally Likely Events:* events of a sample space that are equally likely to occur 
+  - Ex: flipping a coin and getting a head or getting a tail [$P(Head) = 1/2$ and $P(Tail) = 1/2$]{.subtext} 
+<br> <br>
+
+- *Mutually Exclusive Events:* events that cannot occur at the same time 
+  - Ex: When we flip a coin, we can only get a head or a tail, but not both 
+<br><br>
+  
+- *Exhaustive Events:* events that complete or *exhaust* the sample space
+  - Ex: Head and Tails are exhaustive because the represent all possible outcomes of flipping a coin
+
+
+
+## Probability Rules
+
+- In probability, we often use $\cup$ to denote "or" and $\cap$ to denote "and" <br> <br>
+
+- *General Additivity Rule:* $P(A \cup B) = P(A) + P(B) - P(A \cap B)$ 
+  - Note: If $A$ and $B$ are *mutually exclusive*, then [$P(A \cap B) = 0$]{.subtext}
+  $$P(A \cup B) = P(A) + P(B)$$
+- *Multiplication Rule:* $P(A \cap B) = P(A) \cdot P(B\mid A) = P(B) \cdot P(A\mid B)$ <br> <br>
+
+- *Law of Total Probability:* $P(B) = \sum_{i} P(A_{i}) \cdot P(B \mid A_{i})$ <br> <br>
+
+- *Bayes Theorem:* $P(A \mid B) = \frac{P(B \mid A) \cdot P(A)}{P(B)}$ [$= \frac{P(B \mid A) \cdot P(A)}{\sum_{i} P(A_{i}) \cdot P(B \mid A_{i})}$ [by law of total probability]{.subtext}]{style="color:#b3b3b3;"}
+
+
+## Random Variables
+:::{.incremental}
+- **Random Variable:** *A function that maps the sample space $S$ onto a real numbers* [$$X(S) \to \mathbb{R}$$]{.fragment}
+  - Generally, we denote random variables by $X$, $Y$, $Z$, and ect.
+:::
+
+:::{.callout-tip title="Example" .fragment style="font-size:1.25em;"}
+Consider flipping a coin 3 times. Let $X =$ *the numbers of heads*. Define the random variable $X$. 
+:::
+
+:::{.fragment}
+[The sample space is given by <br> [$S = \{$]{.absolute left=40%}]{.mysolution} [[$hhh, hht, hth, thh,$]{.fragment .absolute left=47.5%}]{.mysolution} <br>
+[[$ttt, tth, tht, htt\}.$]{.fragment .absolute left=47.5%}]{.mysolution} <br> <br>
+[[Thus, the *random variable* is $X = \{0, 1, 2, 3\}.$]{.mysolution}]{.fragment}
+:::
+
+# Probability Distributions
+
+## Probability Distributions
+:::{.incremental}
+- **Probability distribution:** *describes ALL possible values that can be obtained by a random variable*
+  - We denote the probability distribution by $f(X)$
+  - The *probability distribution* depends on the type of random variable we have [i.e discrete or continuous]{.subtext}
+:::  
+
+:::{.incremental}
+- If $X$ is discrete, then the probability distribution is given by the *probability mass function* (*PMF*)
+- If $X$ is continuous, then the probability distribution is given by the *probability density function* (*PDF*)
+:::
+
+
+
+## Probability Mass Function
+- **Probability Mass Function (PMF):** The *PMF* of a discrete random variable $X$ is given by $$f_{X}(x) = P(X = x).$$ [I.e. the *PMF* specifies all possible values of the discrete random variable and their associate probabilities]{.subtext}
+
+:::{.callout-tip title="Example" .fragment style="font-size:1.25em;"}
+Consider flipping a coin 3 times. Let $X =$ *the numbers of heads*. Find the *PMF* for $X$.
+:::
+
+:::{.fragment}
+[We need the possible values of $X$ and their probabilities.]{.mysolution}
+<!-- [From the previous example, we found $X = \{0, 1, 2, 3\}.$]{.mysolution} [[Thus, we have]{.mysolution}]{.fragment fragment-index=3} -->
+:::
+
+:::{.fragment}
+:::{.mysolution}
+| $X$    | 0   | 1   | 2   | 3   
+|:------:|:---:|:---:|:---:|:---:|
+| $f(x)$ | 1/8 | 3/8 | 3/8 | 1/8 |
+:::
+:::
+
+<!-- :::{.fragment fragment-index=3} -->
+<!-- :::{.mysolution } -->
+<!-- | [[$X$]{.mysolution}]{.fragment fragment-index=4} | [[0]{.mysolution}]{.fragment fragment-index=5} |  [[1]{.mysolution}]{.fragment fragment-index=5}  |  [[2]{.mysolution}]{.fragment fragment-index=5}  |  [[3]{.mysolution}]{.fragment fragment-index=5}  | -->
+<!-- |:------:|:---:|:---:|:---:|:---:| -->
+<!-- | [[$f(x)$]{.mysolution}]{.fragment fragment-index=4} | [[1/8]{.mysolution}]{.fragment fragment-index=6} | [[3/8]{.mysolution}]{.fragment fragment-index=7} | [[3/8]{.mysolution}]{.fragment fragment-index=8} | [[1/8]{.mysolution}]{.fragment fragment-index=9}|  -->
+<!-- ::: -->
+<!-- ::: -->
+
+:::{.fragment .subtext}
+We will learn this a special distribution called "Binomial" and the PMF can also be represented by the formula $f(x) = \binom{3}{x}\left(\frac{1}{2}\right)^{x}\left(\frac{1}{2}\right)^{3-x}$, $x = 0, 1, 2, 3$
+:::
+
+## Visualizing PMF
+
+::: panel-tabset
+
+### Bar
+
+:::{.center}
+```{r, echo=FALSE}
+X <- c(0, 1, 1, 1, 2, 2, 2, 3)
+ggplot(aes(X, after_stat(count / sum(count))), data = NULL)+
+  geom_bar()+
+  scale_y_continuous(breaks = c(1/8, 3/8), 
+                     labels = c("1/8", "3/8"))+
+  labs(x = "X", y = "f(x) = P(X = x)")
+```
+:::
+
+### Line
+
+:::{.center}
+
+```{r, echo=FALSE, message=FALSE}
+# library(ggfunction)
+ggplot()+
+  geom_pmf(fun = dbinom, 
+          args = list(size = 3, prob = 0.5), 
+          xlim = c(0, 3))+
+  scale_y_continuous(breaks = c(1/8, 3/8), 
+                     labels = c("1/8", "3/8"))+
+  labs(x = "X", y = "f(x) = P(X = x)")
+```
+:::
+
+:::
+
+
+<!-- ## Rules About PMF -->
+
+## PMF Cont.
+
+- We can find specific probabilities using a *PMF*
+
+:::{.callout-tip title="Example" .fragment style="font-size:1.25em;" }
+Consider the PMF below. 
+
+| $X$    | 0   | 1   | 2   | 3   | 4   | 5   |
+|:------:|:---:|:---:|:---:|:---:|:---:|:---:|
+| $f(x)$ | 0.20 | 0.10 | 0.15 | 0.25 | 0.18 | 0.12 |
+
+:::{.fragment}
+Find the following. 
+:::
+
+:::{.fragment}
+1. $P( X \leq 1)$ [[$= f(0) + f(1)$]{.mysolution}]{.fragment} [[$= 0.20 + 0.10$]{.mysolution}]{.fragment} [[$= 0.30$]{.mysolution}]{.fragment}
+2. $P(1 \leq X < 3)$ [[$= f(1) + f(2) = 0.10 + 0.15 = 0.25$]{.mysolution}]{.fragment}
+
+3. $P(X = 7)$ [[$= 0.\quad 7$ is not a possible value]{.mysolution}]{.fragment}
+:::
+
+:::
+
+## Probability Density Function
+
+:::{.callout-tip title="Reminder" style="font-size:1.2em;"}
+The probability distribution for *discrete* data is given by the *PMF*, which represents $f_{X}(x) = P(X = x).$
+:::
+
+:::{.incremental}
+- The probability distribution for *continuous* data is given by the *probability density function* (*PDF*)[, which represents ...]{.fragment}
+:::
+
+:::{.callout-important title="Issue" .fragment style="font-size:1.2em;"}
+For continuous data, we generally do not have probability about a specific value. If $X$ is continuous, then for a random value $x$, $P(X = x)$ [[$\approx 0.$ [reminder: there are $\infty$ \# of possible vlaues for continuous data]{.subtext style="color:red;"}]{.mysolution}]{.fragment}
+:::
+
+:::{.incremental}
+- Thus, the *PDF* does not represent probability for continuous data, rather it represents the "density" of observations [i.e. frequency of occurrence]{.subtext}
+:::
+
+## Visualizing PDF
+- We have seen frequency for continuous data before ...
+
+:::{ .fragment .absolute left=5% top=20%}
+```{r, echo=FALSE, fig.height=4.5}
+set.seed(1)
+x <- rnorm(100)
+ggplot(aes(x), data = NULL)+
+  geom_histogram(fill = "lightgrey", color = "black")+
+  labs(x = "X", y = "Frequency of x")
+```
+:::
+
+## Visualizing PDF Cont.
+- Rather than using frequency, we could use the "density"
+
+:::{.absolute left=5% top=20%}
+```{r, echo=FALSE, fig.height=4.5}
+ggplot(aes(x, after_stat(..density..)), data = NULL)+
+  geom_histogram(fill = "lightgrey", color = "black")+
+  ylim(0, 0.65)+
+  labs(x = "X", y = "Density of x")
+```
+:::
+
+:::{.incremental .absolute top=80%}
+- Lastly, we could represent the histogram with a "smoothed out curve"
+:::
+
+
+:::{.fragment .absolute left=5% top=20%}
+```{r, echo=FALSE, fig.height=4.5}
+ggplot(aes(x, after_stat(..density..)), data = NULL)+
+  geom_histogram(fill = "lightgrey", color = "black")+
+  geom_density(color = "blue") +
+  ylim(0, 0.65)+
+  labs(x = "X", y = "Density of x") 
+```
+:::
+
+## Visualizing PDF Cont.
+
+- The *probability density function*, $f(x)$, is the resulting "smoothed out curve"
+
+:::{.absolute left=5% top=20%}
+```{r, echo=FALSE, fig.height=4.5}
+ggplot(aes(x, after_stat(..density..)), data = NULL)+
+  # geom_histogram(fill = "white", color = "white")+
+  geom_density(color = "blue") +
+  ylim(0, 0.65)+
+  labs(x = "X", y = "f(x)") 
+```
+:::
+
+## Probability with PDF
+
+- To find $P(a \leq X \leq b)$ with a *PDF*, we find the [area under *PDF* curve from a to b]{.fragment fragment-index=1}
+
+:::{.absolute left=5% top=20%}
+```{r, echo=FALSE, fig.height=4.5}
+ggplot() +
+  geom_pdf(fun = dnorm, xlim = c(-2.5, 2.5), 
+           # p_lower = pnorm(-1), p_upper = pnorm(1), 
+           color = "blue", fill="white", linewidth = 1)+
+  scale_x_continuous(breaks = c(-1, 1), 
+                     labels = c("a", "b"))+
+  labs(x = "X", y = "f(x)")+
+  theme(axis.text.x = element_text(size = 14))
+```
+:::
+
+:::{.fragment .absolute left=5% top=20% fragment-index=1}
+```{r, echo=FALSE, fig.height=4.5}
+ggplot() +
+  geom_pdf(fun = dnorm, xlim = c(-2.5, 2.5), 
+           p_lower = pnorm(-1), p_upper = pnorm(1),
+           color = "blue", fill="lightblue", linewidth = 1)+
+  scale_x_continuous(breaks = c(-1, 1), 
+                     labels = c("a", "b"))+
+  labs(x = "X", y = "f(x)")+
+  theme(axis.text.x = element_text(size = 14))
+```
+:::
+
+## Probability with PDF Cont. 
+
+- When the shape of the $f(x)$ is "geometrically pleasing", finding area under the *PDF* curve is straight forward
+
+:::{.columns}
+
+:::{.column width=48.5%}
+```{r, echo=FALSE}
+ggplot() +
+  geom_pdf(fun = dunif, xlim = c(0, 1), 
+           p_lower = .25, p_upper = .75,
+           color = "blue", fill="lightblue", linewidth = 2)+
+  labs(y = "f(x)")+
+  theme(axis.title.y = element_text(size=20), 
+        axis.title.x = element_text(size=20), 
+        axis.text.x = element_blank(), axis.text.y = element_blank())
+```
+[Area = bh]{.subtext}
+:::
+
+:::{.column width=3%}
+
+:::
+
+:::{.column width=48.5%}
+```{r, echo=FALSE}
+x1 <- 0:5; y1 <- x1
+df1 <- data.frame(x1, y1)
+x2 <- 5:20; y2 <- rep(5, length(x2))
+df2 <- data.frame(x2, y2)
+
+ggplot() +
+  geom_area(aes(x1, y1), data = df1, fill = "lightblue", alpha = .3) +
+  geom_line(aes(x1, y1), data = df1, color = "blue") +
+  geom_line(aes(x2, y2), data = df2, color = "blue") +
+  labs(y = "f(x)", x = "X") +
+  theme(axis.title.y = element_text(size = 20),
+        axis.title.x = element_text(size = 20), 
+        axis.text.x = element_blank(), axis.text.y = element_blank())
+```
+[Area = 1/2bh]{.subtext}
+:::
+
+
+
+:::
+
+## Probability with PDF Cont. 
+
+- For other *PDF*s, finding probability requires calculus [$\int_{a}^{b}f(x)dx$]{.subtext}
+
+:::{.columns}
+
+:::{.column width=48.5%}
+```{r, echo=FALSE}
+ggplot() +
+  geom_pdf(fun = dnorm, xlim = c(-2.5, 2.5), 
+           p_lower = pnorm(-1), p_upper = pnorm(1),
+           color = "blue", fill="lightblue", linewidth = 1)+
+  scale_x_continuous(breaks = c(-1, 1), 
+                     labels = c("a", "b"))+
+  labs(x = "X", y = "f(x)")+
+  theme(axis.title.y = element_text(size = 20),
+        axis.title.x = element_text(size = 20), 
+        axis.text.y = element_blank(), 
+        axis.text.x = element_text(size = 15))
+```
+:::
+
+:::{.column width=3%}
+
+:::
+
+:::{.column width=48.5%}
+```{r, echo=FALSE}
+ggplot() +
+  geom_pdf(fun = dexp, xlim = c(0, 2.5), 
+           p_lower = pexp(.25), p_upper = pexp(2),
+           color = "blue", 
+           fill="lightblue",
+           linewidth = 1)+
+  labs(y = "f(x)", x = "X") +
+  theme(axis.title.y = element_text(size = 20),
+        axis.title.x = element_text(size = 20), 
+        axis.text.x = element_blank(), axis.text.y = element_blank())
+```
+:::
+:::
+
+:::{.incremental}
+- This calculus is represented by the *cumulative distribution function* ...
+:::
+
+## Cumulative Distribution Function
+
+- **Cumulative Distribution Function (CDF):** *the CDF of a random variable gives cumulative probability up to a specific value and is denoted by* $$F_{X}(x) = P(X \leq x)$$
+
+:::{.callout-tip title="Example" .fragment style="font-size:1.20em;" }
+Consider flipping a coin twice. We let $X =$ *the number of heads*. We can easily show that the *PMF* of $X$ is given by below.
+
+| $X$    | 0   | 1   | 2   | 
+|:------:|:---:|:---:|:---:|
+| $f(x)$ | 1/4 | 2/4 | 1/4 | 
+
+Find the *CDF* of $X$.
+:::
+
+:::{.fragment}
+
+:::{.mysolution}
+|    $X$ |  0  |  1  |  2  | 
+|:------:|:----:|:----:|:----:|
+| $F(x)$ |  1/4 | 3/4 | 1 | 
+:::
+
+:::
+
+## Visualizing CDF
+
+<br> 
+
+:::{.center}
+```{r, echo=FALSE}
+ggplot() +
+  geom_cdf_discrete(pmf_fun = dbinom, args = list(size = 2, prob = 0.5),
+    xlim = c(0, 4))+
+  scale_y_continuous(breaks = c(1/4, 3/4, 1), 
+                     labels = c("1/4", "3/4", 1))+
+  labs(x = "X", y = expression("F(x) = P(X" <= "x)"))
+```
+:::
+
+
+## Probability with CDF
+
+:::{.incremental}
+- We can find specific probabilities using a *CDF*. The use of the *CDF* will follow these general formulas
+  - $P\left(X\ \genfrac{}{}{0pt}{}{\leq}{<}\ a\right) =$ [[$F(\quad)$]{.mysolution}]{.fragment} <br> <br>
+  
+  - $P\left(X\ \genfrac{}{}{0pt}{}{\geq}{>}\ a\right) =$ [[$1 - F(\quad)$]{.mysolution}]{.fragment} <br> <br>
+  
+  - $P\left(a\ \genfrac{}{}{0pt}{}{\leq}{<}\ X\ \genfrac{}{}{0pt}{}{\leq}{<}\ b\right) =$ [[$F(\quad) - F(\quad)$]{.mysolution}]{.fragment}
+:::
+
+:::{.fragment .callout-warning style="font-size:1.2em;"}
+Note: The *CDF* evaluations, $F(\quad)$, are intentionally left blank. You must determine the value to evaluate based on:
+
+1. The type of data (discrete or continuous)
+
+2. The possible values of the random variable 
+:::
+
+## Probability with CDF Cont.
+
+:::{.callout-tip title="Example" .fragment style="font-size:1.25em;" }
+Consider the CDF below. 
+
+| $X$    | -1   | 2   | 3   | 5   | 6   | 7   |
+|:------:|:---:|:---:|:---:|:---:|:---:|:---:|
+| $F(x)$ | 0.20 | 0.30 | 0.45 | 0.70 | 0.88 | 1 |
+
+:::{.fragment}
+Find the following. 
+:::
+
+:::{.fragment}
+1. $P(2 < X \leq 5)$ [[$= F(5) - F(2) = 0.70 - 0.30 = 0.40$]{.mysolution}]{.fragment}
+
+2. $P(X \geq 2)$ [[$= 1 - F(-1) = 1 - 0.20 = 0.80$]{.mysolution}]{.fragment}
+
+3. $P(2 \leq X < 5)$ [[$= F(3) - F(-1) = 0.45 - 0.20 = 0.25$]{.mysolution}]{.fragment}
+:::
+
+:::
+
+## Probability with CDF Cont.
+
+:::{.callout-tip title="Example" .fragment style="font-size:1.25em;" }
+Consider a continuous random variable $X$. 
+
+:::{.columns}
+
+:::{.column width=48.5%}
+```{r, echo=FALSE, fig.height=3.5}
+ggplot() +
+  geom_pdf(fun = dexp, xlim = c(0, 2.5), 
+           p_lower = pexp(.25), p_upper = pexp(2),
+           color = "blue", 
+           fill=NA,
+           linewidth = 1)+
+  labs(x = "X", y = "f(x)")
+```
+:::
+
+
+:::{.column width=41.5%}
+[calculus $\to$]{.fragment .subtext} [$F(x) =
+\begin{cases}
+0 & x < 0 \\
+1 - e^{-x} & x \geq 0
+\end{cases}$]{.fragment}
+:::
+
+:::
+
+:::{.fragment}
+Find $P(2 \leq X \leq 5)$.
+:::
+
+:::{.fragment}
+$= F($ [$5$]{.fragment} $)$ - $F($ [$2$]{.fragment} $)$ [note: since $X$ is continuous, there is no mathematical difference between $\leq$ or $<$]{.fragment .subtext} 
+:::
+
+:::{.fragment}
+$= 1 - e^{-5} - (1 - e^{-2})$
+:::
+
+:::{.fragment}
+$= 0.1286$
+:::
+
+:::
+
+## Visualizing Continuous CDF
+
+```{r, echo=FALSE}
+ggplot() +
+  geom_cdf(pdf_fun = dnorm, xlim = c(-3, 3))+
+  labs(x = "X", y = "F(x)")
+```
+
+
+
+## Special Distributions
+:::{.callout-note style="font-size:1.2em;"}
+Certain "problems" or random variables will follow specific distributions that are well known and have closed form representations of their probability distributions. 
+:::
+
+:::{.fragment}
+
+:::{.columns}
+
+:::{.column width=48.5%}
+| $X$    | 0   | 1   | 2   | 3
+|:------:|:---:|:---:|:---:|:---:| 
+| $f(x)$ | 1/8 | 3/8 | 3/8 | 1/8 | 
+:::
+
+:::{.column width=48.5%}
+$\longrightarrow$ $f(x) = \binom{3}{x}\left(\frac{1}{2}\right)^{x}\left(\frac{1}{2}\right)^{3-x}$[, $x = 0, 1, 2, 3$]{.subtext}
+:::
+
+:::
+
+:::
+
+:::{.fragment}
+
+:::{.columns}
+
+:::{.column width=48.5%}
+```{r, echo=FALSE, fig.height=3}
+ggplot() +
+  geom_pdf(fun = dnorm, xlim = c(-2.5, 2.5), 
+           # p_lower = pnorm(-1), p_upper = pnorm(1), 
+           color = "blue", fill="white", linewidth = 1)+
+  # scale_x_continuous(breaks = c(-1, 1), 
+  #                    labels = c("a", "b"))+
+  labs(x = "X", y = "f(x)")+
+  theme(axis.text.x = element_text(size = 14))
+```
+
+:::
+
+:::{.column width=48.5%}
+$\longrightarrow$ $f(x) = \frac{1}{\sqrt{2\pi\sigma^{2}}}e^{\frac{-(x - \mu)^{2}}{2\sigma^{2}}}$ [, $-\infty< X < \infty$]{.subtext}
+:::
+
+:::
+
+:::
+
+:::{.fragment}
+
+:::{.columns}
+
+:::{.column width=48.5%}
+```{r, echo=FALSE, fig.height=3}
+ggplot() +
+  geom_pdf(fun = dexp, xlim = c(0, 5), 
+           # p_lower = pnorm(-1), p_upper = pnorm(1), 
+           color = "blue", fill="white", linewidth = 1)+
+  # scale_x_continuous(breaks = c(-1, 1), 
+  #                    labels = c("a", "b"))+
+  labs(x = "X", y = "f(x)")+
+  theme(axis.text.x = element_text(size = 14))
+```
+
+:::
+
+:::{.column width=48.5%}
+$\longrightarrow$ $f(x) = e^{-x}$ [, $0 \leq X < \infty$]{.subtext}
+:::
+
+:::
+
+:::
+
+# Binomial Distribution
+
+## Binomial Distribution Definition
+
+:::{.callout-note title="Binomial Distribution" style="font-size:1.2em;"}
+A discrete random variable $X =$ *the number of successes*, with $n$ trials and probability of success $p$, is said to follow a *binomial distribution*, denoted 
+
+:::{.fragment .center}
+[$X \sim \text{Binomial}(n, p)$]{.mysolution}, [note: $\sim$ denotes "distributed"]{.subtext}
+:::
+
+:::{.fragment}
+if it satisfies the following:
+:::
+
+:::{.incremental}
+1. $X =$ *the number of successes*
+2. There are only two outcomes, with constant probability of success *p* and probability of failure *1 - p*
+3. There are a finite number of $n$ independent trials
+:::
+
+:::
+
+:::{.incremental style="font-size:.8em;"}
+- Binomial Distribution Examples:
+  - Flipping coin 2 times and $X =$ number of heads. Thus, $X \sim \text{Bin}(n = 2, p = 0.5)$.
+  - Rolling die 4 times and $X =$ number of 5s. Thus, $X \sim \text{Bin}(n = 4, p = 1/6)$.
+  - Manufacturing process and $X =$ number of defects and there is constant probability of defect occurring 5\% of the time. Thus, $X \sim Bin(n, p = 0.05)$.
+:::
+
+## Visualizing Binomial Distribution
+
+- Adjust the number of trials (n) and probability of success (p) to see how the distribution changes.
+
+```{ojs}
+//| echo: false
+//| panel: sidebar
+viewof n = Inputs.range([1, 100], { value: 20, step: 1, label: "n (trials)" })
+viewof p = Inputs.range([0, 1], { value: 0.5, step: 0.01, label: "p (probability)" })
+```
+
+```{ojs}
+//| echo: false
+//| panel: fill
+function choose(n, k) {
+  k = Math.min(k, n - k);
+  let result = 1;
+  for (let i = 0; i < k; i++) result *= (n - i) / (i + 1);
+  return result;
+}
+
+function dbinom(k, n, p) {
+  return choose(n, k) * Math.pow(p, k) * Math.pow(1 - p, n - k);
+}
+
+data = Array.from({ length: n + 1 }, (_, k) => ({ k, prob: dbinom(k, n, p) }))
+
+Plot.plot({
+  marks: [
+    Plot.barY(data, { x: "k", y: "prob", fill: "#BF5700" }),
+    Plot.ruleY([0])
+  ],
+  marginLeft: 60,
+  x: { label: "Number of successes (x)" },
+  y: { label: "f(x) = P(X = x)", labelAnchor: "center", labelArrow: "none" },
+  subtitle: `Binomial(n = ${n}, p = ${p.toFixed(2)}) Distribution`
+})
+```
+
+## PMF for Binomial
+
+:::{.callout-note title="Binomial PMF" style="font-size:1.1em;"}
+Let $X \sim \text{Binomial}(n, p)$. Then, the *probability mass function* for $X$ is given by 
+$$
+f_{X}(x) = \binom{n}{x}\left(p\right)^{x}\left(1 - p\right)^{n-x}\text{, for } x = 0, \ldots, n. 
+$$
+[note: $\binom{n}{x} = \frac{n!}{x!(n-x)!}$]{.subtext}
+
+:::
+
+:::{.incremental style="font-size:0.8em;"}
+- To get the *PMF* of binomial distribution in R, we can use the `dbinom()` function. It has the following arguments:
+  - `x`: the number of successes to find the probability of
+  - `size`: the number of trials $n$
+  - `prob`: the constant probability of success $p$
+:::
+
+:::{.fragment}
+```{webr}
+# Suppose X ~ Binomial(n = 10, p = 0.30) and we want P(X = 8)
+dbinom(x = 8, size = 10, prob = 0.30)
+```
+:::
+
+## CDF for Binomial
+- The *cumulative distribution function* of a *binomial* random variable is represented by the sum of the *PMF* and is given by
+
+:::{.fragment}
+$$F_{X}(x) = P(X \leq x) = \sum_{k = 0}^{x} \binom{n}{k}\left(p\right)^{k}\left(1 - p\right)^{n-k}$$
+:::
+
+:::{.incremental}
+- To get the *CDF* of binomial distribution in R, we can use the `pbinom()` function
+:::
+
+:::{.fragment}
+```{webr}
+# Suppose X ~ Binomial(n = 10, p = 0.30) and we want P(X <= 3)
+pbinom(3, size = 10, prob = 0.30)
+```
+:::
+
+## Binomial Example
+
+:::{.callout-tip title="Example" style="font-size:1.2em;"}
+Consider flipping a coin 20 times. Let $X =$ the number of heads. Find the PMF of $X$. 
+:::
+
+:::{.fragment}
+Before, we would first find the sample space ...
+:::
+
+:::{.fragment}
+$S = \{hhhhhhhhhhhhhhhhhhhh, tttttttttttttttttt, httttttttttttttttt, \ldots$ 
+:::
+
+:::{.fragment}
+There are $2^{20} =$ 1,048,576 possible outcomes in the sample space 😐
+:::
+
+:::{.fragment}
+instead... 
+:::
+
+:::{.incremental}
+- We have a finite number of [$n = 20$ independent trials]{.mysolution}
+- Only two outcomes with  [probability of "success" of $p = 0.35$.]{.mysolution}
+:::
+ 
+:::{.fragment}
+[Therefore,  $X \sim Binomial(n = 20, p = 0.50),$]{.mysolution} [[and the PMF is $$f(x) = \binom{20}{x}\left(0.50\right)^{x}\left(1 - 0.50\right)^{20-x}\text{, for } x = 0, \ldots, 20.$$]{.mysolution}]{.fragment}
+
+:::
+
+## Binomial Example Cont.
+
+:::{.callout-tip title="Example" style="font-size:1.2em;"}
+Consider flipping a coin 20 times. Let $X =$ the number of heads. Find the following:
+
+:::{.fragment}
+1. P(X = 10)
+:::
+
+:::{.fragment}
+[$X \sim Bin(20, 0.50)$. Thus, ]{.mysolution} 
+:::
+
+:::{.fragment .center}
+[$P(X = 10) = \binom{20}{10}\left(0.50\right)^{10}\left(1 - 0.50\right)^{20-10} =$ `{r} round(dbinom(10, 20, 0.50), 4)`]{.mysolution}
+:::
+
+:::{.fragment}
+2. $P(8 \leq X < 12)$ [[$=F(11) - F(7)$]{.mysolution}]{.fragment}
+:::
+
+:::{.fragment}
+```{webr}
+pbinom(_, 20, 0.50) - pbinom(_, 20, 0.50)
+```
+:::
+:::
+
+# Normal Distribution
+
+## Normal Distribution Definition 
+
+:::{.callout-note title="Normal Distribution" style="font-size:1.13em;"}
+
+Suppose $X$ is a continuous random variable with a mean $\mu$ and standard deviation $\sigma$. Further suppose that $X$ is normally distributed, denoted as 
+
+:::{.fragment}
+[$$X \sim \mathcal{N}(\mu, \sigma).$$]{.mysolution}
+:::
+
+:::{.fragment}
+Then, the *probability density function* (*PDF*) of $X$ is given by
+$$f(x) = \frac{1}{\sqrt{2\pi\sigma^{2}}}e^{\frac{-(x - \mu)^{2}}{2\sigma^{2}}},\ \text{for } -\infty< X < \infty$$
+:::
+:::
+
+:::{.incremental style="font-size:0.8em;"}
+- Normal Distribution Examples:
+  - A lot of data is "normally" distributed! Hence, the name "Normal" distribution [the original name is gussian distribution]{.subtext}
+    - Human height (within a sex)
+    - Weight
+    - Stock data
+    - Body temperature
+    - and many more ...
+:::
+
+## Visualizing Normal Distribution
+
+- Adjust the mean $\mu$ and standard deviation $\sigma$ to see how the normal distribution changes
+
+```{ojs}
+//| echo: false
+//| panel: sidebar
+viewof mu = Inputs.range([-10, 10], { value: 0, step: 0.1, label: "μ (mean)" })
+viewof sigma = Inputs.range([0.1, 5], { value: 1, step: 0.1, label: "σ (std dev)" })
+```
+
+```{ojs}
+//| echo: false
+//| panel: fill
+function dnorm(x, mu, sigma) {
+  return (1 / (sigma * Math.sqrt(2 * Math.PI))) *
+    Math.exp(-0.5 * Math.pow((x - mu) / sigma, 2));
+}
+
+normXValues = d3.range(-30, 30, 0.2)
+normData = normXValues.map(x => ({ x, density: dnorm(x, mu, sigma) }))
+
+Plot.plot({
+  marks: [
+    Plot.line(normData, { x: "x", y: "density", stroke: "#BF5700", strokeWidth: 2 }),
+    Plot.ruleY([0])
+  ],
+  marginLeft: 60,
+  x: { label: "x", domain: [-10, 10], labelAnchor: "center", labelArrow: "none" },
+  y: { label: "f(x)", domain: [0, 0.5], labelAnchor: "center", labelArrow: "none" },
+  subtitle: `Normal(μ = ${mu.toFixed(1)}, σ = ${sigma.toFixed(1)}) Distribution`
+})
+```
+
+## Probability with Normal Distribution Issue
+
+:::{.callout-important title = "Reminder"}
+To find probability with a Normal *PDF* curve, it requires calculus
+
+:::{.columns}
+
+:::{.column width=48.5%}
+```{r, echo=FALSE}
+ggplot() +
+  geom_pdf(fun = dnorm, xlim = c(-2.5, 2.5), 
+           p_lower = pnorm(-1), p_upper = pnorm(1),
+           color = "blue", fill="lightblue", linewidth = 1)+
+  scale_x_continuous(breaks = c(-1, 1), 
+                     labels = c("a", "b"))+
+  labs(x = "X", y = "f(x)")+
+  theme(axis.text.x = element_text(size = 14))
+```
+
+:::
+
+:::{.column width=3%}
+<br> <br> <br> <br> <br>
+[$\longrightarrow$]{style="font-size:1.3em;"}
+:::
+
+:::{.column width=48.5%}
+<br> <br> <br>
+
+:::{style="font-size:1.5em;"}
+ $\quad \int_{a}^{b} \frac{1}{\sqrt{2\pi\sigma^{2}}}e^{\frac{-(x - \mu)^{2}}{2\sigma^{2}}} dx$ 
+:::
+
+:::{.fragment}
+[not possible by hand!!]{.mysolution}
+:::
+
+:::
+
+:::
+
+:::
+
+:::{.incremental}
+- To find probability for Normal distribution by hand, we will use the *Standard Normal Distribution*
+:::
+
+## Standard Normal Distribution
+
+:::{.callout-note title="Standard Normal Distribution" style="font-size:1.05em;"}
+The *Standard Normal* distribution is a special case of the *Normal* distribution with mean $\mu = 0$ and $\sigma = 1$ and is denoted by [[$Z \sim \mathcal{N}(0, 1).$]{.mysolution}]{.fragment}
+
+:::
+
+:::{.fragment}
+```{r, echo=FALSE, fig.height=3.5}
+ggplot()+
+  geom_pdf(fun = dnorm, fill = NA, color = "blue")+
+  scale_x_continuous(limits = c(-3, 3), breaks = c(-3:3), 
+                     labels = c(-3, -2, -1, expression(mu*" = 0"), 1, 2, 3))+
+  labs(x = "Z", y = "f(z)")
+```
+
+:::
+
+:::{.incremental}
+- The *cumulative distribution function* (*CDF*) of $Z$ has been evaluated and written in tables: [Z-Table link](https://DerikTBoonstra.github.io/UT-SDS320E/Z_Table.pdf){preview-link=true}
+:::
+
+## Standardizing Normal Distribution
+
+:::{.callout-note title="Z-Score" style="font-size:1.2em;"}
+Each *Normal* distribution can be standardized using the formula
+
+:::{.fragment .center}
+$z = \frac{X - \mu}{\sigma}$ [[$= \frac{data - mean}{std\ dev.}$]{.mysolution}]{.fragment}
+:::
+
+:::{.fragment}
+$z$ is referred to as the *z-score*.
+:::
+:::
+
+:::{.incremental}
+- The *z-score* represents how many *standard deviations* the value $X$ is above or below the mean
+:::
+
+:::{.callout-tip title="Example" .fragment style="font-size:1.2em;"}
+Suppose $X \sim \mathcal{N}(20, 5)$. Find the z-score for the following.
+
+:::{.incremental}
+1. $X = 25$ [[z = 1 [i.e. 1 stand dev. above mean]{.subtext style="color:red;"}]{.mysolution}]{.fragment}
+2. $X = 10$ [[z = -2 [i.e. 2 stand dev. below mean]{.subtext style="color:red;"}]{.mysolution}]{.fragment}
+:::
+
+:::
+
+## Probability with Normal Distribution by Hand
+
+:::{.callout-tip title="Example" style="font-size:1.2em;"}
+Let $X =$ *Exam 1 scores for previous SDS 320E Semesters*, and it is known the the scores are normally distributed with a mean of 85 and standard deviation of 5. Find the following. 
+
+:::{.fragment}
+1. $P(75 \leq X <90)$
+
+
+:::{.fragment .absolute top=30% left=60%}
+```{r, message=FALSE, echo=FALSE, fig.height=2, fig.width=4}
+ggplot()+
+  geom_pdf(fun = dnorm, args = list(mean = 85, sd = 5), fill = NA)+
+  scale_x_continuous(limits = c(65, 100), breaks = 85, 
+                     labels = expression(mu*" = 85"))+
+  labs(x = "", y = "f(x)")
+```
+:::
+
+:::{.fragment}
+[$\begin{align*}
+&= P(\frac{75 - 85}{5} \leq Z < \frac{90 - 85}{5}) \\
+&= P(-2 \leq Z < 1) \\
+&= F_{Z}(1) - F_{Z}(-2) \\
+&= `{r} round(pnorm(1), 4) - round(pnorm(-2), 4)`
+\end{align*}$]{.mysolution}
+
+:::{.mysolution .absolute top=30% left=60%}
+```{r, message=FALSE, echo=FALSE, fig.height=2, fig.width=4}
+ggplot()+
+  geom_pdf(fun = dnorm, fill = "red", alpha = .5, 
+           p_lower = pnorm(-2), p_upper = pnorm(1))+
+  scale_x_continuous(limits = c(-4, 3), breaks = c(-2, 0, 1))+
+  labs(x = "Z", y = "f(z)")
+```
+:::
+
+:::
+
+:::{.fragment}
+2. The Median Score was an 89.5. What is the Probability a random student scored higher than the Median?
+
+<br><br><br><br> 
+
+:::{.fragment .absolute top=70% left=60%}
+```{r, message=FALSE, echo=FALSE, fig.height=2, fig.width=4}
+ggplot()+
+  geom_pdf(fun = dnorm, args = list(mean = 85, sd = 5), fill = NA)+
+  scale_x_continuous(limits = c(65, 100), breaks = 85, 
+                     labels = expression(mu*" = 85"))+
+  labs(x = "", y = "f(x)")
+```
+:::
+
+:::{.fragment}
+```{r, echo=FALSE}
+z <- round((89.5 - 85)/(5), 2)
+```
+
+:::{.absolute top=72%}
+[$\begin{align*}
+P(X > 89.5)&= P(Z > \frac{89.5 - 85}{5}) \\
+&= P(Z > `{r} z`) \\
+&= 1 - F_{Z}(`{r} z`) \\
+&= 1 -`{r} round(pnorm(z), 4)` \\
+&= `{r} 1 - round(pnorm(z), 4)`
+\end{align*}$]{.mysolution}
+:::
+
+
+:::{.mysolution .absolute top=70% left=60%}
+```{r, message=FALSE, echo=FALSE, fig.height=2, fig.width=4}
+ggplot()+
+  geom_pdf(fun = dnorm, fill = "red", alpha = .5, 
+           p_lower = pnorm(z), p_upper = 0.9999999)+
+  scale_x_continuous(limits = c(-4, 3), breaks = c(z))+
+  labs(x = "Z", y = "f(z)")
+```
+:::
+:::
+:::
+
+
+:::
+:::
+
+## Quantiles with Normal Distribution
+:::{.callout-tip title="Example" style="font-size:1.2em;"}
+Let $X =$ *Exam 1 scores for previous SDS 320E Semesters*, and it is known the the scores are normally distributed with a mean of 85 and standard deviation of 5. 
+
+:::{.fragment}
+Suppose a student scored in the 97.5th percentile. What score did they get?
+:::
+:::
+
+:::{.fragment .absolute top=40% left=65%}
+```{r, message=FALSE, echo=FALSE, fig.height=2, fig.width=4}
+ggplot()+
+  geom_pdf(fun = dnorm, args = list(mean = 85, sd = 5), fill = NA)+
+  scale_x_continuous(limits = c(65, 100), breaks = 85, 
+                     labels = expression(mu*" = 85"))+
+  labs(x = "", y = "f(x)")
+```
+:::
+
+:::{.fragment}
+[The Z-score corresponding to the 97.5th percentile is 1.96. <br>
+Thus, $$1.96 = \frac{X - 85}{5}.$$ Solving for $X$, we get the score for the 97.5th percentile is $94.8$.]{.mysolution}
+:::
+
+
+## Normal Distribution in R
+:::{.incremental}
+:::{style="font-size:0.9em;"}
+- To get the CDF of a normal distribution in R, we can use the `pnorm()` function. It has the following arguments:
+  - `q`: the numerical value to evaluate 
+  - `mean`: the mean $\mu$
+  - `sd`: the standard deviation $\sigma$
+  - `lower.tail`: logical; if TRUE (default), probabilities are 
+$P(X \leq x)$, otherwise, $P(X > x)$.
+:::
+
+
+:::{.fragment}
+:::{style="transform: scale(0.80); transform-origin: top left; width: 120%;"}
+```{webr}
+# X ~ N(27, 2.5) and we want P(X < 23)
+pnorm(23, mean = 27, sd = 2.5)
+```
+:::
+:::
+
+- [We can also get quantiles using the `qnorm()` function]{style="font-size:0.9em;"}
+
+:::{.fragment}
+:::{style="transform: scale(0.80); transform-origin: top left; width: 120%;"}
+```{webr}
+# X ~ N(27, 2.5) and 90th percentile
+qnorm(0.90, mean = 27, sd = 2.5)
+```
+:::
+:::
+:::
+
+# Sampling Distribution and CLT
+
+## Statistic Review
+
+:::{.callout-note title="Reminder" style="font-size:1.2em;"}
+A **Statistic** is a measure of the sample. 
+:::
+
+:::{.fragment}
+
+```{ojs}
+//| echo: false
+//| panel: sidebar
+viewof svSampleSize = Inputs.range([2, 50], { value: 10, step: 1, label: "Sample size (n)" })
+viewof svRedraw = Inputs.button("Draw Sample")
+viewof svShowXbar = Inputs.button("Show x̄")
+```
+
+```{ojs}
+//| echo: false
+//| panel: fill
+
+svPopSize = 500
+svPopRadius = 110
+svSampleRadius = 55
+
+svPopulation = {
+  const values = d3.range(svPopSize).map(() => d3.randomNormal(50, 10)());
+  return values.map((v, i) => {
+    const r = svPopRadius * Math.sqrt(Math.random());
+    const theta = Math.random() * 2 * Math.PI;
+    return { id: i, value: v, x: r * Math.cos(theta), y: r * Math.sin(theta) };
+  });
+}
+
+svSample = {
+  svRedraw;
+  const idx = d3.shuffle(d3.range(svPopulation.length)).slice(0, svSampleSize);
+  return idx.map(i => svPopulation[i]).map(d => {
+    const r = svSampleRadius * Math.sqrt(Math.random());
+    const theta = Math.random() * 2 * Math.PI;
+    return { ...d, sx: r * Math.cos(theta), sy: r * Math.sin(theta) };
+  });
+}
+
+svSampledIds = new Set(svSample.map(d => d.id))
+
+svXbar = d3.mean(svSample, d => d.value)
+
+svXbarVisible = Generators.observe(notify => {
+  notify(false);
+  let visible = false;
+  const toggle = () => {
+    visible = !visible;
+    notify(visible);
+  };
+  viewof svShowXbar.addEventListener("click", toggle);
+  return () => viewof svShowXbar.removeEventListener("click", toggle);
+})
+
+svPopulationViz = {
+  const size = svPopRadius * 2 + 20;
+  const c = size / 2;
+  const dots = svPopulation.map(d => {
+    const hi = svSampledIds.has(d.id);
+    return `<circle cx="${(c + d.x).toFixed(1)}" cy="${(c + d.y).toFixed(1)}" r="3.5" fill="${hi ? "#BF5700" : "#9CA3AF"}" opacity="${hi ? 1 : 0.55}"></circle>`;
+  }).join("");
+  const div = document.createElement("div");
+  div.innerHTML = `<svg width="${size}" height="${size}" viewBox="0 0 ${size} ${size}">
+    <circle cx="${c}" cy="${c}" r="${svPopRadius}" fill="none" stroke="#333" stroke-width="1.5"></circle>
+    ${dots}
+  </svg>`;
+  return div;
+}
+
+svSampleViz = {
+  const size = svSampleRadius * 2 + 20;
+  const c = size / 2;
+  const dots = svSample.map(d =>
+    `<circle cx="${(c + d.sx).toFixed(1)}" cy="${(c + d.sy).toFixed(1)}" r="4" fill="#BF5700"></circle>`
+  ).join("");
+  const div = document.createElement("div");
+  div.innerHTML = `<svg width="${size}" height="${size}" viewBox="0 0 ${size} ${size}">
+    <circle cx="${c}" cy="${c}" r="${svSampleRadius}" fill="none" stroke="#333" stroke-width="1.5"></circle>
+    ${dots}
+  </svg>`;
+  return div;
+}
+
+svSampleTable = Inputs.table(
+  svSample.map((d, i) => ({ obs: i + 1, value: +d.value.toFixed(2) })),
+  { columns: ["obs", "value"], layout: "auto" }
+)
+
+{
+  const container = document.createElement("div");
+  container.style.display = "flex";
+  container.style.alignItems = "center";
+  container.style.gap = "2em";
+  container.style.flexWrap = "nowrap";
+
+  const popWrap = document.createElement("div");
+  popWrap.style.textAlign = "center";
+  const popLabel = document.createElement("div");
+  popLabel.style.fontWeight = "600";
+  popLabel.style.marginBottom = "0.5em";
+  popLabel.textContent = "Population";
+  popWrap.append(popLabel, svPopulationViz);
+
+  const sampWrap = document.createElement("div");
+  sampWrap.style.textAlign = "center";
+  const sampLabel = document.createElement("div");
+  sampLabel.style.fontWeight = "600";
+  sampLabel.style.marginBottom = "0.5em";
+  sampLabel.textContent = "Sample";
+  sampWrap.append(sampLabel, svSampleViz);
+
+  const tableStatsWrap = document.createElement("div");
+  tableStatsWrap.style.display = "flex";
+  tableStatsWrap.style.flexDirection = "column";
+  tableStatsWrap.style.alignItems = "center";
+  tableStatsWrap.style.gap = "0.75em";
+
+  const tableWrap = document.createElement("div");
+  tableWrap.style.maxHeight = "300px";
+  tableWrap.style.overflowY = "auto";
+  tableWrap.appendChild(svSampleTable);
+
+  const statsWrap = document.createElement("div");
+  statsWrap.style.fontSize = "1.6em";
+  statsWrap.style.minHeight = "1.2em";
+  statsWrap.innerHTML = svXbarVisible
+    ? `<strong>x̄</strong> = ${svXbar.toFixed(3)}`
+    : "";
+
+  tableStatsWrap.append(tableWrap, statsWrap);
+
+  container.append(popWrap, sampWrap, tableStatsWrap);
+  return container;
+}
+```
+
+:::
+
+:::{.incremental}
+- Thus, each time we take a sample, the statistic will vary
+:::
+
+
+## Sampling Distribution
+
+- Since a statistic will vary, it will have a probability distribution
+
+:::{.fragment .absolute top=13%}
+
+```{ojs}
+//| echo: false
+//| panel: sidebar
+viewof sdStatistic = Inputs.select(["Mean", "Median", "Standard Deviation"], { value: "Mean", label: "Statistic" })
+viewof sdSampleSize = Inputs.range([2, 50], { value: 10, step: 1, label: "Sample size (n)" })
+viewof sdDrawOne = Inputs.button("Draw Sample")
+viewof sdNumSamples = Inputs.range([10, 1000], { value: 100, step: 10, label: "Number of samples" })
+viewof sdDrawMany = Inputs.button("Draw Many Samples")
+```
+
+```{ojs}
+//| echo: false
+//| panel: fill
+
+sdSampleRadius = 55
+sdPopMean = 50
+sdPopSD = 10
+sdHistRange = 30
+
+sdSymbols = ({
+  "Mean": "x̄",
+  "Median": "x̃",
+  "Standard Deviation": "s"
+})
+
+sdDomains = ({
+  "Mean": [sdPopMean - sdHistRange, sdPopMean + sdHistRange],
+  "Median": [sdPopMean - sdHistRange, sdPopMean + sdHistRange],
+  "Standard Deviation": [0, sdPopSD * 2]
+})
+
+function sdDrawSample(n) {
+  return d3.range(n).map(() => d3.randomNormal(sdPopMean, sdPopSD)());
+}
+
+function sdComputeStat(sample) {
+  if (sdStatistic === "Mean") return d3.mean(sample);
+  if (sdStatistic === "Median") return d3.median(sample);
+  return d3.deviation(sample);
+}
+
+sdState = Generators.observe(notify => {
+  sdSampleSize;
+  sdStatistic;
+
+  let current = sdDrawSample(sdSampleSize);
+  let history = [sdComputeStat(current)];
+  notify({ current, statValue: sdComputeStat(current), history });
+
+  const handleDrawOne = () => {
+    current = sdDrawSample(sdSampleSize);
+    const statValue = sdComputeStat(current);
+    history = [...history, statValue];
+    notify({ current, statValue, history });
+  };
+
+  const handleDrawMany = () => {
+    const newStats = d3.range(sdNumSamples).map(() => sdComputeStat(sdDrawSample(sdSampleSize)));
+    history = [...history, ...newStats];
+    notify({ current, statValue: sdComputeStat(current), history });
+  };
+
+  viewof sdDrawOne.addEventListener("click", handleDrawOne);
+  viewof sdDrawMany.addEventListener("click", handleDrawMany);
+
+  return () => {
+    viewof sdDrawOne.removeEventListener("click", handleDrawOne);
+    viewof sdDrawMany.removeEventListener("click", handleDrawMany);
+  };
+})
+
+sdSampleViz = {
+  const size = sdSampleRadius * 2 + 20;
+  const c = size / 2;
+  const dots = sdState.current.map(() => {
+    const r = sdSampleRadius * Math.sqrt(Math.random());
+    const theta = Math.random() * 2 * Math.PI;
+    const x = c + r * Math.cos(theta);
+    const y = c + r * Math.sin(theta);
+    return `<circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="4" fill="#BF5700"></circle>`;
+  }).join("");
+  const div = document.createElement("div");
+  div.innerHTML = `<svg width="${size}" height="${size}" viewBox="0 0 ${size} ${size}">
+    <circle cx="${c}" cy="${c}" r="${sdSampleRadius}" fill="none" stroke="#333" stroke-width="1.5"></circle>
+    ${dots}
+  </svg>`;
+  return div;
+}
+
+sdHistogram = Plot.plot({
+  width: 520,
+  height: 380,
+  marginLeft: 60,
+  marks: [
+    Plot.rectY(sdState.history, Plot.binX({ y: "count" }, { x: d => d, fill: "#BF5700" })),
+    Plot.ruleY([0])
+  ],
+  x: { label: sdSymbols[sdStatistic], domain: sdDomains[sdStatistic] },
+  y: { label: "count", labelAnchor: "center", labelArrow: "none" },
+  subtitle: `Distribution of ${sdSymbols[sdStatistic]} (n = ${sdSampleSize}, ${sdState.history.length} samples drawn)`
+})
+
+{
+  const container = document.createElement("div");
+  container.style.display = "flex";
+  container.style.alignItems = "center";
+  container.style.gap = "2em";
+  container.style.flexWrap = "nowrap";
+
+  const sampWrap = document.createElement("div");
+  sampWrap.style.textAlign = "center";
+  const sampLabel = document.createElement("div");
+  sampLabel.style.fontWeight = "600";
+  sampLabel.style.marginBottom = "0.5em";
+  sampLabel.textContent = "Sample";
+  const statLabel = document.createElement("div");
+  statLabel.style.fontSize = "1.4em";
+  statLabel.style.marginTop = "0.5em";
+  statLabel.innerHTML = `<strong>${sdSymbols[sdStatistic]}</strong> = ${sdState.statValue.toFixed(3)}`;
+  sampWrap.append(sampLabel, sdSampleViz, statLabel);
+
+  container.append(sampWrap, sdHistogram);
+  return container;
+}
+```
+
+:::
+
+:::{.incremental .absolute top=90%}
+- The probability distribution of a statistic is referred to as the **sampling distribution**
+:::
+
+## Distribution of $\overline{X}$ when X is Normal
+
+:::{.callout-tip title = "Example"}
+Suppose $X \sim \mathcal{N}(\mu, \sigma).$ What is the distribution of $\bar{X}$?
+:::
+
+:::{.fragment}
+
+```{ojs}
+//| echo: false
+//| panel: sidebar
+viewof xdnMu = Inputs.range([-5, 5], { value: 0, step: 0.1, label: "μ (mean)" })
+viewof xdnSigma = Inputs.range([1, 10], { value: 2, step: 0.1, label: "σ (std dev)" })
+viewof xdnN = Inputs.range([1, 100], { value: 10, step: 1, label: "Sample size (n)" })
+```
+
+```{ojs}
+//| echo: false
+//| panel: fill
+
+xdnNumSamples = 1000
+xdnDomain = [-10, 10]
+
+xdnXbars = d3.range(xdnNumSamples).map(() => {
+  const sample = d3.range(xdnN).map(() => d3.randomNormal(xdnMu, xdnSigma)());
+  return d3.mean(sample);
+})
+
+xdnMeanXbar = d3.mean(xdnXbars)
+xdnSDXbar = d3.deviation(xdnXbars)
+
+xdnHistogram = Plot.plot({
+  width: 480,
+  height: 200,
+  marginLeft: 55,
+  marginTop: 25,
+  style: { fontSize: "12px" },
+  marks: [
+    Plot.rectY(xdnXbars, Plot.binX({ y: "count" }, { x: d => d, fill: "#BF5700" })),
+    Plot.ruleY([0])
+  ],
+  x: { label: "x̄", domain: xdnDomain },
+  y: { label: "count", labelAnchor: "center", labelArrow: "none" },
+  subtitle: `μ = ${xdnMu.toFixed(1)}, σ = ${xdnSigma.toFixed(1)}, n = ${xdnN}, 1000 samples`
+})
+
+{
+  const container = document.createElement("div");
+  container.style.display = "flex";
+  container.style.flexDirection = "column";
+  container.style.alignItems = "center";
+  container.style.gap = "0.5em";
+
+  const statsRow = document.createElement("div");
+  statsRow.style.display = "flex";
+  statsRow.style.gap = "3em";
+  statsRow.style.fontSize = "1.2em";
+  statsRow.innerHTML = `
+    <div><strong>Mean of x̄</strong> = ${xdnMeanXbar.toFixed(3)}</div>
+    <div><strong>SD of x̄</strong> = ${xdnSDXbar.toFixed(3)}</div>
+  `;
+
+  container.append(xdnHistogram, statsRow);
+  return container;
+}
+```
+
+:::
+
+:::{.incremental}
+- $\bar{X}$ looks normally distributed!
+  - It has the same mean as $\mu$
+  - But a slight different standard deviation?
+:::
+
+## Distribution of $\overline{X}$ when X is Normal Cont.
+
+:::{.callout-note title="Theorem" style="font-size:1.2em;"}
+Suppose $X$ is normally distributed with mean $\mu$ and standard deviation $\sigma$, i.e $X \sim \mathcal{N}(\mu, \sigma)$. Then, the sampling distribution of $\bar{X}$ is 
+
+:::{.fragment}
+[$$\bar{X} \sim \mathcal{N}(\mu, \sigma/\sqrt{n})$$]{.mysolution}
+:::
+
+:::
+
+:::{.incremental}
+- Note: This result holds true regardless of the sample size! [Sample size will matter for CLT]{.subtext}
+:::
+
+:::{.incremental}
+- Since we know the distribution of $\bar{X}$, we can do the following:
+  - Find probability about $\bar{X}$
+  - Make inference about $\bar{X}$
+:::
+
+## Probability of $\overline{X}$ when X is Normal
+
+:::{.callout-tip title="Example" style="font-size:1.1em;"}
+Coca-Cola cans are labeled as 12 oz. However, the 12 oz is not an exact amount in every single can. It may vary slightly from can to can. Suppose the fill amount of Coca-Cola cans is normally distributed with mean of 12 oz and standard deviation of 0.5 oz. Find the following. 
+
+:::{.fragment}
+1. What is the distribution of $X =$ the fill amount of Coca-Cola cans?
+
+:::{.fragment}
+[$X \sim \mathcal{N}(\mu = 12, \sigma = 0.5)$]{.mysolution}
+:::
+
+:::{.fragment}
+2. Suppose we take a sample of 10 Coca-Cola cans, what is the distribution of the mean fill amount?
+:::
+
+:::{.fragment}
+[$\bar{X} \sim \mathcal{N}(12, 0.5/\sqrt{10})$]{.mysolution}
+:::
+
+:::{.fragment}
+3. What is the probability the average fill amount for a sample of 10 is less than 11.8oz?
+:::
+
+:::{.fragment .absolute top=70% left=65%}
+```{r, message=FALSE, echo=FALSE, fig.height=2, fig.width=4}
+ggplot()+
+  geom_pdf(fun = dnorm, args = list(mean = 12, sd = .5/sqrt(10)), fill = NA)+
+  scale_x_continuous(limits = c(11, 13), breaks = 12, 
+                     labels = expression(mu*" = 12"))+
+  labs(x = "", y = "f(x)")
+```
+:::
+
+:::{.fragment}
+```{r, echo=FALSE}
+z <- (11.8 - 12)/(0.50/sqrt(10))
+```
+
+:::{.mysolution}
+$\begin{align*}
+P(\bar{X} < 11.8) &= P(Z < \frac{11.8 - 12}{0.50/\sqrt{10}}) \\
+&= P(Z < `{r} round(z, 2)`) \\
+&= `{r} round(pnorm(round(z, 2)), 4)`
+\end{align*}$
+:::
+
+:::{.mysolution .absolute top=70% left=65%}
+```{r, message=FALSE, echo=FALSE, fig.height=2, fig.width=4}
+ggplot()+
+  geom_pdf(fun = dnorm, fill = "red", alpha = .5, 
+           p_lower = 0.00001, p_upper = pnorm(z))+
+  scale_x_continuous(limits = c((11 - 12)/(.5/sqrt(10)), (13 - 12)/(.5/sqrt(10))), breaks = round(z, 2))+
+  labs(x = "Z", y = "f(z)")
+```
+:::
+
+:::
+
+:::
+
+
+:::
+
+## Central Limit Theorem
+
+- What is the distribution of $\bar{X}$, if $X$ is not normal?
+
+:::{.fragment}
+
+```{ojs}
+//| echo: false
+//| panel: sidebar
+viewof cltDist = Inputs.select(["Uniform", "Exponential", "Beta"], { value: "Uniform", label: "Distribution" })
+viewof cltN = Inputs.range([1, 100], { value: 5, step: 1, label: "Sample size (n)" })
+```
+
+```{ojs}
+//| echo: false
+//| panel: fill
+
+cltNumSamples = 1000
+
+cltSampleFn = ({
+  "Uniform": d3.randomUniform(0, 1),
+  "Exponential": d3.randomExponential(1),
+  "Beta": d3.randomBeta(2, 2)
+})
+
+cltDomains = ({
+  "Uniform": [0, 1],
+  "Exponential": [0, 4],
+  "Beta": [0, 1]
+})
+
+cltXbars = {
+  const gen = cltSampleFn[cltDist];
+  return d3.range(cltNumSamples).map(() => {
+    const sample = d3.range(cltN).map(() => gen());
+    return d3.mean(sample);
+  });
+}
+
+cltHistogram = Plot.plot({
+  width: 640,
+  height: 380,
+  marginLeft: 60,
+  marginTop: 30,
+  style: { fontSize: "13px" },
+  marks: [
+    Plot.rectY(cltXbars, Plot.binX({ y: "count" }, { x: d => d, fill: "#BF5700" })),
+    Plot.ruleY([0])
+  ],
+  x: { label: "x̄", domain: cltDomains[cltDist] },
+  y: { label: "count", labelAnchor: "center", labelArrow: "none" },
+subtitle: `Distribution of x̄ for ${cltDist}, n = ${cltN}, 1000 samples`
+})
+```
+
+:::
+
+## Central Limit Theorem Cont.
+
+:::{.callout-note title="Central Limit Theorem (CLT)" style="font-size:1.2em;"}
+Suppose $X$ is distributed with mean $\mu$ and standard deviation $\sigma$. Then, for a "sufficiently large" sample size $n$, the sampling distribution of $\bar{X}$ is 
+
+:::{.fragment}
+[$$\bar{X} \stackrel{\cdot}{\sim} \mathcal{N}(\mu, \sigma/\sqrt{n}).$$]{.mysolution} [note: $\stackrel{\cdot}{\sim}$ means approximately distributed]{.subtext}
+:::
+
+
+:::
+
+:::{.incremental}
+- "Sufficiently large" sample size will depend on the underlying distribution [i.e. more skewed data will need larger $n$ to be sufficient]{.subtext}
+  - A crude rule for sufficiently large is if $n > 30$
+:::
+
+:::{.incremental}
+- The CLT is one of the most important/popular theorems in statistics
+  - It allows us to make inference about a mean with very little information
+:::
+
+## Probability for CLT
+
+:::{.callout-tip title="Example" style="font-size:1.1em;"}
+Medical labs periodically check that their testing equipment is reading accurately by running a control solution with a known, certified concentration. Suppose this control solution has a glucose concentration with a mean of 100 mg/dL and a standard deviation of 10 mg/dL. Find the following
+
+:::{.fragment}
+1. What is the distribution of $X =$ glucose concentration?
+
+:::{.fragment}
+[We don't know! We only know that $\mu = 100$ and $\sigma = 10$. ]{.mysolution}
+:::
+
+:::{.fragment}
+2. Suppose a lab want to check 49 of their testing equipment. What is the distribution of the average glucose concentration for a sample of 49?
+:::
+
+:::{.fragment}
+[$\bar{X} \stackrel{\cdot}{\sim} \mathcal{N}(100, 10/\sqrt{49})$]{.mysolution}
+:::
+
+:::{.fragment}
+3. What is the probability that for a sample of 49 testing equipment, the average glucose concentration is greater than or equal to 102?
+:::
+
+:::{.fragment .absolute top=70% left=65%}
+```{r, message=FALSE, echo=FALSE, fig.height=2, fig.width=4}
+ggplot()+
+  geom_pdf(fun = dnorm, args = list(mean = 100, sd = 10/7), fill = NA)+
+  scale_x_continuous(limits = c(97, 103), breaks = 100, 
+                     labels = expression(mu*" = 100"))+
+  labs(x = "", y = "f(x)")
+```
+:::
+
+:::{.fragment}
+```{r, echo=FALSE}
+z <- (102 - 100)/(10/7)
+```
+
+:::{.mysolution}
+$\begin{align*}
+P(\bar{X} \ge 102) &= P(Z \ge \frac{102 - 100}{10/\sqrt{49}}) \\
+&= P(Z \ge `{r} round(z, 2)`) \\
+&= 1 - `{r} round(pnorm(round(z, 2)), 4)` = `{r} 1- round(pnorm(round(z, 2)), 4)`
+\end{align*}$
+:::
+
+:::{.mysolution .absolute top=70% left=65%}
+```{r, message=FALSE, echo=FALSE, fig.height=2, fig.width=4}
+ggplot()+
+  geom_pdf(fun = dnorm, fill = "red", alpha = .5, 
+           p_lower = pnorm(z), p_upper = .999999)+
+  scale_x_continuous(limits = c(-3, 3), breaks = round(z, 2))+
+  labs(x = "Z", y = "f(z)")
+```
+:::
+
+:::
+
+:::
+
+
+:::
+
+# The End {visibility="uncounted"}
