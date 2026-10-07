@@ -14,8 +14,11 @@ Introduction to statistics. Topics may include: probability; principles of obser
 
 [3. Probability and Distributions](https://deriktboonstra.github.io/UT-SDS320E/SDS320E_3_Probability_and_Distributions)
 
+[4. Confidence Intervals](https://deriktboonstra.github.io/UT-SDS320E/SDS320E_4_Confidence_Intervals)
+
 ## R Labs
 [1. R Demo Exercises](https://deriktboonstra.github.io/UT-SDS320E/R_Demo.html)
 
 ## Other
 [Z-Table](https://DerikTBoonstra.github.io/UT-SDS320E/Z_Table.pdf)
+[T-Table](https://DerikTBoonstra.github.io/UT-SDS320E/T_table.pdf)
