@@ -1,0 +1,2409 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<script src="SDS320E_5_One_Population_Hypothesis_files/libs/clipboard/clipboard.min.js"></script>
+<script src="SDS320E_5_One_Population_Hypothesis_files/libs/quarto-html/tabby.min.js"></script>
+<script src="SDS320E_5_One_Population_Hypothesis_files/libs/quarto-html/popper.min.js"></script>
+<script src="SDS320E_5_One_Population_Hypothesis_files/libs/quarto-html/tippy.umd.min.js"></script>
+<link href="SDS320E_5_One_Population_Hypothesis_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="SDS320E_5_One_Population_Hypothesis_files/libs/quarto-html/light-border.css" rel="stylesheet">
+<link href="SDS320E_5_One_Population_Hypothesis_files/libs/quarto-html/quarto-syntax-highlighting-64a204ab8560d761af7679ceaba22944.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="SDS320E_5_One_Population_Hypothesis_files/libs/quarto-contrib/live-runtime/live-runtime.js" type="module"></script>
+<link href="SDS320E_5_One_Population_Hypothesis_files/libs/quarto-contrib/live-runtime/live-runtime.css" rel="stylesheet"><meta charset="utf-8">
+  <meta name="generator" content="quarto-1.10.18">
+
+  <meta name="author" content="SDS 320E">
+  <title>Hypothesis Testing for One Population</title>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+  <link rel="stylesheet" href="SDS320E_5_One_Population_Hypothesis_files/libs/revealjs/dist/reset.css">
+  <link rel="stylesheet" href="SDS320E_5_One_Population_Hypothesis_files/libs/revealjs/dist/reveal.css">
+  <style>
+    /* Default styles provided by pandoc.
+    ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+    */
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: 1.5em;}
+    div.column{flex: auto;}
+    @media screen {
+    div.columns{gap: min(4vw, 1.5em);}
+    div.column{overflow-x: auto;}
+    }
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+      vertical-align: middle;
+    }
+    /* CSS for syntax highlighting */
+    html { -webkit-text-size-adjust: 100%; }
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #aaaaaa;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+    div.sourceCode
+      { color: #003b4f; background-color: #f1f3f5; }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span { color: #003b4f; } /* Normal */
+    code span.al { color: #ad0000; } /* Alert */
+    code span.an { color: #5e5e5e; } /* Annotation */
+    code span.at { color: #657422; } /* Attribute */
+    code span.bn { color: #ad0000; } /* BaseN */
+    code span.bu { } /* BuiltIn */
+    code span.cf { color: #003b4f; font-weight: bold; } /* ControlFlow */
+    code span.ch { color: #20794d; } /* Char */
+    code span.cn { color: #8f5902; } /* Constant */
+    code span.co { color: #5e5e5e; } /* Comment */
+    code span.cv { color: #5e5e5e; font-style: italic; } /* CommentVar */
+    code span.do { color: #5e5e5e; font-style: italic; } /* Documentation */
+    code span.dt { color: #ad0000; } /* DataType */
+    code span.dv { color: #ad0000; } /* DecVal */
+    code span.er { color: #ad0000; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #ad0000; } /* Float */
+    code span.fu { color: #4758ab; } /* Function */
+    code span.im { color: #00769e; } /* Import */
+    code span.in { color: #5e5e5e; } /* Information */
+    code span.kw { color: #003b4f; font-weight: bold; } /* Keyword */
+    code span.op { color: #5e5e5e; } /* Operator */
+    code span.ot { color: #003b4f; } /* Other */
+    code span.pp { color: #ad0000; } /* Preprocessor */
+    code span.sc { color: #5e5e5e; } /* SpecialChar */
+    code span.ss { color: #20794d; } /* SpecialString */
+    code span.st { color: #20794d; } /* String */
+    code span.va { color: #111111; } /* Variable */
+    code span.vs { color: #20794d; } /* VerbatimString */
+    code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
+  </style>
+  <link rel="stylesheet" href="SDS320E_5_One_Population_Hypothesis_files/libs/revealjs/dist/theme/quarto-eb515f74946fd465419b5c6ecb14c728.css">
+  <link href="SDS320E_5_One_Population_Hypothesis_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
+  <link href="SDS320E_5_One_Population_Hypothesis_files/libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
+  <link href="SDS320E_5_One_Population_Hypothesis_files/libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
+  <link href="SDS320E_5_One_Population_Hypothesis_files/libs/revealjs/plugin/reveal-chalkboard/font-awesome/css/all.css" rel="stylesheet">
+  <link href="SDS320E_5_One_Population_Hypothesis_files/libs/revealjs/plugin/reveal-chalkboard/style.css" rel="stylesheet">
+  <link href="SDS320E_5_One_Population_Hypothesis_files/libs/revealjs/plugin/reveal-drop/drop-runtime.css" rel="stylesheet">
+  <link href="SDS320E_5_One_Population_Hypothesis_files/libs/revealjs/plugin/quarto-support/footer.css" rel="stylesheet">
+  <style type="text/css">
+    .reveal div.sourceCode {
+      margin: 0;
+      overflow: auto;
+    }
+    .reveal div.hanging-indent {
+      margin-left: 1em;
+      text-indent: -1em;
+    }
+    .reveal .slide:not(.center) {
+      height: 100%;
+    }
+    .reveal .slide.scrollable {
+      overflow-y: auto;
+    }
+    .reveal .footnotes {
+      height: 100%;
+      overflow-y: auto;
+    }
+    .reveal .slide .absolute {
+      position: absolute;
+      display: block;
+    }
+    .reveal .footnotes ol {
+      counter-reset: ol;
+      list-style-type: none; 
+      margin-left: 0;
+    }
+    .reveal .footnotes ol li:before {
+      counter-increment: ol;
+      content: counter(ol) ". "; 
+    }
+    .reveal .footnotes ol li > p:first-child {
+      display: inline-block;
+    }
+    .reveal .slide ul,
+    .reveal .slide ol {
+      margin-bottom: 0.5em;
+    }
+    .reveal .slide ul li,
+    .reveal .slide ol li {
+      margin-top: 0.4em;
+      margin-bottom: 0.2em;
+    }
+    .reveal .slide ul[role="tablist"] li {
+      margin-bottom: 0;
+    }
+    .reveal .slide ul li > *:first-child,
+    .reveal .slide ol li > *:first-child {
+      margin-block-start: 0;
+    }
+    .reveal .slide ul li > *:last-child,
+    .reveal .slide ol li > *:last-child {
+      margin-block-end: 0;
+    }
+    .reveal .slide .columns:nth-child(3) {
+      margin-block-start: 0.8em;
+    }
+    .reveal blockquote {
+      box-shadow: none;
+    }
+    .reveal .tippy-content>* {
+      margin-top: 0.2em;
+      margin-bottom: 0.7em;
+    }
+    .reveal .tippy-content>*:last-child {
+      margin-bottom: 0.2em;
+    }
+    .reveal .slide > img.stretch.quarto-figure-center,
+    .reveal .slide > img.r-stretch.quarto-figure-center {
+      display: block;
+      margin-left: auto;
+      margin-right: auto; 
+    }
+    .reveal .slide > img.stretch.quarto-figure-left,
+    .reveal .slide > img.r-stretch.quarto-figure-left  {
+      display: block;
+      margin-left: 0;
+      margin-right: auto; 
+    }
+    .reveal .slide > img.stretch.quarto-figure-right,
+    .reveal .slide > img.r-stretch.quarto-figure-right  {
+      display: block;
+      margin-left: auto;
+      margin-right: 0; 
+    }
+  </style>
+  <script type="module" src="SDS320E_5_One_Population_Hypothesis_files/libs/quarto-ojs/quarto-ojs-runtime.js"></script>
+  <link href="SDS320E_5_One_Population_Hypothesis_files/libs/quarto-ojs/quarto-ojs.css" rel="stylesheet">
+</head>
+<body class="hide-solutions quarto-light">
+  <div class="reveal">
+    <div class="slides">
+
+<section id="title-slide" class="quarto-title-block center">
+  <h1 class="title">Hypothesis Testing for One Population</h1>
+
+<div class="quarto-title-authors">
+<div class="quarto-title-author">
+<div class="quarto-title-author-name">
+SDS 320E
+</div>
+</div>
+</div>
+
+</section>
+<section id="inferential-statistics" class="slide level2">
+<h2>Inferential Statistics</h2>
+<div class="absolute" style="top: 80px; left: 400px; ">
+<div style="width:200px;height:100px;background:transparent;border:4px solid; color:#bf5700;">
+
+</div>
+</div>
+<div class="absolute" style="top: 105px; left: 450px; ">
+<p><strong>Statistics</strong></p>
+</div>
+<div class="absolute" style="top: 130px; left: 300px; ">
+<div style="width:100px;height:0px;background:transparent;border:2px solid;">
+
+</div>
+</div>
+<div class="absolute" style="top: 130px; right: 340px; ">
+<div style="width:100px;height:0px;background:transparent;border:2px solid;">
+
+</div>
+</div>
+<div class="absolute" style="top: 205px; right: 265px; ">
+<div style="width:150px;height:0px;background:transparent;border:2px solid;transform:rotate(90deg);">
+
+</div>
+</div>
+<div class="absolute" style="top: 205px; left: 225px; ">
+<div style="width:150px;height:0px;background:transparent;border:2px solid;transform:rotate(90deg);">
+
+</div>
+</div>
+<div class="absolute" style="top: 280px; left: 200px; ">
+<div style="width:200px;height:100px;background:transparent;border:4px solid; color:#bf5700;">
+
+</div>
+</div>
+<div class="absolute" style="top: 280px; right: 240px; ">
+<div style="width:200px;height:100px;background:transparent;border:4px solid; color:#bf5700;">
+
+</div>
+</div>
+<div class="absolute" style="top: 305px; left: 235px; ">
+<p><strong>Descriptive</strong></p>
+</div>
+<div class="absolute" style="top: 305px; right: 275px; ">
+<p><strong>Inferential</strong></p>
+</div>
+<div class="absolute" style="top: 432px; left: 255px; ">
+<div style="width:90px;height:0px;background:transparent;border:2px solid;transform:rotate(90deg);">
+
+</div>
+</div>
+<div class="absolute" style="top: 480px; left: 200px; ">
+<div style="width:200px;height:100px;background:transparent;border:4px solid; color:#bf5700;">
+
+</div>
+</div>
+<div class="absolute" style="top: 475px; left: 195px; ">
+<div style="font-size:.60em;">
+<ul>
+<li><strong>Collecting (Mining) Data</strong></li>
+<li><strong>Processing Data</strong></li>
+<li><strong>Visualizing Data</strong></li>
+<li><strong>Summarizing Data</strong></li>
+</ul>
+</div>
+</div>
+<div class="absolute" style="top: 475px; right: 245px; ">
+<div style="font-size:.65em;">
+<ul>
+<li><strong>Making inferences and</strong> <br> <strong>drawing conclusions</strong> <br> <strong>from data</strong></li>
+</ul>
+</div>
+</div>
+<div class="absolute" style="top: 432px; right: 295px; ">
+<div style="width:90px;height:0px;background:transparent;border:2px solid;transform:rotate(90deg);">
+
+</div>
+</div>
+<div class="absolute" style="top: 480px; right: 240px; ">
+<div style="width:200px;height:100px;background:transparent;border:4px solid; color:#bf5700;">
+
+</div>
+</div>
+</section>
+<section id="inferential-statistics-1" class="slide level2">
+<h2>Inferential Statistics</h2>
+<ul>
+<li class="fragment"><strong>Inferential Statistics:</strong> <em>the process of making judgments about a population based on properties of a sample randomly drawn from the population</em>
+<ul>
+<li class="fragment"><strong>Estimation:</strong> <em>involves approximating the unknown value of a parameter</em>
+<ul>
+<li class="fragment">Point Estimate <span class="subtext">Ex: <span class="math inline">\(\bar{x} = 4.50\)</span></span></li>
+<li class="fragment">Confidence Interval <span class="subtext">Ex: 95% Confident that <span class="math inline">\(3.50 &lt; \mu &lt; 5.50\)</span></span></li>
+</ul></li>
+<li class="fragment"><strong>Hypothesis Testing</strong>…</li>
+</ul></li>
+</ul>
+</section>
+<section id="mathematical-vs-statistical-difference" class="slide level2">
+<h2>Mathematical vs Statistical Difference</h2>
+<ul>
+<li class="fragment"><strong>Mathematical Difference:</strong> <em>simply the mathematical difference/distance between objects</em> <span class="subtext">also called euclidean distance</span></li>
+</ul>
+<div class="fragment" title="Example" style="font-size:1.2em;&quot;">
+<div class="callout callout-tip callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Example</strong></p>
+</div>
+<div class="callout-content">
+<p>Consider the numbers 4.3 and 4.2. What is the a mathematical difference between the numbers?</p>
+</div>
+</div>
+</div>
+</div>
+<div class="fragment">
+<div class="mysolution">
+<p>Just 0.10 <span class="subtext">i.e.&nbsp;4.3 - 4.1</span></p>
+</div>
+</div>
+</section>
+<section id="basketball-difference-example" class="slide level2">
+<h2>Basketball Difference Example</h2>
+<div title="Basketball Example" style="font-size:1.2em;">
+<div class="callout callout-tip callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Basketball Example</strong></p>
+</div>
+<div class="callout-content">
+<p>Consider a basketball game between the Texas and A&amp;M. We want to guess who will win based off points scored and time left in the game.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="columns center">
+<div class="column" style="width:55%;">
+<p><img data-src="figures/longhorn.png"></p>
+</div><div class="column" style="width:10%;">
+
+</div><div class="column" style="width:20%;">
+<p><img data-src="figures/am.png"></p>
+</div></div>
+<div class="absolute" style="top: 400px; left: 500px; ">
+<div style="font-size:1.5em;">
+<p>vs</p>
+</div>
+</div>
+</section>
+<section id="basketball-difference-example-cont." class="slide level2">
+<h2>Basketball Difference Example Cont.</h2>
+<div class="columns">
+<div class="column" style="width:25%;">
+<p><u><span style="color:#BF5700;">Texas</span> points</u></p>
+</div><div class="column" style="width:25%;">
+<p><u><span style="color:#500000;">A&amp;M</span> points</u></p>
+</div><div class="column" style="width:25%;">
+<p><u>Time</u></p>
+</div><div class="column" style="width:25%;">
+<p><u>Winner Guess</u></p>
+</div></div>
+<div class="columns">
+<div class="column fragment" data-fragment-index="1" style="width:25%;">
+<ol type="1">
+<li>22</li>
+</ol>
+</div><div class="column fragment" data-fragment-index="1" style="width:25%;">
+<p>20</p>
+</div><div class="column fragment" data-fragment-index="1" style="width:25%;">
+<p>End <span class="math inline">\(1^{\text{st}}\)</span> Q</p>
+</div><div class="column fragment" data-fragment-index="2" style="width:25%;">
+<p><span class="mysolution">? Too much time &amp; points too close</span></p>
+</div></div>
+<div class="columns">
+<div class="column fragment" data-fragment-index="3" style="width:25%;">
+<ol start="2" type="1">
+<li>102</li>
+</ol>
+</div><div class="column fragment" data-fragment-index="3" style="width:25%;">
+<p>100</p>
+</div><div class="column fragment" data-fragment-index="3" style="width:25%;">
+<p>1 minute left</p>
+</div><div class="column fragment" data-fragment-index="4" style="width:25%;">
+<p><span class="mysolution">UT? Points close, but less time left</span></p>
+</div></div>
+<div class="columns">
+<div class="column fragment" data-fragment-index="5" style="width:25%;">
+<ol start="3" type="1">
+<li>102</li>
+</ol>
+</div><div class="column fragment" data-fragment-index="5" style="width:25%;">
+<p>100</p>
+</div><div class="column fragment" data-fragment-index="5" style="width:25%;">
+<p>1 second left</p>
+</div><div class="column fragment" data-fragment-index="6" style="width:25%;">
+<p><span class="mysolution">Almost definitely UT. Points close, but no time left</span></p>
+</div></div>
+<div class="fragment">
+<ul>
+<li>Every scenario had a mathematical difference of 2 points</li>
+</ul>
+<div class="fragment subbullets absolute" style="top: 500px; ">
+<ul>
+<li>BUT, that was not all we considered!</li>
+</ul>
+</div>
+<div class="mysolution">
+<div class="absolute" style="top: 175px; left: 70px; ">
+<div style="width:200px;height:0px;background:transparent;border:2px solid;">
+
+</div>
+</div>
+<div class="absolute" style="top: 175px; left: 70px; ">
+<p><span style="color:red;">2 point difference</span></p>
+</div>
+<div class="absolute" style="top: 275px; left: 70px; ">
+<div style="width:200px;height:0px;background:transparent;border:2px solid;">
+
+</div>
+</div>
+<div class="absolute" style="top: 275px; left: 70px; ">
+<p><span style="color:red;">2 point difference</span></p>
+</div>
+<div class="absolute" style="top: 375px; left: 70px; ">
+<div style="width:200px;height:0px;background:transparent;border:2px solid;">
+
+</div>
+</div>
+<div class="absolute" style="top: 375px; left: 70px; ">
+<p><span class="mysolution">2 point difference</span></p>
+</div>
+</div>
+</div>
+<div class="fragment">
+<div class="absolute" style="top: 550px; ">
+<div title="Interpretation" style="font-size:1em;">
+<div class="callout callout-note callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Interpretation</strong></p>
+</div>
+<div class="callout-content">
+<p>To guess who would win, we had to consider the points (<span style="visibility:hidden;">math difference</span>) AND the time left (<span style="visibility:hidden;">variability</span>) <span style="visibility:hidden;">i.e.&nbsp;the statistical difference</span></p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="differences-examples-cont." class="slide level2">
+<h2>Differences Examples Cont.</h2>
+<div title="Ramen Example" style="font-size:1.2em;">
+<div class="callout callout-tip callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Ramen Example</strong></p>
+</div>
+<div class="callout-content">
+<p>Suppose we are wanting to pick which ramen package we buy for dinner. Consider the two scenarios.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="center">
+<div class="columns">
+<div class="column" style="width:30%;">
+<p><u>Price: $0.50</u> <br> <img data-src="figures/ramen1.png" style="width:70.0%"></p>
+</div><div class="column" style="width:40%;">
+<p><u>Difference?</u></p>
+<div class="fragment" data-fragment-index="1">
+<p>1.Broke College Student:</p>
+</div>
+<div class="fragment" data-fragment-index="2">
+<p><span class="mysolution">Yes, big ($) difference!</span></p>
+</div>
+<div class="fragment" data-fragment-index="3">
+<p>2.Elon Musk:</p>
+</div>
+<div class="fragment" data-fragment-index="4">
+<p><span class="mysolution">No</span></p>
+</div>
+</div><div class="column" style="width:30%;">
+<p><u>Price: $4.50</u> <br> <img data-src="figures/ramen2.png" style="width:50.0%"></p>
+</div></div>
+</div>
+<div class="fragment">
+<ul>
+<li><span class="mysolution">Differences are only meaningful relative to something!</span></li>
+</ul>
+</div>
+</section>
+<section id="mathematical-vs-statistical-difference-cont." class="slide level2">
+<h2>Mathematical vs Statistical Difference Cont.</h2>
+<div class="fragment">
+<div title="Reminder" style="font-size:1.2em;">
+<div class="callout callout-note callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Reminder</strong></p>
+</div>
+<div class="callout-content">
+<p>Different samples may produce different results due to sampling variability</p>
+</div>
+</div>
+</div>
+</div>
+<div class="absolute" style="top: 170px; left: 275px; width: 500px; ">
+<p><img data-src="figures/population_sample_3-2.jpg"></p>
+</div>
+</div>
+<div class="fragment absolute" style="top: 170px; left: 275px; width: 500px; ">
+<p><img data-src="figures/population_sample_4-1.jpg"></p>
+</div>
+<div class="absolute" style="top: 70%; ">
+<ul>
+<li class="fragment">In statistics, we use variability as a reference for determining a meaningful difference <br></li>
+<li class="fragment"><strong>Statistical Difference:</strong> <em>The difference between objects relative to the variability.</em></li>
+</ul>
+<!-- *We say something is statistically significantly different if there is a large enough difference GIVEN the variability* -->
+</div>
+<!-- ## Basketball Difference Example Cont. -->
+<!-- ::::{.columns style="font-size:.8em;"} -->
+<!-- :::{.column width="25%"} -->
+<!-- [[Texas]{style="color:#BF5700;"} points]{.underline} -->
+<!-- ::: -->
+<!-- :::{.column width="25%"} -->
+<!-- [[A&M]{style="color:#500000;"} points]{.underline} -->
+<!-- ::: -->
+<!-- :::{.column width="25%"} -->
+<!-- [Time]{.underline} -->
+<!-- ::: -->
+<!-- :::{.column width="25%"} -->
+<!-- [Winner Guess]{.underline} -->
+<!-- ::: -->
+<!-- :::: -->
+<!-- :::: {.columns style="font-size:.8em;"} -->
+<!-- ::: {.column width="25%"} -->
+<!-- 1. 22 -->
+<!-- ::: -->
+<!-- ::: {.column width="25%"} -->
+<!-- 20 -->
+<!-- ::: -->
+<!-- ::: {.column width="25%"} -->
+<!-- End $1^{\text{st}}$ Q -->
+<!-- ::: -->
+<!-- ::: {.column width="25%"} -->
+<!-- [? Too much time & points too close]{.mysolution} -->
+<!-- ::: -->
+<!-- :::: -->
+<!-- :::: {.columns style="font-size:.8em;"} -->
+<!-- ::: {.column width="25%"} -->
+<!-- 2. 102 -->
+<!-- ::: -->
+<!-- ::: {.column width="25%"} -->
+<!-- 100 -->
+<!-- ::: -->
+<!-- ::: {.column width="25%"} -->
+<!-- 1 minute left -->
+<!-- ::: -->
+<!-- ::: {.column width="25%"} -->
+<!-- [UT? Points close, but less time left]{.mysolution} -->
+<!-- ::: -->
+<!-- :::: -->
+<!-- :::: {.columns style="font-size:.8em;"} -->
+<!-- ::: {.column width="25%"} -->
+<!-- 3. 102 -->
+<!-- ::: -->
+<!-- ::: {.column width="25%"} -->
+<!-- 100 -->
+<!-- ::: -->
+<!-- ::: {.column width="25%"} -->
+<!-- 1 second left -->
+<!-- ::: -->
+<!-- ::: {.column width="25%"} -->
+<!-- [Almost definitely UT.  Points close, but no time left]{.mysolution} -->
+<!-- ::: -->
+<!-- :::: -->
+<!-- :::{.absolute top=165px left=60px} -->
+<!-- ::: {style="width:200px;height:0px;background:transparent;border:2px solid;"} -->
+<!-- ::: -->
+<!-- ::: -->
+<!-- :::{.absolute top=165px left=65px style="font-size:.8em;"} -->
+<!-- [2 point difference]{.mysolution} -->
+<!-- ::: -->
+<!-- :::{.absolute top=248px left=60px} -->
+<!-- ::: {style="width:200px;height:0px;background:transparent;border:2px solid;"} -->
+<!-- ::: -->
+<!-- ::: -->
+<!-- :::{.absolute top=248px left=65px style="font-size:.8em;"} -->
+<!-- [2 point difference]{.mysolution} -->
+<!-- ::: -->
+<!-- :::{.absolute top=332px left=60px} -->
+<!-- ::: {style="width:200px;height:0px;background:transparent;border:2px solid;"} -->
+<!-- ::: -->
+<!-- ::: -->
+<!-- :::{.absolute top=332px left=65px style="font-size:.8em;"} -->
+<!-- [2 point difference]{.mysolution} -->
+<!-- ::: -->
+<!-- - Every scenario had a mathematical difference of 2 points -->
+<!--   - BUT,  that was not all we considered! -->
+<!-- :::{.callout-note title="Interpretation" style="font-size:1.2em;" .fragment} -->
+<!-- To guess who would win, we had to consider the points ([[math difference]{.mysolution}]{.fragment}) AND the time left ([[variability]{.mysolution}]{.fragment}) [[i.e. the statistical difference]{.mysolution}]{.fragment} -->
+<!-- ::: -->
+</section>
+<section id="hypothesis-testing-introduction" class="slide level2">
+<h2>Hypothesis Testing Introduction</h2>
+<ul>
+<li><strong>Statistical Significance:</strong> We say something is statistically significantly different if there is a large enough difference GIVEN the variability</li>
+</ul>
+<ul>
+<li class="fragment"><strong>Hypothesis Testing:</strong> <em>involves choosing between opposing statements</em> <span class="subtext">often concerning a parameter</span>
+<ul>
+<li class="fragment">Is something different than claimed or assumed to be true?</li>
+<li class="fragment">Has a parameter changed?
+<ul>
+<li class="fragment">That is, is something <em>statistically significantly different</em>?</li>
+</ul></li>
+</ul></li>
+</ul>
+<div class="fragment">
+<ul>
+<li>Hypothesis Testing Use Cases:
+<ul>
+<li>Pharmaceuticals/Drug Approval</li>
+<li>Medical Procedure Approval</li>
+<li>Genetic association</li>
+<li>Product Control</li>
+<li>Marketing Strategies</li>
+</ul></li>
+</ul>
+</div>
+</section>
+<section id="motivating-example" class="slide level2">
+<h2>Motivating Example</h2>
+<div title="---------- Example" style="font-size:1.15em;">
+<div class="callout callout-tip callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>———- Example</strong></p>
+</div>
+<div class="callout-content">
+<p>According to Chips Ahoy, the mean number of chocolate chips <img src="figures/cookie.png" style="height:1.0em; vertical-align:middle;"> in a chewy Chips Ahoy cookie is 25 and the standard deviation is 4. Suppose those in SDS 320E really love chocolate chips and they always count how many chocolate chips are in every Chips Ahoy cookie they eat. After many cookies, they begin to complain that there are not enough chocolate chips. That is, they believe the true mean number of chocolate chips is less than 25.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="absolute" style="top: 68px; left: 50px; width: 67px; ">
+<p><img data-src="figures/chips_ahoy.jpg"></p>
+</div>
+<div class="fragment">
+<ul>
+<li>What is the parameter of interest?</li>
+</ul>
+</div>
+<div class="fragment">
+<div class="center">
+<p><span class="mysolution"><span class="math inline">\(\mu\)</span> = mean number of chocolate chips in chew Chips Ahoy</span></p>
+</div>
+<div class="absolute" style="top: 325px; right: 150px; width: 75px; ">
+<p><img data-src="figures/chips_ahoy_man.png"></p>
+</div>
+</div>
+<div class="fragment">
+<ul>
+<li>What does <img src="figures/chips_ahoy.jpg" style="height:1.0em; vertical-align:middle;"> claim to be true about this parameter?</li>
+</ul>
+</div>
+<div class="center fragment">
+<p><span class="mysolution"><span class="math inline">\(\mu\)</span> = 25</span></p>
+</div>
+<div class="fragment">
+<ul>
+<li>What does those in SDS 320E think is true about this parameter?</li>
+</ul>
+</div>
+<div class="center fragment">
+<p><span class="mysolution"><span class="math inline">\(\mu\)</span> &lt; 25</span></p>
+</div>
+</section>
+<section id="motivating-example-cont." class="slide level2">
+<h2>Motivating Example Cont.</h2>
+<div title="---------- Example" style="font-size:1.2em;">
+<div class="callout callout-tip callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>———- Example</strong></p>
+</div>
+<div class="callout-content">
+<p>According to Chips Ahoy, the mean number of chocolate chips <img src="figures/cookie.png" style="height:1.0em; vertical-align:middle;"> in a chewy Chips Ahoy cookie is 25 and the standard deviation is 4. Suppose those in SDS 320E really love chocolate chips and they always count how many chocolate chips are in every Chips Ahoy cookie they eat. After many cookies, they begin to complain that there are not enough chocolate chips. That is, they believe the true mean number of chocolate chips is less than 25.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="absolute" style="top: 68px; left: 50px; width: 67px; ">
+<p><img data-src="figures/chips_ahoy.jpg"></p>
+</div>
+<ul>
+<li>If we want to access whether Chips Ahoy claim may not be true, what might we do?</li>
+</ul>
+<div class="fragment center">
+<p><span class="mysolution">Take a sample of Chips Ahoy cookies and calculate the mean number of chocolate chips</span> <span class="mysolution"><img src="figures/cookie.png" style="height:1.0em; vertical-align:middle;"></span> <span class="mysolution">to compare it to Chips Ahoy’s claim that <span class="math inline">\(\mu\)</span> = 25</span></p>
+</div>
+</section>
+<section id="motivating-example-cont.-1" class="slide level2">
+<h2>Motivating Example Cont.</h2>
+<div class="center">
+<p><img data-src="figures/chewy.jpg" style="width:90.0%"></p>
+</div>
+</section>
+<section id="our-real-data" class="slide level2">
+<h2>Our Real Data</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="" aria-label="1"></a>cookies <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"datasets/cookies.csv"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="panel-tabset">
+<ul id="tabset-1" class="panel-tabset-tabby"><li><a data-tabby-default="" href="#tabset-1-1">Data</a></li><li><a href="#tabset-1-2">Plot</a></li></ul>
+<div class="tab-content">
+<div id="tabset-1-1">
+<div style="font-size:.75em;">
+<div class="cell">
+<div class="cell-output-display">
+<table class="caption-top">
+<caption>Format of Cookies Dataset</caption>
+<thead>
+<tr class="header">
+<th style="text-align: right;">chips</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">17</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">18</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">15</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">20</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">13</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">10</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</div>
+<div id="tabset-1-2">
+<div style="font-size:.65em;">
+<div class="cell">
+<details class="code-fold">
+<summary>Show code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="" aria-label="1"></a>cookie <span class="sc">|&gt;</span> </span>
+<span id="cb2-2"><a href="" aria-label="2"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(chips))<span class="sc">+</span></span>
+<span id="cb2-3"><a href="" aria-label="3"></a>  <span class="fu">geom_histogram</span>(<span class="at">fill =</span> <span class="st">"#D72A20"</span>)  </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+</div>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure>
+<p><img data-src="SDS320E_5_One_Population_Hypothesis_files/figure-revealjs/unnamed-chunk-6-1.png" width="960"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="our-real-data-cont." class="slide level2">
+<h2>Our Real Data Cont.</h2>
+<ul>
+<li>For our sample, we found a total of <span class="mysolution">150</span> chocolate chips,</li>
+</ul>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="" aria-label="1"></a><span class="fu">sum</span>(cookies<span class="sc">$</span>chips)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p><span class="mysolution" style="font-size:.7em;"><span class="math inline">\(\quad\)</span> [1] 150</span></p>
+<p><span class="math inline">\(\quad\)</span> and we had a total sample size of <span class="mysolution">n = 9</span>.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="" aria-label="1"></a><span class="fu">length</span>(cookies<span class="sc">$</span>chips)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p><span class="mysolution" style="font-size:.7em;"><span class="math inline">\(\quad\)</span> [1] 9</span></p>
+<div class="fragment">
+<ul>
+<li>Thus, our sample mean is</li>
+</ul>
+<div class="center mysolution">
+<p><span class="math inline">\(\bar{x}\)</span> = 150/9 = 16.67 chocolate chips</p>
+</div>
+</div>
+</section>
+<section id="mathematical-vs-statistical-difference-1" class="slide level2">
+<h2>Mathematical vs Statistical Difference</h2>
+<div title="Reminder" style="font-size:1.25em;">
+<div class="callout callout-note callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Reminder</strong></p>
+</div>
+<div class="callout-content">
+<p>Chips Ahoy claims the true mean number of chocolate chips <img src="figures/cookie.png" style="height:1.0em; vertical-align:middle;"> is <span class="math inline">\(\mu\)</span> = 25. We test this by taking a sample and comparing our sample mean to 25.</p>
+</div>
+</div>
+</div>
+</div>
+<ul>
+<li class="fragment">Chips Ahoy claims that the true mean number of chocolate chips is <span class="math inline">\(\mu\)</span> = 25 and for our sample we found that <span class="mysolution"><span class="math inline">\(\bar{x}\)</span> = 16.67</span>
+<ul>
+<li class="fragment">Thus, the mathematical difference is 25 <span class="math inline">\(-\)</span> <span class="mysolution">16.67 = 8.33</span></li>
+</ul></li>
+<li class="fragment">Is this difference large or small?</li>
+</ul>
+<div class="fragment center">
+<p><span class="mysolution">Maybe, maybe not? Again, a difference is only meaningful relative to something!</span></p>
+</div>
+</section>
+<section id="hypothesis-testing-example-cont." class="slide level2">
+<h2>Hypothesis Testing Example Cont.</h2>
+<div title="Idea behind Hypothesis Testing" style="font-size:1.25em;">
+<div class="callout callout-tip callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Idea behind Hypothesis Testing</strong></p>
+</div>
+<div class="callout-content">
+<p>When performing a hypothesis test, what we are trying to decide is, if the true value of the parameter is as claimed i.e.&nbsp;the true mean number of chocolate chips <img src="figures/cookie.png" style="height:1.0em; vertical-align:middle;"> in a chewy Chips Ahoy cookie is <span class="math inline">\(\mu\)</span> = 25, then GIVEN the variability, is it likely or unlikely for our sample to find that <span class="mysolution"><span class="math inline">\(\bar{x}\)</span> = 16.67</span>?</p>
+</div>
+</div>
+</div>
+</div>
+<ul>
+<li class="fragment">That is, is <span class="mysolution"><span class="math inline">\(\bar{x}\)</span> = 16.67</span> <em>statistically significantly different</em> from <span class="math inline">\(\mu\)</span> = 25?
+<ul>
+<li class="fragment">Note: We already have all of the tools to determine this!</li>
+<li class="fragment">We will use:
+<ul>
+<li class="fragment">1.<span class="math inline">\(\text{ }\)</span>The distribution of <span class="math inline">\(\bar{x}\)</span>, and</li>
+<li class="fragment">2.<span class="math inline">\(\text{ }\)</span>Probability</li>
+</ul></li>
+</ul></li>
+</ul>
+</section>
+<section id="distribution-of-sample-mean-barx" class="slide level2">
+<h2>Distribution of Sample Mean <span class="math inline">\(\bar{x}\)</span></h2>
+<div title="Central Limit Theorem (CLT)">
+<div class="callout callout-tip callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Central Limit Theorem (CLT)</strong></p>
+</div>
+<div class="callout-content">
+<p>Let <span class="math inline">\(X\)</span> have the mean <span class="math inline">\(\mu\)</span> and standard deviation <span class="math inline">\(\sigma\)</span>, then for a “sufficiently large” sample size <span class="math inline">\(n\)</span>, the sample mean <span class="math inline">\(\bar{x}\)</span> has the distribution <span class="math display">\[
+\bar{X} \overset{\bullet}{\sim} N(\mu, \sigma/\sqrt{n}).
+\]</span></p>
+</div>
+</div>
+</div>
+</div>
+<ul>
+<li class="fragment">What must be true in order for this to be the distribution of <span class="math inline">\(\bar{X}\)</span>?</li>
+</ul>
+<div class="fragment center">
+<p><span class="mysolution">We have a “sufficiently large” sample size. A crude criterion is <span class="math inline">\(n \geq 30\)</span>.</span></p>
+</div>
+</section>
+<section id="distribution-of-sample-mean-barx-cont." class="slide level2" data-auto-animate="true">
+<h2 data-id="quarto-animate-title">Distribution of Sample Mean <span class="math inline">\(\bar{x}\)</span> Cont.</h2>
+<div title="Reminder" style="font-size:1.2em;">
+<div class="callout callout-note callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Reminder</strong></p>
+</div>
+<div class="callout-content">
+<p>Chips Ahoy claims the true mean number of chocolate chips <img src="figures/cookie.png" style="height:1.0em; vertical-align:middle;"> is <span class="math inline">\(\mu\)</span> = 25 and the standard deviation is <span class="math inline">\(\sigma\)</span> = 4. We took a sample of size <span class="mysolution">n = 9.</span></p>
+</div>
+</div>
+</div>
+</div>
+<div class="fragment">
+<ul>
+<li>Thus, the sampling distribution of <span class="math inline">\(\bar{X}\)</span> is</li>
+</ul>
+<div class="center">
+<p><span class="mysolution"><span class="math inline">\(\bar{X} \overset{\bullet}{\sim} N(\mu, \sigma/\sqrt{n}) = N(25, 4/\sqrt{9})\)</span></span></p>
+</div>
+<div class="absolute" style="top: 180px; left: 650px; ">
+<p><span class="subtext mysolution"><span class="math inline">\(n = 9 \geq 30\)</span></span></p>
+</div>
+</div>
+<div class="fragment absolute" data-id="plot" style="top: 350px; left: 100px; ">
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure>
+<p><img data-src="SDS320E_5_One_Population_Hypothesis_files/figure-revealjs/unnamed-chunk-13-1.png" width="960"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="distribution-of-sample-mean-barx-cont.-1" class="slide level2" data-auto-animate="true">
+<h2 data-id="quarto-animate-title">Distribution of Sample Mean <span class="math inline">\(\bar{x}\)</span> Cont.</h2>
+<div class="absolute" data-id="plot" style="top: 50px; left: 100px; ">
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure>
+<p><img data-src="SDS320E_5_One_Population_Hypothesis_files/figure-revealjs/unnamed-chunk-14-1.png" width="960"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+<div class="absolute" style="top: 50px; left: 100px; ">
+<div class="mysolution">
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure>
+<p><img data-src="SDS320E_5_One_Population_Hypothesis_files/figure-revealjs/unnamed-chunk-15-1.png" width="960"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="absolute" style="top: 425px; left: 0px; ">
+<ul>
+<li>To see how likely it is to get <span class="mysolution"><span class="math inline">\(\bar{x}\)</span> = 16.67</span>, we can find the</li>
+</ul>
+</div>
+<div class="fragment">
+<div class="absolute" style="top: 61%; left: 65%; ">
+<p><span class="mysolution">probability</span></p>
+</div>
+<div class="absolute" style="top: 50px; left: 100px; ">
+<div class="mysolution">
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure>
+<p><img data-src="SDS320E_5_One_Population_Hypothesis_files/figure-revealjs/unnamed-chunk-16-1.png" width="960"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="probability-of-barx" class="slide level2" data-auto-animate="true">
+<h2 data-id="quarto-animate-title">Probability of <span class="math inline">\(\bar{x}\)</span></h2>
+<div class="absolute" style="top: 50px; left: 100px; ">
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure>
+<p><img data-src="SDS320E_5_One_Population_Hypothesis_files/figure-revealjs/unnamed-chunk-17-1.png" width="960"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+<div class="absolute mysolution" style="top: 50px; left: 100px; ">
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure>
+<p><img data-src="SDS320E_5_One_Population_Hypothesis_files/figure-revealjs/unnamed-chunk-18-1.png" width="960"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+<div class="absolute" style="top: 425px; left: 0px; ">
+<ul>
+<li>To find <span class="mysolution"><span class="math inline">\(P(\bar{X} \leq 16.67)\)</span></span>, we compute the <em>z-score</em> <span class="subtext">z-score = <span class="math inline">\(\frac{data - mean}{st. dev.}\)</span></span></li>
+</ul>
+</div>
+<div class="fragment absolute" style="top: 475px; left: 350px; ">
+<p><span class="mysolution"><span class="math display">\[
+z = \frac{16.67 - 25}{4/\sqrt{9}} = -6.25
+\]</span></span></p>
+</div>
+<div class="absolute" style="top: 650px; ">
+<ul>
+<li class="fragment">What is the Distribution of <span class="math inline">\(Z\)</span>?</li>
+</ul>
+</div>
+<div class="fragment">
+<div class="absolute" style="top: 650px; left: 450px; ">
+<p><span class="mysolution"><span class="math inline">\(Z \stackrel{\bullet}{\sim} N(0, 1)\)</span></span></p>
+</div>
+<div class="absolute mysolution" style="top: 50px; left: 100px; ">
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure>
+<p><img data-src="SDS320E_5_One_Population_Hypothesis_files/figure-revealjs/unnamed-chunk-20-1.png" width="960"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="probability-of-barx-cont." class="slide level2">
+<h2>Probability of <span class="math inline">\(\bar{x}\)</span> Cont.</h2>
+<div class="absolute" style="top: 50px; left: 100px; ">
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure>
+<p><img data-src="SDS320E_5_One_Population_Hypothesis_files/figure-revealjs/unnamed-chunk-21-1.png" width="960"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+<div class="absolute mysolution" style="top: 50px; left: 100px; ">
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure>
+<p><img data-src="SDS320E_5_One_Population_Hypothesis_files/figure-revealjs/unnamed-chunk-22-1.png" width="960"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+<div class="fragment">
+<div class="absolute" style="top: 425px; ">
+<ul>
+<li>Thus, we have</li>
+</ul>
+</div>
+<div class="absolute" style="top: 455px; left: 100px; ">
+<p><span class="mysolution"><span class="math inline">\(P(\bar{X} \leq 16.67) = P(Z \leq -6.25)\)</span> =</span></p>
+</div>
+</div>
+<div class="fragment absolute" style="bottom: 50px; ">
+<div class="cell">
+<div>
+<div id="webr-1" class="exercise-cell">
+
+</div>
+<script type="webr-1-contents">
+eyJhdHRyIjp7ImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoicG5vcm0oKSJ9
+</script>
+</div>
+</div>
+</div>
+<div class="fragment">
+<div class="absolute" style="top: 455px; left: 100px; ">
+<p><span class="mysolution"><span class="math inline">\(P(\bar{X} \leq 16.67) = P(Z \leq -6.25)\)</span> = <span style="color:red;"><span class="math inline">\(2.0522634\times 10^{-10}\)</span></span> <span class="subtext">from z-chart or <code>pnorm()</code> in R</span></span></p>
+</div>
+<!-- :::{.absolute top=455px left=550px} -->
+<!-- [$2.0522634\times 10^{-10}$]{style="color:red;"} [from z-chart or `pnorm()` in R]{.subtext}  -->
+<!-- ::: -->
+</div>
+</section>
+<section id="probability-of-barx-cont.-1" class="slide level2">
+<h2>Probability of <span class="math inline">\(\bar{x}\)</span> Cont.</h2>
+<ul>
+<li>We have <span class="mysolution"><span class="math inline">\(P(\bar{X} \leq 16.67) = 2.0522634\times 10^{-10}\)</span></span>
+<ul>
+<li>How do we interpret this probability?</li>
+</ul></li>
+</ul>
+<ul>
+<li class="fragment">If Chips Ahoy’s claim is true that the mean number of chocolate chips <img src="figures/cookie.png" style="height:1.0em; vertical-align:middle;"> is <span class="math inline">\(\mu\)</span> = 25, then there is a <span class="mysolution"><span class="math inline">\(2.0522634\times 10^{-10}\)</span></span> chance that we would get <span class="mysolution"><span class="math inline">\(\bar{x}\)</span> = 16.67.</span></li>
+</ul>
+<div class="fragment center">
+<p><span class="mysolution">But, we did get <span class="math inline">\(\bar{x} = 16.67\)</span>! And we know we took a valid sample.</span></p>
+</div>
+<ul>
+<li class="fragment">Thus, what does this small probability tell us about Chips Ahoy’s claim?</li>
+</ul>
+<div class="fragment center">
+<p><span class="mysolution">It tells us that their claim most likely is incorrect. That is, we have sufficient evidence to reject their claim.</span></p>
+</div>
+<div class="fragment center">
+<p><span class="subtext">We have just performed a hypothesis test! That is, we have tested a claim and reached a conclusion.</span></p>
+</div>
+</section>
+<section id="more-on-the-p-value" class="slide level2">
+<h2>More on the P-Value</h2>
+<ul>
+<li class="fragment"><strong>P-value:</strong> The probability of getting what we got or more extreme, while assuming the Null Hypothesis (<span class="math inline">\(H_{0}\)</span>) is true
+<ul>
+<li class="fragment">Note: The p-value is <span style="color:red;"><u>NOT</u></span> the probability that <span class="math inline">\(H_{0}\)</span> is true <span class="subtext">most common incorrect interpretation</span></li>
+</ul></li>
+</ul>
+<ul>
+<li class="fragment">The p-value we found was very small, but generally, how do we define very small?</li>
+<li class="fragment"><strong>Level of Significance (<span class="math inline">\(\alpha\)</span>):</strong> The probability we reject a true <span class="math inline">\(H_{0}\)</span> <span class="subtext">Probability of a type-I error</span>
+<ul>
+<li class="fragment">Most researchers set <span class="math inline">\(\alpha\)</span> at a fixed value and it is the risk we are willing to take of rejecting a true <span class="math inline">\(H_{0}\)</span> <span class="subtext">Thus, we will compare the p-value to <span class="math inline">\(\alpha\)</span></span></li>
+</ul></li>
+</ul>
+<ul>
+<li class="fragment">Conclusions:
+<ul>
+<li class="fragment">If the <span class="mysolution">p-value <span class="math inline">\(&lt; \alpha\)</span></span>, then we say we have sufficient evidence to <span class="mysolution">Reject <span class="math inline">\(H_{0}\)</span></span>.</li>
+<li class="fragment">If the <span class="mysolution">p-value <span class="math inline">\(&gt; \alpha\)</span></span>, then we do NOT have sufficient evidence to reject <span class="math inline">\(H_{0}\)</span>. Thus, we say we <span class="mysolution">Fail to Reject <span class="math inline">\(H_{0}\)</span></span>. <span class="subtext">Note: We do not say we accept <span class="math inline">\(H_{0}\)</span> or <span class="math inline">\(H_{0}\)</span> is true</span></li>
+</ul></li>
+</ul>
+<div class="fragment subtext absolute" style="top: 650px; ">
+<p>Note: The p-value is not the only way to reach a conclusion in a hypothesis test, but it will always lead to the same conclusion as other methods</p>
+</div>
+</section>
+<section>
+<section id="hypothesis-testing-formalized" class="title-slide slide level1 center">
+<h1>Hypothesis Testing Formalized</h1>
+
+</section>
+<section id="hypotheses" class="slide level2">
+<h2>Hypotheses</h2>
+<ul>
+<li class="fragment"><strong>Hypothesis Testing:</strong> <em>involves choosing between opposing statements</em> <span class="subtext">often concerning a parameter</span>
+<ul>
+<li class="fragment"><strong>Null Hypothesis (<span class="math inline">\(H_{0}\)</span>):</strong> The hypothesis that is assumed or claimed to be true
+<ul>
+<li class="fragment">For our class, the null hypotheses we will learn will be strict equalites</li>
+<li class="fragment">Ex: <span class="math inline">\(\mu = 5,\ p = 0.20, \mu_{1} = \mu_{2}\)</span>, ect. <br> <br></li>
+</ul></li>
+<li class="fragment"><strong>Alternative Hypothesis (<span class="math inline">\(H_{a}\)</span>):</strong> The hypothesis that is often answers our research question or what we want to know
+<ul>
+<li class="fragment">For our class, the alternative hypotheses we will learn will be strict inequalities</li>
+<li class="fragment">Ex: <span class="math inline">\(\mu &lt; 5, \mu &gt; 5, \mu \neq 5, \mu_{1} &gt; \mu_{2}\)</span>, ect.</li>
+</ul></li>
+</ul></li>
+</ul>
+<div class="fragment center">
+<p><span class="mysolution"><u>Step 1: State your hypotheses</u></span></p>
+</div>
+<!-- ## Hypotheses Cont. -->
+<!-- ```{r, echo=FALSE} -->
+<!-- tail_plot2 <- function(z0, tails) { -->
+<!--   x <- seq(-4, 4, length.out = 1000) -->
+<!--   df <- tibble(x = x, fx = dnorm(x)) -->
+<!--   g <- ggplot(df, aes(x, fx)) + geom_line() -->
+<!--   # if (tails %in% c("left", "two")) { -->
+<!--   #   g <- g + geom_ribbon(data = subset(df, x <= -z0), -->
+<!--   #                        aes(ymin = 0, ymax = fx), -->
+<!--   #                         alpha = 0.25) -->
+<!--   # } -->
+<!--   # if (tails %in% c("right", "two")) { -->
+<!--   #   g <- g + geom_ribbon(data = subset(df, x >= z0), -->
+<!--   #                        aes(ymin = 0, ymax = fx), -->
+<!--   #                         alpha = 0.25) -->
+<!--   # } -->
+<!--   g + -->
+<!--     labs(x = NULL, y = NULL) + -->
+<!--     theme(axis.text = element_blank(), -->
+<!--           axis.ticks = element_blank()) -->
+<!-- } -->
+<!-- z0 <- 1.75 -->
+<!-- ``` -->
+<!-- ```{r, echo=FALSE} -->
+<!-- tail_plot <- function(z0, tails) { -->
+<!--   x <- seq(-4, 4, length.out = 1000) -->
+<!--   df <- tibble(x = x, fx = dnorm(x)) -->
+<!--   g <- ggplot(df, aes(x, fx)) + geom_line() -->
+<!--   if (tails %in% c("left", "two")) { -->
+<!--     g <- g + geom_ribbon(data = subset(df, x <= -z0), -->
+<!--                          aes(ymin = 0, ymax = fx), -->
+<!--                          fill = "firebrick", alpha = 0.25) -->
+<!--   } -->
+<!--   if (tails %in% c("right", "two")) { -->
+<!--     g <- g + geom_ribbon(data = subset(df, x >= z0), -->
+<!--                          aes(ymin = 0, ymax = fx), -->
+<!--                          fill = "firebrick", alpha = 0.25) -->
+<!--   } -->
+<!--   g + -->
+<!--     labs(x = NULL, y = NULL) + -->
+<!--     theme(axis.text = element_blank(), -->
+<!--           axis.ticks = element_blank()) -->
+<!-- } -->
+<!-- z0 <- 1.75 -->
+<!-- ``` -->
+<!-- - The form of the hypothesis statements are often referred to as the following: -->
+<!-- :::{.columns} -->
+<!-- :::{.column width=30% .fragment} -->
+<!-- :::{.center} -->
+<!-- [**Right Tailed**]{.underline} -->
+<!-- [$H_{0}:$ parameter $=$ value]{.fragment} -->
+<!-- [$H_{a}:$ [parameter $<$ value]{.mysolution}]{.fragment} -->
+<!-- ::: -->
+<!-- :::{.fragment} -->
+<!-- ```{r, echo=FALSE, fig.height=2.5, fig.width=3.5} -->
+<!-- tail_plot2(z0, "left") -->
+<!-- ``` -->
+<!-- ::: -->
+<!-- <!-- :::{.fragment .absolute top=300px} -->
+<!-- <!-- ```{r, echo=FALSE, fig.height=2.5, fig.width=3.5} -->
+<!-- <!-- tail_plot(z0, "left") -->
+<!-- <!-- ``` -->
+<!-- <!-- ::: -->
+<!-- ::: -->
+<!-- :::{.column width=30% .fragment} -->
+<!-- :::{.center} -->
+<!-- [**Left Tailed**]{.underline} -->
+<!-- $H_{0}:$ parameter $=$ value -->
+<!-- [$H_{a}:$ [parameter $>$ value]{.mysolution}]{.fragment} -->
+<!-- ::: -->
+<!-- :::{.fragment} -->
+<!-- ```{r, echo=FALSE, fig.height=2.5, fig.width=3.5} -->
+<!-- tail_plot2(z0, "right") -->
+<!-- ``` -->
+<!-- ::: -->
+<!-- ::: -->
+<!-- :::{.column width=30% .fragment} -->
+<!-- :::{.center} -->
+<!-- [**Two Tailed**]{.underline} -->
+<!-- $H_{0}:$ parameter $=$ value -->
+<!-- [$H_{a}:$ [parameter $\neq$ value]{.mysolution}]{.fragment} -->
+<!-- ::: -->
+<!-- :::{.fragment} -->
+<!-- ```{r, echo=FALSE, fig.height=2.5, fig.width=3.5} -->
+<!-- tail_plot2(z0, "two") -->
+<!-- ``` -->
+<!-- ::: -->
+<!-- ::: -->
+<!-- ::: -->
+</section>
+<section id="test-statistics" class="slide level2">
+<h2>Test Statistics</h2>
+<ul>
+<li class="fragment"><strong>Test Statistics:</strong> <em>the statistic for the hypothesis test that represents our observed data, while adjusting for variability</em> <span class="subtext">i.e.&nbsp;the statistical difference</span>
+<ul>
+<li class="fragment">General form for one population test:</li>
+</ul></li>
+</ul>
+<div class="fragment">
+<p><span class="math display">\[\text{Test Statistic} = \frac{\text{Observed} - \text{Hypothesized}}{\text{Standard Error}}\]</span></p>
+</div>
+<div class="fragment subtext">
+<p>The exact formula for the test statistic will depend on the type of data and the hypothesis test being performed</p>
+</div>
+<ul>
+<li class="fragment">The Test Statistic will follow a specific sampling distribution <span class="subtext">i.e.&nbsp;TS <span class="math inline">\(\sim\)</span> some distribution</span>
+<ul>
+<li class="fragment">The distribution will tell us what values of the test statistic are likely or unlikely GIVEN the <span class="math inline">\(H_{0}\)</span> is true</li>
+<li class="fragment">The test statistic only follows this distribution under certain assumption(s)<br>
+</li>
+</ul></li>
+</ul>
+<div class="fragment center">
+<p><span class="mysolution"><u>Step 2: Find the Test Statistic and Specify its Distribution</u></span></p>
+</div>
+</section>
+<section id="assumptions" class="slide level2">
+<h2>Assumptions</h2>
+<div title="Reminder" style="font-size:1.1em;">
+<div class="callout callout-note callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Reminder</strong></p>
+</div>
+<div class="callout-content">
+<p>All of our results (confidence interval, p-value and ect…) are based upon certain assumptions</p>
+</div>
+</div>
+</div>
+</div>
+<div style="font-size:.9em;">
+<ul>
+<li class="fragment">If the assumptions are not true, then generally the results are not valid or cannot be trusted!
+<ul>
+<li class="fragment">Thus, <span class="fragment"><span class="mysolution">we must ALWAYS verify our assumptions are reasonably met</span></span></li>
+<li class="fragment">If distributional assumptions are not reasonable, transformations such as the log and others may help <span class="subtext">Box Cox is another popular transformation</span></li>
+</ul></li>
+</ul>
+</div>
+<div class="fragment center">
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure>
+<p><img data-src="SDS320E_5_One_Population_Hypothesis_files/figure-revealjs/unnamed-chunk-25-1.png" width="960"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+<!-- - If the equal variance assumption is not met, we can use the Welch's ANOVA test which does not assume equal variances -->
+<div class="fragment" style="font-size:1.1em;">
+<div class="callout callout-important callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Important</strong></p>
+</div>
+<div class="callout-content">
+<p>If our assumptions are not met, we can not just proceed like nothing happened! We need to try remedies or consider other test/methods that fit our scenario.</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="concluding-a-hypothesis-test" class="slide level2">
+<h2>Concluding a Hypothesis Test</h2>
+<ul>
+<li class="fragment">There are multiple ways to reach a conclusion for a hypothesis test
+<ul>
+<li class="fragment">P-value</li>
+<li class="fragment">Rejection Region</li>
+<li class="fragment">Confidence Interval(s) <span class="subtext">note: intervals are often used in tandem with hypothesis test</span></li>
+</ul></li>
+<li class="fragment">All of these methods MUST and will reach the same conclusion</li>
+</ul>
+<ul>
+<li class="fragment">Every method ends with one of two decisions about <span class="math inline">\(H_{0}\)</span>:
+<ul>
+<li class="fragment"><span class="mysolution">Reject <span class="math inline">\(H_{0}\)</span></span>: we have sufficient evidence against the claim</li>
+<li class="fragment"><span class="mysolution">Fail to Reject <span class="math inline">\(H_{0}\)</span></span>: we do NOT have sufficient evidence against the claim <span class="subtext">Note: We do not say we accept <span class="math inline">\(H_{0}\)</span> or <span class="math inline">\(H_{0}\)</span> is true</span></li>
+</ul></li>
+</ul>
+<div class="fragment center">
+<p><span class="mysolution"><u>Step 3: Use one of these methods and make a conclusion</u></span></p>
+</div>
+</section>
+<section id="issues-with-concluding-a-hypothesis-test" class="slide level2">
+<h2>Issues with Concluding a Hypothesis Test</h2>
+<div class="fragment" data-fragment-index="1">
+<ul>
+<li>Since our conclusion is based on one sample, we CAN make a mistake
+<ul>
+<li><span class="fragment" data-fragment-index="2">There are two types of errors we could make</span> <br> <br></li>
+</ul></li>
+</ul>
+</div>
+<div class="fragment" data-fragment-index="3">
+<div class="absolute fragment" data-fragment-index="4" style="top: 170px; left: 500px; ">
+<p><em>The Truth</em></p>
+</div>
+<table class="caption-top">
+<colgroup>
+<col style="width: 26%">
+<col style="width: 36%">
+<col style="width: 37%">
+</colgroup>
+<thead>
+<tr class="header">
+<th></th>
+<th><span class="fragment" data-fragment-index="4"><span class="math inline">\(H_{0}\)</span> is True</span></th>
+<th><span class="fragment" data-fragment-index="4"><span class="math inline">\(H_{0}\)</span> is False</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Reject <span class="math inline">\(H_{0}\)</span></strong></td>
+<td><span class="fragment" data-fragment-index="6"><span class="mysolution">Type I Error</span></span></td>
+<td><span class="fragment" data-fragment-index="8"><span class="mysolution">Correct Decision</span></span></td>
+</tr>
+<tr class="even">
+<td><strong>Fail to Reject <span class="math inline">\(H_{0}\)</span></strong></td>
+<td><span class="fragment" data-fragment-index="5"><span class="mysolution">Correct Decision</span></span></td>
+<td><span class="fragment" data-fragment-index="9"><span class="mysolution">Type II Error</span></span></td>
+</tr>
+</tbody>
+</table>
+<div class="absolute" style="transform: rotate(-90deg); white-space: nowrap;top: 270px; right: 920px; ">
+<p><em>Decision Made</em></p>
+</div>
+<div class="absolute" style="height:150px; border-left:2px solid;top: 225px; left: 310px; ">
+
+</div>
+</div>
+<p><br></p>
+<div class="fragment" data-fragment-index="6">
+<ul>
+<li><strong>Type I Error:</strong> <span class="mysolution">Rejecting <span class="math inline">\(H_{0}\)</span> when <span class="math inline">\(H_{0}\)</span> is actually true</span>
+<ul>
+<li><span class="fragment" data-fragment-index="7">The probability of a Type I error is the <em>level of significance</em> (<span class="math inline">\(\alpha\)</span>)</span></li>
+</ul></li>
+</ul>
+</div>
+<div class="fragment" data-fragment-index="9">
+<ul>
+<li><strong>Type II Error:</strong> <span class="mysolution">Failing to reject <span class="math inline">\(H_{0}\)</span> when <span class="math inline">\(H_{0}\)</span> is actually false</span>
+<ul>
+<li><span class="fragment" data-fragment-index="10">The probability of a Type II error is denoted <span class="math inline">\(\beta\)</span></span></li>
+</ul></li>
+</ul>
+</div>
+<ul>
+<li class="fragment"><strong>Power:</strong> The probability of correctly rejecting a false <span class="math inline">\(H_{0}\)</span> <span class="subtext">(what we “want”). Power = 1 - <span class="math inline">\(\beta\)</span></span></li>
+</ul>
+<!-- :::{.fragment} -->
+<!-- [Note: We never know for sure whether we made an error, because we never know the true value of the parameter]{.subtext} -->
+<!-- ::: -->
+</section>
+<section id="methods-for-concluding-a-hypothesis-test-p-value" class="slide level2">
+<h2>Methods for Concluding a Hypothesis Test: P-value</h2>
+<ul>
+<li class="fragment"><strong>P-value:</strong> the probability of getting what we got or more extreme, assuming <span class="math inline">\(H_{0}\)</span> is true
+<ul>
+<li class="fragment">The direction of “more extreme” depends on the type of test:</li>
+</ul></li>
+</ul>
+<div class="columns">
+<div class="column fragment" style="width:30%;">
+<div class="center">
+<p><u><strong>Right Tailed</strong></u></p>
+<!-- [$H_{0}:$ parameter $=$ value]{.fragment} -->
+<p><span class="fragment"><span class="math inline">\(H_{a}:\)</span> <span class="mysolution">parameter <span class="math inline">\(&gt;\)</span> value</span></span></p>
+</div>
+<div class="fragment">
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure>
+<p><img data-src="SDS320E_5_One_Population_Hypothesis_files/figure-revealjs/unnamed-chunk-28-1.png" width="336"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+<!-- :::{.fragment .absolute top=300px} -->
+<!-- ```{r, echo=FALSE, fig.height=2.5, fig.width=3.5} -->
+<!-- tail_plot(z0, "left") -->
+<!-- ``` -->
+<!-- ::: -->
+</div><div class="column fragment" style="width:30%;">
+<div class="center">
+<p><u><strong>Left Tailed</strong></u></p>
+<!-- $H_{0}:$ parameter $=$ value -->
+<p><span class="fragment"><span class="math inline">\(H_{a}:\)</span> <span class="mysolution">parameter <span class="math inline">\(&lt;\)</span> value</span></span></p>
+</div>
+<div class="fragment">
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure>
+<p><img data-src="SDS320E_5_One_Population_Hypothesis_files/figure-revealjs/unnamed-chunk-29-1.png" width="336"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+</div><div class="column fragment" style="width:30%;">
+<div class="center">
+<p><u><strong>Two Tailed</strong></u></p>
+<!-- $H_{0}:$ parameter $=$ value -->
+<p><span class="fragment"><span class="math inline">\(H_{a}:\)</span> <span class="mysolution">parameter <span class="math inline">\(\neq\)</span> value</span></span></p>
+</div>
+<div class="fragment">
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure>
+<p><img data-src="SDS320E_5_One_Population_Hypothesis_files/figure-revealjs/unnamed-chunk-30-1.png" width="336"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+</div></div>
+<ul>
+<li class="fragment">We compare the p-value to <span class="math inline">\(\alpha\)</span>
+<ul>
+<li class="fragment">If p-value <span class="math inline">\(&lt; \alpha\)</span>, <span class="mysolution">Reject <span class="math inline">\(H_{0}\)</span></span></li>
+<li class="fragment">If p-value <span class="math inline">\(&gt; \alpha\)</span>, <span class="mysolution">Fail to Reject <span class="math inline">\(H_{0}\)</span></span></li>
+</ul></li>
+</ul>
+</section>
+<section id="methods-for-concluding-a-hypothesis-test-rejection-region" class="slide level2">
+<h2><span style="font-size:.9em;">Methods for Concluding a Hypothesis Test: Rejection Region</span></h2>
+<ul>
+<li class="fragment"><strong>Rejection Region:</strong> the set of test statistic values that are extreme enough for us to reject <span class="math inline">\(H_{0}\)</span> <span class="subtext">i.e.&nbsp;a cutoff/treshold value for rejecting <span class="math inline">\(H_{0}\)</span></span> <!-- - The boundary of the rejection region is called the **critical value(s)** --> <!-- - The area of the rejection region under the distribution of the test is $\alpha$ -->
+<ul>
+<li class="fragment">The location of the rejection region depends on the type of test:</li>
+</ul></li>
+</ul>
+<div class="columns">
+<div class="column fragment" style="width:30%;">
+<div class="center">
+<p><u><strong>Right Tailed</strong></u></p>
+<!-- [$H_{0}:$ parameter $=$ value]{.fragment} -->
+<p><span class="fragment"><span class="math inline">\(H_{a}:\)</span> <span class="mysolution">parameter <span class="math inline">\(&gt;\)</span> value</span></span></p>
+</div>
+<div class="fragment">
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure>
+<p><img data-src="SDS320E_5_One_Population_Hypothesis_files/figure-revealjs/unnamed-chunk-31-1.png" width="336"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+<!-- :::{.fragment .absolute top=300px} -->
+<!-- ```{r, echo=FALSE, fig.height=2.5, fig.width=3.5} -->
+<!-- tail_plot(z0, "left") -->
+<!-- ``` -->
+<!-- ::: -->
+</div><div class="column fragment" style="width:30%;">
+<div class="center">
+<p><u><strong>Left Tailed</strong></u></p>
+<!-- $H_{0}:$ parameter $=$ value -->
+<p><span class="fragment"><span class="math inline">\(H_{a}:\)</span> <span class="mysolution">parameter <span class="math inline">\(&lt;\)</span> value</span></span></p>
+</div>
+<div class="fragment">
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure>
+<p><img data-src="SDS320E_5_One_Population_Hypothesis_files/figure-revealjs/unnamed-chunk-32-1.png" width="336"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+</div><div class="column fragment" style="width:30%;">
+<div class="center">
+<p><u><strong>Two Tailed</strong></u></p>
+<!-- $H_{0}:$ parameter $=$ value -->
+<p><span class="fragment"><span class="math inline">\(H_{a}:\)</span> <span class="mysolution">parameter <span class="math inline">\(\neq\)</span> value</span></span></p>
+</div>
+<div class="fragment">
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure>
+<p><img data-src="SDS320E_5_One_Population_Hypothesis_files/figure-revealjs/unnamed-chunk-33-1.png" width="336"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+</div></div>
+<ul>
+<li class="fragment">We check whether the test statistic falls in the rejection region
+<ul>
+<li class="fragment">If the test statistic is in the rejection region, we <span class="mysolution">Reject <span class="math inline">\(H_{0}\)</span></span></li>
+<li class="fragment">If the test statistic is not in the rejection region, we <span class="mysolution">Fail to Reject <span class="math inline">\(H_{0}\)</span></span></li>
+</ul></li>
+</ul>
+</section>
+<section id="effect-size-for-hypothesis-test-motivation" class="slide level2">
+<h2>“Effect Size” for Hypothesis Test Motivation</h2>
+<div title="Example" style="font-size:1.2em;">
+<div class="callout callout-tip callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Example</strong></p>
+</div>
+<div class="callout-content">
+<p>Suppose one is interested in determining if there is a difference between the mean SAT scores for the genders Male and Female. For <span class="math inline">\(H_{0}\)</span>, we assume that there is no difference in SAT scores between genders. That is,</p>
+<div class="fragment">
+<p><span class="math display">\[H_{0}: Mean\ SAT_{Female} = Mean\ SAT_{Male}\]</span></p>
+</div>
+<div class="fragment">
+<p>If we reject <span class="math inline">\(H_{0}\)</span>, what does that tell us?</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="fragment">
+<div class="mysolution">
+<p>There is sufficient evidence to conclude that the mean SAT scores between Male and Female are not the same.</p>
+</div>
+</div>
+<div class="fragment">
+<p>Because we rejected <span class="math inline">\(H_{0}\)</span>, what would we naturally be interested in?</p>
+</div>
+<div class="fragment">
+<p><span class="mysolution">Estimating the mean SAT scores for the genders and determing which one is higher</span></p>
+</div>
+</section>
+<section id="effect-size-for-hypothesis-test-confidence-intervals" class="slide level2">
+<h2>“Effect Size” for Hypothesis Test: Confidence Intervals</h2>
+<ul>
+<li class="fragment"><strong>Effect size:</strong> a measure of <em>how big</em> the difference (or effect) is for a relationship <span class="subtext">i.e.&nbsp;the practical difference</span>
+<ul>
+<li class="fragment">A hypothesis test only tells us IF the parameter differs from the hypothesized value, not by how much</li>
+</ul></li>
+</ul>
+<ul>
+<li class="fragment">A <em>confidence interval</em> estimates the plausible values of the parameter. Thus, it gives us a measure like an “effect size”
+<ul>
+<li class="fragment">The form of the interval depends on the type of test:</li>
+</ul></li>
+</ul>
+<div class="columns">
+<div class="column fragment" style="width:30%;">
+<div class="center">
+<p><u><strong>Right Tailed</strong></u></p>
+<p><span class="fragment"><span class="math inline">\(H_{a}:\)</span> <span class="mysolution">parameter <span class="math inline">\(&gt;\)</span> value</span></span></p>
+</div>
+<div class="fragment">
+<div class="center mysolution">
+<p><span class="math display">\[\text{parameter} &gt; LB\]</span></p>
+<p><span class="subtext">Lower bound only</span></p>
+</div>
+</div>
+</div><div class="column fragment" style="width:30%;">
+<div class="center">
+<p><u><strong>Left Tailed</strong></u></p>
+<p><span class="fragment"><span class="math inline">\(H_{a}:\)</span> <span class="mysolution">parameter <span class="math inline">\(&lt;\)</span> value</span></span></p>
+</div>
+<div class="fragment">
+<div class="center mysolution">
+<p><span class="math display">\[\text{parameter} &lt; UB\]</span></p>
+<p><span class="subtext">Upper bound only</span></p>
+</div>
+</div>
+</div><div class="column fragment" style="width:30%;">
+<div class="center">
+<p><u><strong>Two Tailed</strong></u></p>
+<p><span class="fragment"><span class="math inline">\(H_{a}:\)</span> <span class="mysolution">parameter <span class="math inline">\(\neq\)</span> value</span></span></p>
+</div>
+<div class="fragment">
+<div class="center mysolution">
+<p><span class="math display">\[LB &lt; \text{parameter} &lt; UB\]</span></p>
+<p><span class="subtext">Lower and upper bound</span></p>
+</div>
+</div>
+</div></div>
+<div class="fragment subtext">
+<p>Note: We could also use a confidence interval to make a conclusion for a hypothesis test</p>
+</div>
+</section>
+<section id="practical-vs-significant-difference" class="slide level2">
+<h2>Practical vs Significant Difference</h2>
+<div title="Example" style="font-size:1.1em;">
+<div class="callout callout-tip callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Example</strong></p>
+</div>
+<div class="callout-content">
+<p>A school district proposes a new teaching method to increase reading comprehension for students. Students in the district currently average 70 points on a 100 point reading comprehension exam. The new method is tried on a random sample of 5,000 students, and the school district wants to determine the new method yields an significant increase in reading comprehension for students.</p>
+</div>
+</div>
+</div>
+</div>
+<div style="font-size:.9em;">
+<ol type="1">
+<li class="fragment">Suppose <span class="math inline">\(\alpha\)</span> is set to 5%. The school performs a hypothesis test and finds the p-value = 0.02. What is the conclusion?</li>
+</ol>
+<div class="fragment">
+<p><span class="mysolution">We <span class="mysolution">Reject <span class="math inline">\(H_{0}\)</span></span>. There is sufficient evidence that the new method increases the mean score.</span></p>
+</div>
+<ol start="2" type="1">
+<li class="fragment">Should we implement the new teaching method?</li>
+</ol>
+<p><br><br></p>
+</div>
+<div class="fragment">
+<div class="callout callout-important callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Important</strong></p>
+</div>
+<div class="callout-content">
+<p><strong>Practical vs Statistical Difference:</strong> Just because we find a significant statistical result does not mean the difference is large enough to matter in practice <span class="subtext">we need an effect size</span></p>
+</div>
+</div>
+</div>
+</div>
+</section></section>
+<section>
+<section id="hypothesis-test-for-one-population-mean" class="title-slide slide level1 center">
+<h1>Hypothesis Test for One Population Mean</h1>
+
+</section>
+<section id="review-of-chips-ahoy-example" class="slide level2">
+<h2>Review of Chips Ahoy Example</h2>
+<ul>
+<li class="fragment">For the <img src="figures/chips_ahoy.jpg" style="height:1.0em; vertical-align:middle;"> example for one population mean, we used the following:
+<ul>
+<li class="fragment">We used the <em>CLT</em>, <span class="math inline">\(\bar{X} \sim N(\mu, \sigma/\sqrt{n})\)</span> for the <em>sampling distribution</em></li>
+<li class="fragment">Our test statistic was the z-score</li>
+</ul></li>
+</ul>
+<div class="fragment">
+<p><span class="math display">\[Z = \frac{\bar{X} - \mu}{\sigma /\sqrt{n}}\]</span></p>
+</div>
+<div class="fragment" title="Reminder" style="font-size:1.2em;">
+<div class="callout callout-note callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Reminder</strong></p>
+</div>
+<div class="callout-content">
+<p>For the <img src="figures/chips_ahoy.jpg" style="height:1.0em; vertical-align:middle;"> hypothesis test, we conducted it because we did not know the true value of the mean <span class="math inline">\(\mu\)</span></p>
+</div>
+</div>
+</div>
+</div>
+<div class="fragment underline">
+<p>Thus, what is the issue with our test statistic/z-score?</p>
+</div>
+<div class="fragment">
+<div class="mysolution">
+<p>If we do not know <span class="math inline">\(\mu\)</span>, then is is very unlikely that we know <span class="math inline">\(\sigma\)</span>!</p>
+</div>
+</div>
+<div class="fragment">
+<div class="mysolution">
+<p>Thus, we will need to estimate <span class="math inline">\(\sigma\)</span> with <span class="math inline">\(s\)</span>, the sample standard deviation</p>
+</div>
+</div>
+</section>
+<section id="hypothesis-test-for-one-population-mean-1" class="slide level2">
+<h2>Hypothesis Test for One Population Mean</h2>
+<div title="t-Test" style="font-size:1.1em;">
+<div class="callout callout-note callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>t-Test</strong></p>
+</div>
+<div class="callout-content">
+<p>To conduct a hypothesis test for one population mean, we will use the <em>t-Test</em>:</p>
+<div class="fragment">
+<p><u>Null and Alternative Hypothesis</u></p>
+<div class="fragment">
+<p><span class="math inline">\(H_{0}: \mu = value\)</span></p>
+</div>
+<div class="fragment">
+<p><span class="math inline">\(H_{a}: \mu &lt; value\)</span>, <span class="math inline">\(&gt; value\)</span>, or <span class="math inline">\(\neq value\)</span></p>
+</div>
+</div>
+<div class="fragment">
+<p><u>Test-Statistic and Distribution</u></p>
+</div>
+<div class="fragment">
+<div class="mysolution center">
+<p><span style="font-size:1.4em;"><span class="math inline">\(t\)</span></span> <span style="font-size:1.5em;"><span class="math inline">\(= \frac{\bar{X} - \mu}{s/\sqrt{n}}\)</span></span> <span class="fragment" style="font-size:1.2em;"><span class="math inline">\(\sim t(df = n - 1)\)</span></span></p>
+</div>
+</div>
+<div class="fragment">
+<p><strong>Assumption for t-Test:</strong> <span class="mysolution">Normality <span class="subtext">(check with QQ-Plot)</span></span></p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div style="font-size:.9em;">
+<ul>
+<li class="fragment">To determine the p-value, we can use the <code>pt()</code> function in <span class="math inline">\(\texttt{R}\)</span> with our test-statistic (t)
+<ul>
+<li class="fragment">Or, we can use the <code>t.test()</code></li>
+</ul></li>
+<li class="fragment">To determine the Rejection Region, we can use the <a href="https://deriktboonstra.github.io/UT-SDS320E/T_table.pdf">t-Table link</a> with <span class="math inline">\(\alpha\)</span></li>
+<li class="fragment">To determine the “effect size”, we can calculate the <a href="https://deriktboonstra.github.io/UT-SDS320E/SDS320E_4_Confidence_Intervals#/ci-for-mu-with-unknown-sigma">t-confidence interval</a> based upon <span class="math inline">\(H_{a}\)</span> <span class="subtext">i.e.&nbsp;UB only, LB only, or both bounds</span></li>
+</ul>
+</div>
+</section>
+<section id="t-test-example" class="slide level2">
+<h2>T-test Example</h2>
+<div title="Example" style="font-size:1.1em;">
+<div class="callout callout-tip callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Example</strong></p>
+</div>
+<div class="callout-content">
+<p>A fitness guideline says the mean resting heart rate for adults is 72 beats per minute. A researcher suspects that adults who exercise regularly have a lower mean resting heart rate. She takes a random sample of 16 adults who exercise regularly and records their resting heart rates. The sample has a mean of <span class="math inline">\(\bar{x}\)</span> = 68.5 beats per minute and a standard deviation of <span class="math inline">\(s\)</span> = 7 beats per minute. A QQ-plot of the data shows no strong departure from normality.</p>
+</div>
+</div>
+</div>
+</div>
+<ol type="1">
+<li class="fragment">What are the null and alternative hypotheses?</li>
+</ol>
+<div class="fragment">
+<p><span class="mysolution"><span class="math inline">\(H_{0}: \mu = 72\)</span></span></p>
+</div>
+<div class="fragment">
+<p><span class="mysolution"><span class="math inline">\(H_{a}: \mu &lt; 72\)</span></span></p>
+</div>
+<ol start="2" type="1">
+<li class="fragment">What is the Test-Statistic?</li>
+</ol>
+</section>
+<section id="t-test-example-cont." class="slide level2">
+<h2>T-test Example Cont.</h2>
+<div title="Example" style="font-size:1em;">
+<div class="callout callout-tip callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Example</strong></p>
+</div>
+<div class="callout-content">
+<p>A fitness guideline says the mean resting heart rate for adults is 72 beats per minute. A researcher suspects that adults who exercise regularly have a lower mean resting heart rate. She takes a random sample of 16 adults who exercise regularly and records their resting heart rates. The sample has a mean of <span class="math inline">\(\bar{x}\)</span> = 68.5 beats per minute and a standard deviation of <span class="math inline">\(s\)</span> = 7 beats per minute. A QQ-plot of the data shows no strong departure from normality.</p>
+</div>
+</div>
+</div>
+</div>
+<p>3a. Using the <code>qt()</code> function in <span class="math inline">\(\texttt{R}\)</span>, find the p-value and make a conclusion</p>
+<div class="fragment">
+<div class="cell">
+<div>
+<div id="webr-2" class="exercise-cell">
+
+</div>
+<script type="webr-2-contents">
+eyJhdHRyIjp7ImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoicXQoKSJ9
+</script>
+</div>
+</div>
+</div>
+</section>
+<section id="t-test-example-cont.-1" class="slide level2">
+<h2>T-test Example Cont.</h2>
+<div title="Example" style="font-size:1em;">
+<div class="callout callout-tip callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Example</strong></p>
+</div>
+<div class="callout-content">
+<p>A fitness guideline says the mean resting heart rate for adults is 72 beats per minute. A researcher suspects that adults who exercise regularly have a lower mean resting heart rate. She takes a random sample of 16 adults who exercise regularly and records their resting heart rates. The sample has a mean of <span class="math inline">\(\bar{x}\)</span> = 68.5 beats per minute and a standard deviation of <span class="math inline">\(s\)</span> = 7 beats per minute. A QQ-plot of the data shows no strong departure from normality.</p>
+</div>
+</div>
+</div>
+</div>
+<p>3b. Alternatively, find the Rejection Region and make a conclusion <br><br><br><br><br><br></p>
+<ol start="4" type="1">
+<li class="fragment">Determine the “effect size” by constucting a confidence interval</li>
+</ol>
+</section>
+<section id="t-test-in-r" class="slide level2">
+<h2>t-Test in R</h2>
+<div style="font-size:0.9em;">
+<ul>
+<li class="fragment">To conduct a t-test for <span class="math inline">\(\mu\)</span> in R, we can use the <code>t.test()</code> function. It has the following arguments:
+<ul>
+<li class="fragment"><code>x</code>: the numeric vector of data</li>
+<li class="fragment"><code>mu</code>: the hypothesized value of the mean in <span class="math inline">\(H_{0}\)</span> (default is 0)</li>
+<li class="fragment"><code>alternative</code>: the form of <span class="math inline">\(H_{a}\)</span>, either <code>"less"</code>, <code>"greater"</code>, or <code>"two.sided"</code> (default is <code>"two.sided"</code>)</li>
+<li class="fragment"><code>conf.level</code>: the confidence level of the interval (default is 0.95)</li>
+</ul></li>
+<li class="fragment"><code>t.test()</code> returns a lot of output, so we can use <code>$statistic</code>, <code>$p.value</code>, and <code>$conf.int</code> to extract only what we need</li>
+</ul>
+</div>
+<div class="fragment" style="font-size:.9em;">
+<div class="cell">
+<div>
+<div id="webr-3" class="exercise-cell">
+
+</div>
+<script type="webr-3-contents">
+eyJhdHRyIjp7ImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoiIyBUZXN0IEgwOiBtdSA9IDM1IHZzIEhhOiBtdSA+IDM1IGZvciB0aGUgbWVhbiBzdG9wcGluZyBkaXN0YW5jZSAoZnQpXG50LnRlc3QoY2FycyRkaXN0LCBtdSA9IDM1LCBhbHRlcm5hdGl2ZSA9IFwiZ3JlYXRlclwiKSJ9
+</script>
+</div>
+</div>
+</div>
+</section></section>
+<section id="the-end" class="title-slide slide level1 center">
+<h1>The End</h1>
+
+<script type="webr-data">
+eyJvcHRpb25zIjp7ImJhc2VVcmwiOiJodHRwczovL3dlYnIuci13YXNtLm9yZy92MC42LjAvIn0sInBhY2thZ2VzIjp7InBrZ3MiOlsiZXZhbHVhdGUiLCJrbml0ciIsImh0bWx0b29scyJdLCJyZXBvcyI6W119LCJyZW5kZXJfZGYiOiJkZWZhdWx0In0=
+</script>
+<script type="ojs-module-contents">
+eyJjb250ZW50cyI6W3siY2VsbE5hbWUiOiJ3ZWJyLXdpZGdldC0zIiwiaW5saW5lIjpmYWxzZSwibWV0aG9kTmFtZSI6ImludGVycHJldFF1aWV0Iiwic291cmNlIjoie1xuICAvLyBXYWl0IGZvciBvdXRwdXQgdG8gYmUgd3JpdHRlbiB0byB0aGUgRE9NLCB0aGVuIHRyaWdnZXIgd2lkZ2V0IHJlbmRlcmluZ1xuICBhd2FpdCBfd2Vicl92YWx1ZV8zO1xuICBpZiAod2luZG93LkhUTUxXaWRnZXRzKSB7XG4gICAgd2luZG93LkhUTUxXaWRnZXRzLnN0YXRpY1JlbmRlcigpO1xuICB9XG4gIGlmICh3aW5kb3cuUGFnZWRUYWJsZURvYykge1xuICAgIHdpbmRvdy5QYWdlZFRhYmxlRG9jLmluaXRBbGwoKTtcbiAgfVxufVxuIn0seyJjZWxsTmFtZSI6IndlYnItMyIsImlubGluZSI6ZmFsc2UsIm1ldGhvZE5hbWUiOiJpbnRlcnByZXQiLCJzb3VyY2UiOiJ2aWV3b2YgX3dlYnJfZWRpdG9yXzMgPSB7XG4gIGNvbnN0IHsgV2ViUkV4ZXJjaXNlRWRpdG9yLCBiNjREZWNvZGUgfSA9IHdpbmRvdy5fZXhlcmNpc2Vfb2pzX3J1bnRpbWU7XG4gIGNvbnN0IHNjcmlwdENvbnRlbnQgPSBkb2N1bWVudC5xdWVyeVNlbGVjdG9yKGBzY3JpcHRbdHlwZT1cXFwid2Vici0zLWNvbnRlbnRzXFxcIl1gKS50ZXh0Q29udGVudDtcbiAgY29uc3QgYmxvY2sgPSBKU09OLnBhcnNlKGI2NERlY29kZShzY3JpcHRDb250ZW50KSk7XG5cbiAgY29uc3Qgb3B0aW9ucyA9IE9iamVjdC5hc3NpZ24oeyBpZDogYHdlYnItMy1jb250ZW50c2AgfSwgYmxvY2suYXR0cik7XG4gIGNvbnN0IGVkaXRvciA9IG5ldyBXZWJSRXhlcmNpc2VFZGl0b3Iod2ViUk9qcy53ZWJSUHJvbWlzZSwgYmxvY2suY29kZSwgb3B0aW9ucyk7XG5cbiAgcmV0dXJuIGVkaXRvci5jb250YWluZXI7XG59XG5fd2Vicl92YWx1ZV8zID0gd2ViUk9qcy5wcm9jZXNzKF93ZWJyX2VkaXRvcl8zLCB7fSk7XG4ifSx7ImNlbGxOYW1lIjoid2Vici13aWRnZXQtMiIsImlubGluZSI6ZmFsc2UsIm1ldGhvZE5hbWUiOiJpbnRlcnByZXRRdWlldCIsInNvdXJjZSI6IntcbiAgLy8gV2FpdCBmb3Igb3V0cHV0IHRvIGJlIHdyaXR0ZW4gdG8gdGhlIERPTSwgdGhlbiB0cmlnZ2VyIHdpZGdldCByZW5kZXJpbmdcbiAgYXdhaXQgX3dlYnJfdmFsdWVfMjtcbiAgaWYgKHdpbmRvdy5IVE1MV2lkZ2V0cykge1xuICAgIHdpbmRvdy5IVE1MV2lkZ2V0cy5zdGF0aWNSZW5kZXIoKTtcbiAgfVxuICBpZiAod2luZG93LlBhZ2VkVGFibGVEb2MpIHtcbiAgICB3aW5kb3cuUGFnZWRUYWJsZURvYy5pbml0QWxsKCk7XG4gIH1cbn1cbiJ9LHsiY2VsbE5hbWUiOiJ3ZWJyLTIiLCJpbmxpbmUiOmZhbHNlLCJtZXRob2ROYW1lIjoiaW50ZXJwcmV0Iiwic291cmNlIjoidmlld29mIF93ZWJyX2VkaXRvcl8yID0ge1xuICBjb25zdCB7IFdlYlJFeGVyY2lzZUVkaXRvciwgYjY0RGVjb2RlIH0gPSB3aW5kb3cuX2V4ZXJjaXNlX29qc19ydW50aW1lO1xuICBjb25zdCBzY3JpcHRDb250ZW50ID0gZG9jdW1lbnQucXVlcnlTZWxlY3Rvcihgc2NyaXB0W3R5cGU9XFxcIndlYnItMi1jb250ZW50c1xcXCJdYCkudGV4dENvbnRlbnQ7XG4gIGNvbnN0IGJsb2NrID0gSlNPTi5wYXJzZShiNjREZWNvZGUoc2NyaXB0Q29udGVudCkpO1xuXG4gIGNvbnN0IG9wdGlvbnMgPSBPYmplY3QuYXNzaWduKHsgaWQ6IGB3ZWJyLTItY29udGVudHNgIH0sIGJsb2NrLmF0dHIpO1xuICBjb25zdCBlZGl0b3IgPSBuZXcgV2ViUkV4ZXJjaXNlRWRpdG9yKHdlYlJPanMud2ViUlByb21pc2UsIGJsb2NrLmNvZGUsIG9wdGlvbnMpO1xuXG4gIHJldHVybiBlZGl0b3IuY29udGFpbmVyO1xufVxuX3dlYnJfdmFsdWVfMiA9IHdlYlJPanMucHJvY2Vzcyhfd2Vicl9lZGl0b3JfMiwge30pO1xuIn0seyJjZWxsTmFtZSI6IndlYnItd2lkZ2V0LTEiLCJpbmxpbmUiOmZhbHNlLCJtZXRob2ROYW1lIjoiaW50ZXJwcmV0UXVpZXQiLCJzb3VyY2UiOiJ7XG4gIC8vIFdhaXQgZm9yIG91dHB1dCB0byBiZSB3cml0dGVuIHRvIHRoZSBET00sIHRoZW4gdHJpZ2dlciB3aWRnZXQgcmVuZGVyaW5nXG4gIGF3YWl0IF93ZWJyX3ZhbHVlXzE7XG4gIGlmICh3aW5kb3cuSFRNTFdpZGdldHMpIHtcbiAgICB3aW5kb3cuSFRNTFdpZGdldHMuc3RhdGljUmVuZGVyKCk7XG4gIH1cbiAgaWYgKHdpbmRvdy5QYWdlZFRhYmxlRG9jKSB7XG4gICAgd2luZG93LlBhZ2VkVGFibGVEb2MuaW5pdEFsbCgpO1xuICB9XG59XG4ifSx7ImNlbGxOYW1lIjoid2Vici0xIiwiaW5saW5lIjpmYWxzZSwibWV0aG9kTmFtZSI6ImludGVycHJldCIsInNvdXJjZSI6InZpZXdvZiBfd2Vicl9lZGl0b3JfMSA9IHtcbiAgY29uc3QgeyBXZWJSRXhlcmNpc2VFZGl0b3IsIGI2NERlY29kZSB9ID0gd2luZG93Ll9leGVyY2lzZV9vanNfcnVudGltZTtcbiAgY29uc3Qgc2NyaXB0Q29udGVudCA9IGRvY3VtZW50LnF1ZXJ5U2VsZWN0b3IoYHNjcmlwdFt0eXBlPVxcXCJ3ZWJyLTEtY29udGVudHNcXFwiXWApLnRleHRDb250ZW50O1xuICBjb25zdCBibG9jayA9IEpTT04ucGFyc2UoYjY0RGVjb2RlKHNjcmlwdENvbnRlbnQpKTtcblxuICBjb25zdCBvcHRpb25zID0gT2JqZWN0LmFzc2lnbih7IGlkOiBgd2Vici0xLWNvbnRlbnRzYCB9LCBibG9jay5hdHRyKTtcbiAgY29uc3QgZWRpdG9yID0gbmV3IFdlYlJFeGVyY2lzZUVkaXRvcih3ZWJST2pzLndlYlJQcm9taXNlLCBibG9jay5jb2RlLCBvcHRpb25zKTtcblxuICByZXR1cm4gZWRpdG9yLmNvbnRhaW5lcjtcbn1cbl93ZWJyX3ZhbHVlXzEgPSB3ZWJST2pzLnByb2Nlc3MoX3dlYnJfZWRpdG9yXzEsIHt9KTtcbiJ9LHsiY2VsbE5hbWUiOiJ3ZWJyLXByZWx1ZGUiLCJpbmxpbmUiOmZhbHNlLCJtZXRob2ROYW1lIjoiaW50ZXJwcmV0UXVpZXQiLCJzb3VyY2UiOiJ3ZWJST2pzID0ge1xuICBjb25zdCB7IFdlYlIsIENoYW5uZWxUeXBlIH0gPSB3aW5kb3cuX2V4ZXJjaXNlX29qc19ydW50aW1lLldlYlI7XG4gIGNvbnN0IHtcbiAgICBXZWJSRXZhbHVhdG9yLFxuICAgIFdlYlJFbnZpcm9ubWVudE1hbmFnZXIsXG4gICAgc2V0dXBSLFxuICAgIGI2NERlY29kZSxcbiAgICBjb2xsYXBzZVBhdGhcbiAgfSA9IHdpbmRvdy5fZXhlcmNpc2Vfb2pzX3J1bnRpbWU7XG5cbiAgY29uc3Qgc3RhdHVzQ29udGFpbmVyID0gZG9jdW1lbnQuZ2V0RWxlbWVudEJ5SWQoXCJleGVyY2lzZS1sb2FkaW5nLXN0YXR1c1wiKTtcbiAgY29uc3QgaW5kaWNhdG9yQ29udGFpbmVyID0gZG9jdW1lbnQuZ2V0RWxlbWVudEJ5SWQoXCJleGVyY2lzZS1sb2FkaW5nLWluZGljYXRvclwiKTtcbiAgaW5kaWNhdG9yQ29udGFpbmVyLmNsYXNzTGlzdC5yZW1vdmUoXCJkLW5vbmVcIik7XG5cbiAgbGV0IHN0YXR1c1RleHQgPSBkb2N1bWVudC5jcmVhdGVFbGVtZW50KFwiZGl2XCIpXG4gIHN0YXR1c1RleHQuY2xhc3NMaXN0ID0gXCJleGVyY2lzZS1sb2FkaW5nLWRldGFpbHNcIjtcbiAgc3RhdHVzVGV4dCA9IHN0YXR1c0NvbnRhaW5lci5hcHBlbmRDaGlsZChzdGF0dXNUZXh0KTtcbiAgc3RhdHVzVGV4dC50ZXh0Q29udGVudCA9IGBJbml0aWFsaXNlYDtcblxuICAvLyBIb2lzdCBpbmRpY2F0b3Igb3V0IGZyb20gZmluYWwgc2xpZGUgd2hlbiBydW5uaW5nIHVuZGVyIHJldmVhbFxuICBjb25zdCByZXZlYWxTdGF0dXMgPSBkb2N1bWVudC5xdWVyeVNlbGVjdG9yKFwiLnJldmVhbCAuZXhlcmNpc2UtbG9hZGluZy1pbmRpY2F0b3JcIik7XG4gIGlmIChyZXZlYWxTdGF0dXMpIHtcbiAgICByZXZlYWxTdGF0dXMucmVtb3ZlKCk7XG4gICAgZG9jdW1lbnQucXVlcnlTZWxlY3RvcihcIi5yZXZlYWwgPiAuc2xpZGVzXCIpLmFwcGVuZENoaWxkKHJldmVhbFN0YXR1cyk7XG4gIH1cblxuICAvLyBNYWtlIGFueSByZXZlYWwgc2xpZGVzIHdpdGggbGl2ZSBjZWxscyBzY3JvbGxhYmxlXG4gIGRvY3VtZW50LnF1ZXJ5U2VsZWN0b3JBbGwoXCIucmV2ZWFsIC5leGVyY2lzZS1jZWxsXCIpLmZvckVhY2goKGVsKSA9PiB7XG4gICAgZWwuY2xvc2VzdCgnc2VjdGlvbi5zbGlkZScpLmNsYXNzTGlzdC5hZGQoXCJzY3JvbGxhYmxlXCIpO1xuICB9KVxuXG4gIC8vIHdlYlIgc3VwcGxlbWVudGFsIGRhdGEgYW5kIG9wdGlvbnNcbiAgY29uc3QgZGF0YUNvbnRlbnQgPSBkb2N1bWVudC5xdWVyeVNlbGVjdG9yKGBzY3JpcHRbdHlwZT1cXFwid2Vici1kYXRhXFxcIl1gKS50ZXh0Q29udGVudDtcbiAgY29uc3QgZGF0YSA9IEpTT04ucGFyc2UoYjY0RGVjb2RlKGRhdGFDb250ZW50KSk7XG5cbiAgLy8gR3JhYiBsaXN0IG9mIHJlc291cmNlcyB0byBiZSBkb3dubG9hZGVkXG4gIGNvbnN0IGZpbGVzQ29udGVudCA9IGRvY3VtZW50LnF1ZXJ5U2VsZWN0b3IoYHNjcmlwdFt0eXBlPVxcXCJ2ZnMtZmlsZVxcXCJdYCkudGV4dENvbnRlbnQ7XG4gIGNvbnN0IGZpbGVzID0gSlNPTi5wYXJzZShiNjREZWNvZGUoZmlsZXNDb250ZW50KSk7XG5cbiAgLy8gSW5pdGlhbGlzZSB3ZWJSIGFuZCBzZXR1cCBmb3IgUiBjb2RlIGV2YWx1YXRpb25cbiAgbGV0IHdlYlJQcm9taXNlID0gKGFzeW5jICh3ZWJSKSA9PiB7XG4gICAgc3RhdHVzVGV4dC50ZXh0Q29udGVudCA9IGBEb3dubG9hZGluZyB3ZWJSYDtcbiAgICBhd2FpdCB3ZWJSLmluaXQoKTtcblxuICAgIC8vIEluc3RhbGwgcHJvdmlkZWQgbGlzdCBvZiBwYWNrYWdlc1xuICAgIC8vIEVuc3VyZSB3ZWJSIGRlZmF1bHQgcmVwbyBpcyBpbmNsdWRlZFxuICAgIGRhdGEucGFja2FnZXMucmVwb3MucHVzaChcImh0dHBzOi8vcmVwby5yLXdhc20ub3JnXCIpXG4gICAgYXdhaXQgZGF0YS5wYWNrYWdlcy5wa2dzLm1hcCgocGtnKSA9PiAoKSA9PiB7XG4gICAgICBzdGF0dXNUZXh0LnRleHRDb250ZW50ID0gYERvd25sb2FkaW5nIHBhY2thZ2U6ICR7cGtnfWA7XG4gICAgICByZXR1cm4gd2ViUi5ldmFsUlZvaWQoYFxuICAgICAgICB3ZWJyOjppbnN0YWxsKHBrZywgcmVwb3MgPSByZXBvcylcbiAgICAgICAgbGlicmFyeShwa2csIGNoYXJhY3Rlci5vbmx5ID0gVFJVRSlcbiAgICAgIGAsIHsgZW52OiB7XG4gICAgICAgIHBrZzogcGtnLFxuICAgICAgICByZXBvczogZGF0YS5wYWNrYWdlcy5yZXBvcyxcbiAgICAgIH19KTtcbiAgICB9KS5yZWR1Y2UoKGN1ciwgbmV4dCkgPT4gY3VyLnRoZW4obmV4dCksIFByb21pc2UucmVzb2x2ZSgpKTtcblxuICAgIC8vIERvd25sb2FkIGFuZCBpbnN0YWxsIHJlc291cmNlc1xuICAgIGF3YWl0IGZpbGVzLm1hcCgoZmlsZSkgPT4gYXN5bmMgKCkgPT4ge1xuICAgICAgY29uc3QgbmFtZSA9IGZpbGUuc3Vic3RyaW5nKGZpbGUubGFzdEluZGV4T2YoJy8nKSArIDEpO1xuICAgICAgc3RhdHVzVGV4dC50ZXh0Q29udGVudCA9IGBEb3dubG9hZGluZyByZXNvdXJjZTogJHtuYW1lfWA7XG4gICAgICBjb25zdCByZXNwb25zZSA9IGF3YWl0IGZldGNoKGZpbGUpO1xuICAgICAgaWYgKCFyZXNwb25zZS5vaykge1xuICAgICAgICB0aHJvdyBuZXcgRXJyb3IoYENhbid0IGRvd25sb2FkIFxcYCR7ZmlsZX1cXGAuIEVycm9yICR7cmVzcG9uc2Uuc3RhdHVzfTogXCIke3Jlc3BvbnNlLnN0YXR1c1RleHR9XCIuYCk7XG4gICAgICB9XG4gICAgICBjb25zdCBkYXRhID0gYXdhaXQgcmVzcG9uc2UuYXJyYXlCdWZmZXIoKTtcblxuICAgICAgLy8gU3RvcmUgVVJMcyBpbiB0aGUgY3dkIHdpdGhvdXQgYW55IHN1YmRpcmVjdG9yeSBzdHJ1Y3R1cmVcbiAgICAgIGlmIChmaWxlLmluY2x1ZGVzKFwiOi8vXCIpKSB7XG4gICAgICAgIGZpbGUgPSBuYW1lO1xuICAgICAgfVxuXG4gICAgICAvLyBDb2xsYXBzZSBoaWdoZXIgZGlyZWN0b3J5IHN0cnVjdHVyZVxuICAgICAgZmlsZSA9IGNvbGxhcHNlUGF0aChmaWxlKTtcblxuICAgICAgLy8gQ3JlYXRlIGRpcmVjdG9yeSB0cmVlLCBpZ25vcmluZyBcImRpcmVjdG9yeSBleGlzdHNcIiBWRlMgZXJyb3JzXG4gICAgICBjb25zdCBwYXJ0cyA9IGZpbGUuc3BsaXQoJy8nKS5zbGljZSgwLCAtMSk7XG4gICAgICBsZXQgcGF0aCA9ICcnO1xuICAgICAgd2hpbGUgKHBhcnRzLmxlbmd0aCA+IDApIHtcbiAgICAgICAgcGF0aCArPSBwYXJ0cy5zaGlmdCgpICsgJy8nO1xuICAgICAgICBjb25zdCBhbmFseXNpcyA9IGF3YWl0IHdlYlIuRlMuYW5hbHl6ZVBhdGgocGF0aCk7XG4gICAgICAgIGlmICghYW5hbHlzaXMuZXhpc3RzKSB7XG4gICAgICAgICAgdHJ5IHtcbiAgICAgICAgICAgIGF3YWl0IHdlYlIuRlMubWtkaXIocGF0aCk7XG4gICAgICAgICAgfSBjYXRjaCAoZSkge1xuICAgICAgICAgICAgdGhyb3cgbmV3IEVycm9yKGBGaWxlc3lzdGVtIEVycm9yOiBcIiR7ZS5tZXNzYWdlfVwiLmApO1xuICAgICAgICAgIH1cbiAgICAgICAgfVxuICAgICAgfVxuXG4gICAgICAvLyBXcml0ZSB0aGlzIGZpbGUgdG8gdGhlIFZGU1xuICAgICAgcmV0dXJuIGF3YWl0IHdlYlIuRlMud3JpdGVGaWxlKGZpbGUsIG5ldyBVaW50OEFycmF5KGRhdGEpKTtcbiAgICB9KS5yZWR1Y2UoKGN1ciwgbmV4dCkgPT4gY3VyLnRoZW4obmV4dCksIFByb21pc2UucmVzb2x2ZSgpKTtcblxuICAgIHN0YXR1c1RleHQudGV4dENvbnRlbnQgPSBgSW5zdGFsbGluZyB3ZWJSIHNoaW1zYDtcbiAgICBhd2FpdCB3ZWJSLmV2YWxSVm9pZChgd2Vicjo6c2hpbV9pbnN0YWxsKClgKTtcblxuICAgIHN0YXR1c1RleHQudGV4dENvbnRlbnQgPSBgV2ViUiBlbnZpcm9ubWVudCBzZXR1cGA7XG4gICAgYXdhaXQgc2V0dXBSKHdlYlIsIGRhdGEpO1xuXG4gICAgc3RhdHVzVGV4dC5yZW1vdmUoKTtcbiAgICBpZiAoc3RhdHVzQ29udGFpbmVyLmNoaWxkcmVuLmxlbmd0aCA9PSAwKSB7XG4gICAgICBzdGF0dXNDb250YWluZXIucGFyZW50Tm9kZS5yZW1vdmUoKTtcbiAgICB9XG4gICAgcmV0dXJuIHdlYlI7XG4gIH0pKG5ldyBXZWJSKGRhdGEub3B0aW9ucykpO1xuXG4gIC8vIEtlZXAgdHJhY2sgb2YgaW5pdGlhbCBPSlMgYmxvY2sgcmVuZGVyXG4gIGNvbnN0IHJlbmRlcmVkT2pzID0ge307XG5cbiAgY29uc3QgcHJvY2VzcyA9IGFzeW5jIChjb250ZXh0LCBpbnB1dHMpID0+IHtcbiAgICBjb25zdCB3ZWJSID0gYXdhaXQgd2ViUlByb21pc2U7XG4gICAgY29uc3QgZXZhbHVhdG9yID0gbmV3IFdlYlJFdmFsdWF0b3Iod2ViUiwgY29udGV4dClcbiAgICBhd2FpdCBldmFsdWF0b3IucHJvY2VzcyhpbnB1dHMpO1xuICAgIHJldHVybiBldmFsdWF0b3IuY29udGFpbmVyO1xuICB9XG5cbiAgcmV0dXJuIHtcbiAgICBwcm9jZXNzLFxuICAgIHdlYlJQcm9taXNlLFxuICAgIHJlbmRlcmVkT2pzLFxuICB9O1xufVxuIn1dfQ==
+</script>
+<div id="exercise-loading-indicator" class="exercise-loading-indicator d-none d-flex align-items-center gap-2">
+<div id="exercise-loading-status" class="d-flex gap-2">
+
+</div>
+<div class="spinner-grow spinner-grow-sm">
+
+</div>
+</div>
+<script type="vfs-file">
+W10=
+</script>
+</section>
+    </div>
+  <div class="quarto-auto-generated-content" style="display: none;">
+<p><img src="quarto-assets/logo.png" class="slide-logo"></p>
+<div class="footer footer-default">
+<p>Derik Boonstra, Ph.D.</p>
+</div>
+</div></div>
+
+  <script>window.backupDefine = window.define; window.define = undefined;</script>
+  <script src="SDS320E_5_One_Population_Hypothesis_files/libs/revealjs/dist/reveal.js"></script>
+  <!-- reveal.js plugins -->
+  <script src="SDS320E_5_One_Population_Hypothesis_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.js"></script>
+  <script src="SDS320E_5_One_Population_Hypothesis_files/libs/revealjs/plugin/pdf-export/pdfexport.js"></script>
+  <script src="SDS320E_5_One_Population_Hypothesis_files/libs/revealjs/plugin/reveal-menu/menu.js"></script>
+  <script src="SDS320E_5_One_Population_Hypothesis_files/libs/revealjs/plugin/reveal-menu/quarto-menu.js"></script>
+  <script src="SDS320E_5_One_Population_Hypothesis_files/libs/revealjs/plugin/reveal-chalkboard/plugin.js"></script>
+  <script src="SDS320E_5_One_Population_Hypothesis_files/libs/revealjs/plugin/reveal-drop/drop-runtime.js"></script>
+  <script src="SDS320E_5_One_Population_Hypothesis_files/libs/revealjs/plugin/quarto-support/support.js"></script>
+  
+
+  <script src="SDS320E_5_One_Population_Hypothesis_files/libs/revealjs/plugin/notes/notes.js"></script>
+  <script src="SDS320E_5_One_Population_Hypothesis_files/libs/revealjs/plugin/search/search.js"></script>
+  <script src="SDS320E_5_One_Population_Hypothesis_files/libs/revealjs/plugin/zoom/zoom.js"></script>
+  <script src="SDS320E_5_One_Population_Hypothesis_files/libs/revealjs/plugin/math/math.js"></script>
+  <script>window.define = window.backupDefine; window.backupDefine = undefined;</script>
+
+  <script>
+
+      // Full list of configuration options available at:
+      // https://revealjs.com/config/
+      Reveal.initialize({
+'controlsAuto': true,
+'previewLinksAuto': true,
+'pdfSeparateFragments': false,
+'autoAnimateEasing': "ease",
+'autoAnimateDuration': 1,
+'autoAnimateUnmatched': true,
+'jumpToSlide': true,
+'menu': {"side":"left","useTextContentForMissingTitles":false,"markers":false,"loadIcons":false,"custom":[{"title":"Tools","icon":"<i class=\"fas fa-gear\"></i>","content":"<ul class=\"slide-menu-items\">\n<li class=\"slide-tool-item active\" data-item=\"0\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.fullscreen(event)\"><kbd>f</kbd> Fullscreen</a></li>\n<li class=\"slide-tool-item\" data-item=\"1\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.speakerMode(event)\"><kbd>s</kbd> Speaker View</a></li>\n<li class=\"slide-tool-item\" data-item=\"2\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.overview(event)\"><kbd>o</kbd> Slide Overview</a></li>\n<li class=\"slide-tool-item\" data-item=\"3\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.togglePdfExport(event)\"><kbd>e</kbd> PDF Export Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"4\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.toggleScrollView(event)\"><kbd>r</kbd> Scroll View Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"5\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.toggleChalkboard(event)\"><kbd>b</kbd> Toggle Chalkboard</a></li>\n<li class=\"slide-tool-item\" data-item=\"6\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.toggleNotesCanvas(event)\"><kbd>c</kbd> Toggle Notes Canvas</a></li>\n<li class=\"slide-tool-item\" data-item=\"7\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.downloadDrawings(event)\"><kbd>d</kbd> Download Drawings</a></li>\n<li class=\"slide-tool-item\" data-item=\"8\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.keyboardHelp(event)\"><kbd>?</kbd> Keyboard Help</a></li>\n</ul>"}],"openButton":true,"titleSelector":"h1","hideMissingTitles":true},
+'chalkboard': {"buttons":true},
+'drop': {"button":true,"shortcut":"`","engine":"webr","webr":{"packages":[]},"pyodide":{"packages":[]}},
+'smaller': false,
+ 
+        // Display controls in the bottom right corner
+        controls: false,
+
+        // Help the user learn the controls by providing hints, for example by
+        // bouncing the down arrow when they first encounter a vertical slide
+        controlsTutorial: false,
+
+        // Determines where controls appear, "edges" or "bottom-right"
+        controlsLayout: 'edges',
+
+        // Visibility rule for backwards navigation arrows; "faded", "hidden"
+        // or "visible"
+        controlsBackArrows: 'faded',
+
+        // Display a presentation progress bar
+        progress: true,
+
+        // Display the page number of the current slide
+        slideNumber: 'c',
+
+        // 'all', 'print', or 'speaker'
+        showSlideNumber: 'all',
+
+        // Add the current slide number to the URL hash so that reloading the
+        // page/copying the URL will return you to the same slide
+        hash: true,
+
+        // Start with 1 for the hash rather than 0
+        hashOneBasedIndex: false,
+
+        // Flags if we should monitor the hash and change slides accordingly
+        respondToHashChanges: true,
+
+        // Push each slide change to the browser history
+        history: true,
+
+        // Enable keyboard shortcuts for navigation
+        keyboard: true,
+
+        // Enable the slide overview mode
+        overview: true,
+
+        // Disables the default reveal.js slide layout (scaling and centering)
+        // so that you can use custom CSS layout
+        disableLayout: false,
+
+        // Vertical centering of slides
+        center: false,
+
+        // Enables touch navigation on devices with touch input
+        touch: true,
+
+        // Loop the presentation
+        loop: false,
+
+        // Change the presentation direction to be RTL
+        rtl: false,
+
+        // see https://revealjs.com/vertical-slides/#navigation-mode
+        navigationMode: 'linear',
+
+        // Randomizes the order of slides each time the presentation loads
+        shuffle: false,
+
+        // Turns fragments on and off globally
+        fragments: true,
+
+        // Flags whether to include the current fragment in the URL,
+        // so that reloading brings you to the same fragment position
+        fragmentInURL: false,
+
+        // Flags if the presentation is running in an embedded mode,
+        // i.e. contained within a limited portion of the screen
+        embedded: false,
+
+        // Flags if we should show a help overlay when the questionmark
+        // key is pressed
+        help: true,
+
+        // Flags if it should be possible to pause the presentation (blackout)
+        pause: true,
+
+        // Flags if speaker notes should be visible to all viewers
+        showNotes: false,
+
+        // Global override for autoplaying embedded media (null/true/false)
+        autoPlayMedia: null,
+
+        // Global override for preloading lazy-loaded iframes (null/true/false)
+        preloadIframes: null,
+
+        // Number of milliseconds between automatically proceeding to the
+        // next slide, disabled when set to 0, this value can be overwritten
+        // by using a data-autoslide attribute on your slides
+        autoSlide: 0,
+
+        // Stop auto-sliding after user input
+        autoSlideStoppable: true,
+
+        // Use this method for navigation when auto-sliding
+        autoSlideMethod: null,
+
+        // Specify the average time in seconds that you think you will spend
+        // presenting each slide. This is used to show a pacing timer in the
+        // speaker view
+        defaultTiming: null,
+
+        // Enable slide navigation via mouse wheel
+        mouseWheel: false,
+
+        // The display mode that will be used to show slides
+        display: 'block',
+
+        // Hide cursor if inactive
+        hideInactiveCursor: true,
+
+        // Time before the cursor is hidden (in ms)
+        hideCursorTime: 5000,
+
+        // Opens links in an iframe preview overlay
+        previewLinks: false,
+
+        // Transition style (none/fade/slide/convex/concave/zoom)
+        transition: 'none',
+
+        // Transition speed (default/fast/slow)
+        transitionSpeed: 'default',
+
+        // Transition style for full page slide backgrounds
+        // (none/fade/slide/convex/concave/zoom)
+        backgroundTransition: 'none',
+
+        // Number of slides away from the current that are visible
+        viewDistance: 3,
+
+        // Number of slides away from the current that are visible on mobile
+        // devices. It is advisable to set this to a lower number than
+        // viewDistance in order to save resources.
+        mobileViewDistance: 2,
+
+        // The "normal" size of the presentation, aspect ratio will be preserved
+        // when the presentation is scaled to fit different resolutions. Can be
+        // specified using percentage units.
+        width: 1050,
+
+        height: 700,
+
+        // Factor of the display size that should remain empty around the content
+        margin: 0.1,
+
+        math: {
+          mathjax: 'https://cdn.jsdelivr.net/npm/mathjax@2.7.9/MathJax.js',
+          config: 'TeX-AMS_HTML-full',
+          tex2jax: {
+            inlineMath: [['\\(','\\)']],
+            displayMath: [['\\[','\\]']],
+            balanceBraces: true,
+            processEscapes: false,
+            processRefs: true,
+            processEnvironments: true,
+            preview: 'TeX',
+            skipTags: ['script','noscript','style','textarea','pre','code'],
+            ignoreClass: 'tex2jax_ignore',
+            processClass: 'tex2jax_process'
+          },
+        },
+
+        // reveal.js plugins
+        plugins: [QuartoLineHighlight, PdfExport, RevealMenu, RevealChalkboard, RevealDrop, QuartoSupport,
+
+          RevealMath,
+          RevealNotes,
+          RevealSearch,
+          RevealZoom
+        ]
+      });
+    </script>
+    <script type="ojs-module-contents">
+    eyJjb250ZW50cyI6W119
+    </script>
+    <script type="module">
+    if (window.location.protocol === "file:") { alert("The OJS runtime does not work with file:// URLs. Please use a web server to view this document."); }
+    window._ojs.paths.runtimeToDoc = "../../..";
+    window._ojs.paths.runtimeToRoot = "../../..";
+    window._ojs.paths.docToRoot = "";
+    window._ojs.selfContained = false;
+    window._ojs.runtime.interpretFromScriptTags();
+    </script>
+    
+    <script>
+      // htmlwidgets need to know to resize themselves when slides are shown/hidden.
+      // Fire the "slideenter" event (handled by htmlwidgets.js) when the current
+      // slide changes (different for each slide format).
+      (function () {
+        // dispatch for htmlwidgets
+        function fireSlideEnter() {
+          const event = window.document.createEvent("Event");
+          event.initEvent("slideenter", true, true);
+          window.document.dispatchEvent(event);
+        }
+
+        function fireSlideChanged(previousSlide, currentSlide) {
+          fireSlideEnter();
+
+          // dispatch for shiny
+          if (window.jQuery) {
+            if (previousSlide) {
+              window.jQuery(previousSlide).trigger("hidden");
+            }
+            if (currentSlide) {
+              window.jQuery(currentSlide).trigger("shown");
+            }
+          }
+        }
+
+        // hookup for slidy
+        if (window.w3c_slidy) {
+          window.w3c_slidy.add_observer(function (slide_num) {
+            // slide_num starts at position 1
+            fireSlideChanged(null, w3c_slidy.slides[slide_num - 1]);
+          });
+        }
+
+      })();
+    </script>
+
+    <script id="quarto-html-after-body" type="application/javascript">
+      window.document.addEventListener("DOMContentLoaded", function (event) {
+        const tabsets =  window.document.querySelectorAll(".panel-tabset-tabby")
+        tabsets.forEach(function(tabset) {
+          const tabby = new Tabby('#' + tabset.id);
+        });
+        const isCodeAnnotation = (el) => {
+          for (const clz of el.classList) {
+            if (clz.startsWith('code-annotation-')) {                     
+              return true;
+            }
+          }
+          return false;
+        }
+        const onCopySuccess = function(e) {
+          // button target
+          const button = e.trigger;
+          // don't keep focus
+          button.blur();
+          // flash "checked"
+          button.classList.add('code-copy-button-checked');
+          var currentTitle = button.getAttribute("title");
+          button.setAttribute("title", "Copied!");
+          let tooltip;
+          if (window.bootstrap) {
+            button.setAttribute("data-bs-toggle", "tooltip");
+            button.setAttribute("data-bs-placement", "left");
+            button.setAttribute("data-bs-title", "Copied!");
+            tooltip = new bootstrap.Tooltip(button, 
+              { trigger: "manual", 
+                customClass: "code-copy-button-tooltip",
+                offset: [0, -8]});
+            tooltip.show();    
+          }
+          setTimeout(function() {
+            if (tooltip) {
+              tooltip.hide();
+              button.removeAttribute("data-bs-title");
+              button.removeAttribute("data-bs-toggle");
+              button.removeAttribute("data-bs-placement");
+            }
+            button.setAttribute("title", currentTitle);
+            button.classList.remove('code-copy-button-checked');
+          }, 1000);
+          // clear code selection
+          e.clearSelection();
+        }
+        const getTextToCopy = function(trigger) {
+          const outerScaffold = trigger.parentElement.cloneNode(true);
+          const codeEl = outerScaffold.querySelector('code');
+          for (const childEl of codeEl.children) {
+            if (isCodeAnnotation(childEl)) {
+              childEl.remove();
+            }
+          }
+          return codeEl.innerText;
+        }
+        const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+          text: getTextToCopy
+        });
+        clipboard.on('success', onCopySuccess);
+        if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+          const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+            text: getTextToCopy,
+            container: window.document.getElementById('quarto-embedded-source-code-modal')
+          });
+          clipboardModal.on('success', onCopySuccess);
+        }
+          var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+          var mailtoRegex = new RegExp(/^mailto:/);
+            var filterRegex = new RegExp('/' + window.location.host + '/');
+          var isInternal = (href) => {
+              return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+          }
+          // Inspect non-navigation links and adorn them if external
+         var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+          for (var i=0; i<links.length; i++) {
+            const link = links[i];
+            if (!isInternal(link.href)) {
+              // undo the damage that might have been done by quarto-nav.js in the case of
+              // links that we want to consider external
+              if (link.dataset.originalHref !== undefined) {
+                link.href = link.dataset.originalHref;
+              }
+            }
+          }
+        function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+          const config = {
+            allowHTML: true,
+            maxWidth: 500,
+            delay: 100,
+            arrow: false,
+            appendTo: function(el) {
+                return el.closest('section.slide') || el.parentElement;
+            },
+            interactive: true,
+            interactiveBorder: 10,
+            theme: 'light-border',
+            placement: 'bottom-start',
+          };
+          if (contentFn) {
+            config.content = contentFn;
+          }
+          if (onTriggerFn) {
+            config.onTrigger = onTriggerFn;
+          }
+          if (onUntriggerFn) {
+            config.onUntrigger = onUntriggerFn;
+          }
+            config['offset'] = [0,0];
+            config['maxWidth'] = 700;
+          window.tippy(el, config); 
+        }
+        const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+        for (var i=0; i<noterefs.length; i++) {
+          const ref = noterefs[i];
+          tippyHover(ref, function() {
+            // use id or data attribute instead here
+            let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+            try { href = new URL(href).hash; } catch {}
+            const id = href.replace(/^#\/?/, "");
+            const note = window.document.getElementById(id);
+            if (note) {
+              return note.innerHTML;
+            } else {
+              return "";
+            }
+          });
+        }
+        const findCites = (el) => {
+          const parentEl = el.parentElement;
+          if (parentEl) {
+            const cites = parentEl.dataset.cites;
+            if (cites) {
+              return {
+                el,
+                cites: cites.split(' ')
+              };
+            } else {
+              return findCites(el.parentElement)
+            }
+          } else {
+            return undefined;
+          }
+        };
+        var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+        for (var i=0; i<bibliorefs.length; i++) {
+          const ref = bibliorefs[i];
+          const citeInfo = findCites(ref);
+          if (citeInfo) {
+            tippyHover(citeInfo.el, function() {
+              var popup = window.document.createElement('div');
+              citeInfo.cites.forEach(function(cite) {
+                var citeDiv = window.document.createElement('div');
+                citeDiv.classList.add('hanging-indent');
+                citeDiv.classList.add('csl-entry');
+                var biblioDiv = window.document.getElementById('ref-' + cite);
+                if (biblioDiv) {
+                  citeDiv.innerHTML = biblioDiv.innerHTML;
+                }
+                popup.appendChild(citeDiv);
+              });
+              return popup.innerHTML;
+            });
+          }
+        }
+      });
+      </script>
+    
+
+</body></html>
