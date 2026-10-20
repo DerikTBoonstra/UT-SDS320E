@@ -19,7 +19,9 @@ Introduction to statistics. Topics may include: probability; principles of obser
 [5. Hypothesis Testing for One Population](https://deriktboonstra.github.io/UT-SDS320E/SDS320E_5_One_Population_Hypothesis)
 
 ## R Labs
-[1. R Demo Exercises](https://deriktboonstra.github.io/UT-SDS320E/R_Demo.html)
+[R Demo Exercises](https://deriktboonstra.github.io/UT-SDS320E/R_Demo.html)
+
+[4. Two Population T Tests](https://deriktboonstra.github.io/UT-SDS320E/Lab4_T_Tests.html)
 
 ## Other
 [Z-Table](https://DerikTBoonstra.github.io/UT-SDS320E/Z_Table.pdf)
