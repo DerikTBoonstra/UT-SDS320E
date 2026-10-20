@@ -1,0 +1,280 @@
+---
+title: "SDS 320E Lab 4 Resources: Two Population T-Test"
+author: "Department of Statistics and Data Sciences, UT Austin"
+format:
+  html:
+    toc: true
+    toc-depth: 3
+    toc-location: left
+    embed-resources: true
+    other-links:
+      - text: Download Dataset
+        href: https://data.nasa.gov/
+---
+
+```{r}
+#| include: false
+library("tidyverse");library("qqplotr")
+theme_set(
+  theme_minimal() +
+    theme(
+      strip.background = element_rect(fill = "lightgrey")
+    )
+)
+```
+
+```{r, echo=FALSE}
+knitr::opts_chunk$set(fig.height = 3.5)
+```
+
+
+------------------------------------------------------------------------
+
+## **Introduction**
+
+If we want to test if the means of two populations differ, and depending of the relationship between the populations, we can conduct either a *paired* or *pooled* t-test. In this lab, you will learn how to run both in $\texttt{R}$. 
+
+------------------------------------------------------------------------
+
+### **Lab Objectives**
+
+-   Confirm the assumptions of two-population t-tests.
+-   Conduct a paired t-test and interpret the results.
+-   Conduct an pooled t-test and interpret the results.
+
+------------------------------------------------------------------------
+
+### **New R Functions**
+
+| Function      | What it Does                         |
+|---------------|--------------------------------------|
+| `t.test()`     | Runs a t-test on a numeric vector(s) |
+
+------------------------------------------------------------------------
+
+## **Dataset**
+
+The dataset for this handout is based on the research of Dr. Danielle N. Lee, a biologist who studies how ecology and evolution influence animal behavior. Dr. Lee is also an active blogger on her site, *The Urban Scientist*, which focuses on urban ecology and diversity in the sciences. She also engages in outreach programs to increase minority participation in STEM fields.
+
+Dr. Lee's study on the behaviors of the African giant pouched rat, *Cricetomys ansorgei*, has contributed the training of these animals to find landmines, as she describes in her <a href="https://www.youtube.com/watch?v=fcLQQ9_OLfQ" target="_blank">2015 TED Talk</a>:
+
+<center>
+
+<iframe width="448" height="252" src="https://www.youtube.com/embed/fcLQQ9_OLfQ" data-external="1">
+
+</iframe>
+
+</center>
+
+We will be using a dataset based on an experiment she conducted on another rodent, the prairie vole, *Microtus ochrogaster*. This study involved placing voles in a maze and measuring the time it took for them to reach the end terminal. One group of voles was given a familiar odor stimulus, meaning the maze was scented with bedding from their home cage. A control group was given no odor stimulus. Each vole was measured in two successive trials to determine if they learned the pattern of the maze seeing it a second time.
+
+Download the `TTestHandout_maze.csv` file from Canvas or the here:[Download Dataset](https://data.nasa.gov/), import it into RStudio, and call the data frame *maze*:
+
+```{r, eval=FALSE}
+maze <- read.csv("TTestHandout_maze.csv")
+head(maze)
+```
+```{r, echo=FALSE}
+maze <- read.csv("data/TTestHandout_maze.csv")
+head(maze)
+```
+
+The *Group* variable is categorical and specifies which condition each prairie vole received (odor or control). The last two columns indicate the time, in seconds, it took to reach the end of the maze in the first and second trials.
+
+------------------------------------------------------------------------
+
+## **Research Questions**
+
+> *RQ1: Is there a difference in mean time for prairie voles to finish the maze in their first and second attempts?*
+
+> *RQ2: Is there a difference in mean time to finish the maze in the first trial between prairie voles receiving the familiar odor stimulus compared to the control group?*
+
+------------------------------------------------------------------------
+
+## **Paired t-test**
+
+To test if prairie voles take less time, on average, to reach the end of the maze in their second attempt ( *RQ1* ), a paired t-test is appropriate because every subject has a measurement for both attempts.
+
+### **Step 1: State hypotheses**
+
+Consider the difference of Trial 2 minus Trial 1
+```{r}
+#Create vector of differences
+mydiffs <- maze$Trial2.Time - maze$Trial1.Time
+```
+
+Then, let $\mu_d\ =$ the mean difference in time to complete the maze (Trial 2 minus Trial 1). Thus, our hypotheses are given by the following. 
+
+$H_0: \mu_d\ = 0$\
+$H_a: \mu_d\ < 0$
+
+### **Step 2: Assess assumptions**
+
+The assumption for the paired t-test is: The *differences* are normally distributed.
+
+To access whether the normality assumption is reasonable, we can plot the distribution of the *differences* using a histogram and QQ-plot. 
+
+::: panel-tabset
+
+### Base R
+```{r}
+hist(mydiffs, main='Distribution of Trial Time Differences', xlab='Trial 2 - Trial 1 time (sec)')
+```
+
+### ggplot
+
+```{r}
+library(ggplot2)
+ggplot(aes(mydiffs), data = NULL)+
+  geom_histogram()+
+  labs(x = "Trial 2 - Trial 1 time (sec)", 
+       title = "Distribution of Trial Time Differences")
+```
+
+:::
+
+The histogram of the differences show that data is fairly symmetric. We can confirm the normality assumption by plotting the qqplot of the differences. 
+
+::: panel-tabset
+
+### Base R
+```{r}
+qqnorm(mydiffs)
+qqline(mydiffs, col = "red")
+```
+
+### ggplot
+
+```{r}
+library(qqplotr)
+ggplot(aes(sample = mydiffs), data = NULL)+
+  stat_qq_band(color = "lightgrey")+
+  stat_qq_line(color = "red") +
+  stat_qq_point()
+```
+
+:::
+
+From the qqplot, most of the points are clustered close to the line and within the bounds. Thus, the normality assumption is reasonable met, and we can continue with our paired t-test. 
+
+### **Step 3: Calculate t and p-value**
+
+To run a paired test in $\texttt{R}$, we use the `t.test()` function on the differenced data. For this test, we have $H_{a}: \mu_{d} < 0$. Thus, we need to specify this with `alternative = "less"`
+
+```{r}
+t.test(mydiffs, alternative = "less")
+```
+
+### **Step 4: Write a conclusion in context**
+
+Based upon the p-value, we should be able to make a conclusion on whether or not we have sufficient evidence that the prairie voles complete the maze significantly faster, on average, in the second trial compared to the first.
+
+### **Effect Size**
+
+Along with concluding our hypothesis test, we can also provide an estimate of the size of this effect with a confidence interval for the mean difference in times. From the output above, we are 95% confident that the true mean difference between the second trial and first trial is <br> $\mu_{d} < -3.92$ seconds.  
+
+## **Pooled t-Test**
+
+Let's now test if the Trial 1 time differed between the odor and control groups ( *RQ2* ). Since we want to compare two different populations, we'll use perform an independent t-test, and specifically, and pooled t-test.
+
+### **Step 1: State hypotheses**
+
+Let $\mu_o\ =$ *the mean Trial 1 time for the odor group* and $\mu_c\ =$ *the mean Trial 1 time for the control group*. Thus, our hypotheses are given by the following. 
+
+$H_0: \mu_o = \mu_c$\
+$H_A: \mu_o \neq \mu_c$
+
+### **Step 2: Assess assumptions**
+
+For the pooled t-test, the assumptions are: 
+
+1.  Normality: Both populations are normally distributed.
+2.  Equal Variance: Both populations have equal variances.
+
+To access the normality of both populations, we will construct QQ-plots for each population. 
+
+::: panel-tabset
+
+### Base R
+```{r}
+odor_trial1 <- maze$Trial1.Time[maze$Group=='odor']
+control_trial1 <- maze$Trial1.Time[maze$Group=='control']
+
+# two columns for odor and control plot
+par(mfrow = c(1, 2))
+
+# odor qqplot
+qqnorm(odor_trial1)
+qqline(odor_trial1, col = "red")
+
+# control qqplot
+qqnorm(control_trial1)
+qqline(control_trial1, col = "red")
+```
+
+### ggplot
+```{r}
+library(qqplotr)
+ggplot(aes(sample = Trial1.Time), data = maze)+
+  stat_qq_band(color = "lightgrey")+
+  stat_qq_line(color = "red") +
+  stat_qq_point()+
+  facet_wrap(~Group) # facet qqplots by Group type
+```
+
+:::
+
+Although there is some deviations in the left tails for both populations, all of the points are within the bounds for the QQ-plot. Thus, the normality assumption is reasonably met for both populations. 
+
+Next, we will access the equal variance assumption by constructing boxplots of the first trial time for each population. 
+
+::: panel-tabset
+
+## Base R
+
+```{r}
+boxplot(Trial1.Time~Group, data = maze)
+```
+
+## ggplot
+
+```{r}
+ggplot(aes(Group, Trial1.Time), data = maze)+
+  geom_boxplot()
+```
+
+:::
+
+From the boxplots, the variability seems very similar for each population. Thus, the equal variance assumption is reasonable. Therefore, because both of our assumptions are reasonably met, we can proceed with the pooled t-test.
+
+### **Step 3: Calculate t and p-value**
+
+To perform the pooled t-test, we will use the   `t.test()` function with the argument `var.equal = TRUE`. This argument specifies that we are assuming the variances are equal and performing the pooled t-test. If the variance were not equal, we could do the unpooled t-test by setting `var.equal = FALSE`. Using our data, there are two ways to code the pooled t-test:
+
+::: panel-tabset 
+
+### ~ Option
+```{r}
+#Run independent t-test with equal variances
+t.test(Trial1.Time ~ Group, data = maze, var.equal = TRUE)
+```
+
+### Separate Groups Option
+
+```{r}
+# separate groups
+odor_trial1 <- maze$Trial1.Time[maze$Group=='odor']
+control_trial1 <- maze$Trial1.Time[maze$Group=='control']
+# Run independent t-test with equal variances
+t.test(control_trial1, odor_trial1, var.equal=TRUE)
+```
+
+:::
+
+### **Step 4: Write a conclusion in context**
+
+Based upon the p-value, we should be able to conclude whether or not we have sufficient evidence that there is a significant difference in the mean time it took to complete the maze in Trial 1 between the odor and control groups. 
+
+### **Effect Size**
+
+Along with concluding our hypothesis test, we can also provide an estimate of the size of this effect with a confidence interval for the difference in mean times between the control and odor groups. From the output above, we are 95% confident that the true difference in mean times between the control and odor groups is  $-2.34 < \mu_{\text{control}} - \mu_{\text{odor}} < 11.58$ seconds.
