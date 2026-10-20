@@ -7,9 +7,6 @@ format:
     toc-depth: 3
     toc-location: left
     embed-resources: true
-    other-links:
-      - text: Download Dataset
-        href: https://data.nasa.gov/
 ---
 
 ```{r}
@@ -68,7 +65,7 @@ Dr. Lee's study on the behaviors of the African giant pouched rat, *Cricetomys a
 
 We will be using a dataset based on an experiment she conducted on another rodent, the prairie vole, *Microtus ochrogaster*. This study involved placing voles in a maze and measuring the time it took for them to reach the end terminal. One group of voles was given a familiar odor stimulus, meaning the maze was scented with bedding from their home cage. A control group was given no odor stimulus. Each vole was measured in two successive trials to determine if they learned the pattern of the maze seeing it a second time.
 
-Download the `TTestHandout_maze.csv` file from Canvas or the here:[Download Dataset](https://data.nasa.gov/), import it into RStudio, and call the data frame *maze*:
+Download the `TTestHandout_maze.csv` file from Canvas or here: [Download Dataset](data/TTestHandout_maze.csv){download="TTestHandout_maze.csv"}, import it into RStudio, and call the data frame *maze*:
 
 ```{r, eval=FALSE}
 maze <- read.csv("TTestHandout_maze.csv")
