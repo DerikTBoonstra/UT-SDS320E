@@ -1,5 +1,5 @@
 ---
-title: "Hypothesis Testing for One Population"
+title: "Hypothesis Testing for Multiple Population"
 author: "SDS 320E"
 body-classes: hide-solutions
 resources:
