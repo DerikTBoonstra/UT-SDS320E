@@ -18,6 +18,9 @@ Introduction to statistics. Topics may include: probability; principles of obser
 
 [5. Hypothesis Testing for One Population](https://deriktboonstra.github.io/UT-SDS320E/SDS320E_5_One_Population_Hypothesis)
 
+[6. Hypothesis Testing for Multiple Population](https://deriktboonstra.github.io/UT-SDS320E/SDS320E_6_Multiple_Population_Hypo_Test)
+
+
 ## R Labs
 [R Demo Exercises](https://deriktboonstra.github.io/UT-SDS320E/R_Demo.html)
 
