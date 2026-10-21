@@ -1,0 +1,2759 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<script src="SDS320E_6_Multiple_Population_Hypo_Test_files/libs/clipboard/clipboard.min.js"></script>
+<script src="SDS320E_6_Multiple_Population_Hypo_Test_files/libs/quarto-html/tabby.min.js"></script>
+<script src="SDS320E_6_Multiple_Population_Hypo_Test_files/libs/quarto-html/popper.min.js"></script>
+<script src="SDS320E_6_Multiple_Population_Hypo_Test_files/libs/quarto-html/tippy.umd.min.js"></script>
+<link href="SDS320E_6_Multiple_Population_Hypo_Test_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="SDS320E_6_Multiple_Population_Hypo_Test_files/libs/quarto-html/light-border.css" rel="stylesheet">
+<link href="SDS320E_6_Multiple_Population_Hypo_Test_files/libs/quarto-html/quarto-syntax-highlighting-64a204ab8560d761af7679ceaba22944.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="SDS320E_6_Multiple_Population_Hypo_Test_files/libs/quarto-contrib/live-runtime/live-runtime.js" type="module"></script>
+<link href="SDS320E_6_Multiple_Population_Hypo_Test_files/libs/quarto-contrib/live-runtime/live-runtime.css" rel="stylesheet"><meta charset="utf-8">
+  <meta name="generator" content="quarto-1.10.18">
+
+  <meta name="author" content="SDS 320E">
+  <title>Hypothesis Testing for One Population</title>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+  <link rel="stylesheet" href="SDS320E_6_Multiple_Population_Hypo_Test_files/libs/revealjs/dist/reset.css">
+  <link rel="stylesheet" href="SDS320E_6_Multiple_Population_Hypo_Test_files/libs/revealjs/dist/reveal.css">
+  <style>
+    /* Default styles provided by pandoc.
+    ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+    */
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: 1.5em;}
+    div.column{flex: auto;}
+    @media screen {
+    div.columns{gap: min(4vw, 1.5em);}
+    div.column{overflow-x: auto;}
+    }
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+      vertical-align: middle;
+    }
+    /* CSS for syntax highlighting */
+    html { -webkit-text-size-adjust: 100%; }
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #aaaaaa;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+    div.sourceCode
+      { color: #003b4f; background-color: #f1f3f5; }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span { color: #003b4f; } /* Normal */
+    code span.al { color: #ad0000; } /* Alert */
+    code span.an { color: #5e5e5e; } /* Annotation */
+    code span.at { color: #657422; } /* Attribute */
+    code span.bn { color: #ad0000; } /* BaseN */
+    code span.bu { } /* BuiltIn */
+    code span.cf { color: #003b4f; font-weight: bold; } /* ControlFlow */
+    code span.ch { color: #20794d; } /* Char */
+    code span.cn { color: #8f5902; } /* Constant */
+    code span.co { color: #5e5e5e; } /* Comment */
+    code span.cv { color: #5e5e5e; font-style: italic; } /* CommentVar */
+    code span.do { color: #5e5e5e; font-style: italic; } /* Documentation */
+    code span.dt { color: #ad0000; } /* DataType */
+    code span.dv { color: #ad0000; } /* DecVal */
+    code span.er { color: #ad0000; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #ad0000; } /* Float */
+    code span.fu { color: #4758ab; } /* Function */
+    code span.im { color: #00769e; } /* Import */
+    code span.in { color: #5e5e5e; } /* Information */
+    code span.kw { color: #003b4f; font-weight: bold; } /* Keyword */
+    code span.op { color: #5e5e5e; } /* Operator */
+    code span.ot { color: #003b4f; } /* Other */
+    code span.pp { color: #ad0000; } /* Preprocessor */
+    code span.sc { color: #5e5e5e; } /* SpecialChar */
+    code span.ss { color: #20794d; } /* SpecialString */
+    code span.st { color: #20794d; } /* String */
+    code span.va { color: #111111; } /* Variable */
+    code span.vs { color: #20794d; } /* VerbatimString */
+    code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
+  </style>
+  <link rel="stylesheet" href="SDS320E_6_Multiple_Population_Hypo_Test_files/libs/revealjs/dist/theme/quarto-eb515f74946fd465419b5c6ecb14c728.css">
+  <link href="SDS320E_6_Multiple_Population_Hypo_Test_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
+  <link href="SDS320E_6_Multiple_Population_Hypo_Test_files/libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
+  <link href="SDS320E_6_Multiple_Population_Hypo_Test_files/libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
+  <link href="SDS320E_6_Multiple_Population_Hypo_Test_files/libs/revealjs/plugin/reveal-chalkboard/font-awesome/css/all.css" rel="stylesheet">
+  <link href="SDS320E_6_Multiple_Population_Hypo_Test_files/libs/revealjs/plugin/reveal-chalkboard/style.css" rel="stylesheet">
+  <link href="SDS320E_6_Multiple_Population_Hypo_Test_files/libs/revealjs/plugin/reveal-drop/drop-runtime.css" rel="stylesheet">
+  <link href="SDS320E_6_Multiple_Population_Hypo_Test_files/libs/revealjs/plugin/quarto-support/footer.css" rel="stylesheet">
+  <style type="text/css">
+    .reveal div.sourceCode {
+      margin: 0;
+      overflow: auto;
+    }
+    .reveal div.hanging-indent {
+      margin-left: 1em;
+      text-indent: -1em;
+    }
+    .reveal .slide:not(.center) {
+      height: 100%;
+    }
+    .reveal .slide.scrollable {
+      overflow-y: auto;
+    }
+    .reveal .footnotes {
+      height: 100%;
+      overflow-y: auto;
+    }
+    .reveal .slide .absolute {
+      position: absolute;
+      display: block;
+    }
+    .reveal .footnotes ol {
+      counter-reset: ol;
+      list-style-type: none; 
+      margin-left: 0;
+    }
+    .reveal .footnotes ol li:before {
+      counter-increment: ol;
+      content: counter(ol) ". "; 
+    }
+    .reveal .footnotes ol li > p:first-child {
+      display: inline-block;
+    }
+    .reveal .slide ul,
+    .reveal .slide ol {
+      margin-bottom: 0.5em;
+    }
+    .reveal .slide ul li,
+    .reveal .slide ol li {
+      margin-top: 0.4em;
+      margin-bottom: 0.2em;
+    }
+    .reveal .slide ul[role="tablist"] li {
+      margin-bottom: 0;
+    }
+    .reveal .slide ul li > *:first-child,
+    .reveal .slide ol li > *:first-child {
+      margin-block-start: 0;
+    }
+    .reveal .slide ul li > *:last-child,
+    .reveal .slide ol li > *:last-child {
+      margin-block-end: 0;
+    }
+    .reveal .slide .columns:nth-child(3) {
+      margin-block-start: 0.8em;
+    }
+    .reveal blockquote {
+      box-shadow: none;
+    }
+    .reveal .tippy-content>* {
+      margin-top: 0.2em;
+      margin-bottom: 0.7em;
+    }
+    .reveal .tippy-content>*:last-child {
+      margin-bottom: 0.2em;
+    }
+    .reveal .slide > img.stretch.quarto-figure-center,
+    .reveal .slide > img.r-stretch.quarto-figure-center {
+      display: block;
+      margin-left: auto;
+      margin-right: auto; 
+    }
+    .reveal .slide > img.stretch.quarto-figure-left,
+    .reveal .slide > img.r-stretch.quarto-figure-left  {
+      display: block;
+      margin-left: 0;
+      margin-right: auto; 
+    }
+    .reveal .slide > img.stretch.quarto-figure-right,
+    .reveal .slide > img.r-stretch.quarto-figure-right  {
+      display: block;
+      margin-left: auto;
+      margin-right: 0; 
+    }
+  </style>
+  <script type="module" src="SDS320E_6_Multiple_Population_Hypo_Test_files/libs/quarto-ojs/quarto-ojs-runtime.js"></script>
+  <link href="SDS320E_6_Multiple_Population_Hypo_Test_files/libs/quarto-ojs/quarto-ojs.css" rel="stylesheet">
+</head>
+<body class="hide-solutions quarto-light">
+  <div class="reveal">
+    <div class="slides">
+
+<section id="title-slide" class="quarto-title-block center">
+  <h1 class="title">Hypothesis Testing for One Population</h1>
+
+<div class="quarto-title-authors">
+<div class="quarto-title-author">
+<div class="quarto-title-author-name">
+SDS 320E
+</div>
+</div>
+</div>
+
+</section>
+<section id="review-hypothesis-tests-for-one-population" class="slide level2">
+<h2>Review: Hypothesis Tests for One Population</h2>
+<div style="font-size:.8em;">
+<ul>
+<li>Previously, we learned hypothesis tests for one population parameter</li>
+</ul>
+</div>
+<div class="fragment" title="Example">
+<div class="callout callout-tip callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Example</strong></p>
+</div>
+<div class="callout-content">
+<p>Suppose we are interested in determining if the average starting salary of UT Austin students is different from $72k. Thus, our null and alternative hypothesis are</p>
+<p><span class="math display">\[
+H_{0}: \mu = 72,000 \\
+H_{a}: \mu \neq 72,000.
+\]</span></p>
+</div>
+</div>
+</div>
+</div>
+<div class="fragment">
+<div class="absolute" style="top: 340px; left: 300px; ">
+<p><img data-src="figures/population_sample_1-1.jpg" style="width:60.0%"></p>
+</div>
+<div class="absolute" style="font-size:.9em;top: 340px; left: 280px; ">
+<p>All UT Austin Students Ever</p>
+</div>
+</div>
+<div class="fragment">
+<div class="absolute" style="top: 340px; left: 300px; ">
+<p><img data-src="figures/population_sample_2-1.jpg" style="width:60.0%"></p>
+</div>
+<div class="absolute" style="font-size:.9em;top: 340px; left: 280px; ">
+<p>All UT Austin Students Ever</p>
+</div>
+</div>
+<div class="fragment">
+<div class="absolute" style="top: 340px; left: 300px; ">
+<p><img data-src="figures/population_sample_3-1.jpg" style="width:60.0%"></p>
+</div>
+<div class="absolute" style="font-size:.9em;top: 340px; left: 280px; ">
+<p>All UT Austin Students Ever</p>
+</div>
+<div class="absolute" style="font-size:.9em;top: 340px; left: 600px; ">
+<p>Some UT Austin Students</p>
+</div>
+</div>
+<div class="fragment absolute" style="top: 600px; left: 0px; ">
+<p>From our sample we get the average starting salary was $75,000. Thus, we want to know if this is statistically significantly different from $72,000.</p>
+</div>
+</section>
+<section id="hypothesis-testing-for-multiple-populations" class="slide level2">
+<h2>Hypothesis Testing for Multiple Populations</h2>
+<div style="font-size:1.1em;" title="Example">
+<div class="callout callout-tip callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Example</strong></p>
+</div>
+<div class="callout-content">
+<p>Suppose we are interested in determining if there is a difference among the average starting salary of students that graduated from <span style="color:#BF5700;">UT Austin</span>, <span style="color:#500000;">Texas A&amp;M</span>, and <span style="color:#841617;">Oklahoma University</span>.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="fragment">
+<div class="absolute" style="top: 520px; width: 30%; ">
+<p><img data-src="figures/population_sample_1-1.jpg"></p>
+</div>
+<div class="absolute" style="top: 360px; width: 30%; ">
+<p><img data-src="figures/population_sample_1-1.jpg"></p>
+</div>
+<div class="absolute" style="top: 190px; width: 30%; ">
+<p><img data-src="figures/population_sample_1-1.jpg"></p>
+</div>
+<div class="absolute" style="top: 530px; ">
+<p><span style="color:#841617; font-size:.5em;"><u>All Oklahoma Students Ever</u></span></p>
+</div>
+<div class="absolute" style="top: 370px; ">
+<p><span style="color:#500000; font-size:.5em;"><u>All Texas A&amp;M Students Ever</u></span></p>
+</div>
+<div class="absolute" style="top: 190px; ">
+<p><span style="color:#BF5700; font-size:.5em;"><u>All UT Austin Students Ever</u></span></p>
+</div>
+</div>
+<div class="fragment">
+<div class="absolute" style="top: 520px; width: 30%; ">
+<p><img data-src="figures/population_sample_2-1.jpg"></p>
+</div>
+<div class="absolute" style="top: 360px; width: 30%; ">
+<p><img data-src="figures/population_sample_2-1.jpg"></p>
+</div>
+<div class="absolute" style="top: 190px; width: 30%; ">
+<p><img data-src="figures/population_sample_2-1.jpg"></p>
+</div>
+<div class="absolute" style="top: 530px; ">
+<p><span style="color:#841617; font-size:.5em;"><u>All Oklahoma Students Ever</u></span></p>
+</div>
+<div class="absolute" style="top: 370px; ">
+<p><span style="color:#500000; font-size:.5em;"><u>All Texas A&amp;M Students Ever</u></span></p>
+</div>
+<div class="absolute" style="top: 190px; ">
+<p><span style="color:#BF5700; font-size:.5em;"><u>All UT Austin Students Ever</u></span></p>
+</div>
+</div>
+<div class="fragment">
+<div class="absolute" style="top: 520px; width: 30%; ">
+<p><img data-src="figures/population_sample_3-1.jpg"></p>
+</div>
+<div class="absolute" style="top: 360px; width: 30%; ">
+<p><img data-src="figures/population_sample_3-1.jpg"></p>
+</div>
+<div class="absolute" style="top: 190px; width: 30%; ">
+<p><img data-src="figures/population_sample_3-1.jpg"></p>
+</div>
+<div class="absolute" style="top: 530px; ">
+<p><span style="color:#841617; font-size:.5em;"><u>All Oklahoma Students Ever</u></span></p>
+</div>
+<div class="absolute" style="top: 370px; ">
+<p><span style="color:#500000; font-size:.5em;"><u>All Texas A&amp;M Students Ever</u></span></p>
+</div>
+<div class="absolute" style="top: 190px; ">
+<p><span style="color:#BF5700; font-size:.5em;"><u>All UT Austin Students Ever</u></span></p>
+</div>
+<div class="absolute" style="top: 530px; left: 190px; ">
+<p><span style="color:#841617; font-size:.5em;"><u>Some Oklahoma Students</u></span></p>
+</div>
+<div class="absolute" style="top: 370px; left: 190px; ">
+<p><span style="color:#500000; font-size:.5em;"><u>Some Texas A&amp;M Students</u></span></p>
+</div>
+<div class="absolute" style="top: 190px; left: 190px; ">
+<p><span style="color:#BF5700; font-size:.5em;"><u>Some UT Austin Students</u></span></p>
+</div>
+</div>
+<div class="fragment">
+<div class="absolute" style="color:#BF5700; font-size:1em;top: 270px; left: 300px; ">
+<p><span class="math inline">\(\longrightarrow \quad \bar{x}_{UT} = \$75k\)</span></p>
+</div>
+<div class="absolute" style="color:#500000; font-size:1em;top: 440px; left: 300px; ">
+<p><span class="math inline">\(\longrightarrow \quad \bar{x}_{A\&amp;M} = \$73k\)</span></p>
+</div>
+<div class="absolute" style="color:#841617; font-size:1em;top: 600px; left: 300px; ">
+<p><span class="math inline">\(\longrightarrow \quad \bar{x}_{OU} = \$65k\)</span></p>
+</div>
+</div>
+<div class="fragment absolute" style="top: 350px; left: 600px; ">
+<p><u>Is there a significant difference in salary?</u></p>
+<div class="mysolution">
+<p>($) difference due to school? <br> Or natural variability?</p>
+</div>
+</div>
+</section>
+<section>
+<section id="hypothesis-testing-for-two-population-means-paired-independent-t" class="title-slide slide level1 center">
+<h1>Hypothesis Testing for Two Population Means: Paired &amp; Independent T</h1>
+
+</section>
+<section id="hypothesis-testing-for-two-pop-means" class="slide level2">
+<h2>Hypothesis Testing for Two Pop Means</h2>
+<ul>
+<li class="fragment">We may be interested in determining if there is a difference between two means
+<ul>
+<li class="fragment">i.e.&nbsp;is <span class="math inline">\(\mu_{1} = \mu_{2}\)</span>? <span class="subtext"><span class="math inline">\(\mu_{1}\)</span> &amp; <span class="math inline">\(\mu_{2}\)</span> is mean for population 1 and 2, respectively</span></li>
+</ul></li>
+</ul>
+<ul>
+<li class="fragment">To perform a hypothesis test for <span class="math inline">\(\mu_{1}\)</span> and <span class="math inline">\(\mu_{2}\)</span>, we must determine:
+<ul>
+<li class="fragment">Are the two populations <em>independent</em> or <em>dependent</em> of one another?</li>
+</ul></li>
+</ul>
+<ul>
+<li class="fragment"><p><strong>Independent Populations:</strong> <em>populations are independent of one another if they have no influence on, and are completely unrelated to, other populations</em> <span class="subtext">i.e.&nbsp;the outcomes from populations are not dependent on one another</span></p></li>
+<li class="fragment"><p><strong>Dependent Populations:</strong> <em>populations are dependent on one another if the outcomes from one population influence, or are related to, the outcomes from other populations</em></p>
+<ul>
+<li class="fragment">Why does dependence matter?</li>
+</ul></li>
+</ul>
+</section>
+<section id="why-dependence-matters" class="slide level2">
+<h2>Why Dependence Matters</h2>
+<div title="Example">
+<div class="callout callout-tip callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Example</strong></p>
+</div>
+<div class="callout-content">
+<p>Suppose one is interested in determining if there is a difference between <span class="math inline">\(\mu\)</span> = <em>the mean SAT scores</em> for the genders Male and Female. For <span class="math inline">\(H_{0}\)</span>, we assume that there is no difference in SAT scores between genders. That is,</p>
+<div class="fragment">
+<p><span class="math display">\[H_{0}: \mu_{Female} = \mu_{Male}\]</span></p>
+</div>
+<div class="fragment">
+<p>Previously, we said p-value <span class="math inline">\(= 0.02 &lt; \alpha = 0.05\)</span>. Thus, there is sufficient evidence that there is a significant difference between <span class="math inline">\(\mu_{Female}\)</span> and <span class="math inline">\(\mu_{Male}\)</span>. <u>However, are there other factors aside from gender that can cause a difference in SAT scores?</u></p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="fragment absolute" style="top: 600px; ">
+<p><span class="mysolution">Dependent populations can eliminate confounding factors</span></p>
+</div>
+</section>
+<section id="dependent-populations" class="slide level2">
+<h2>Dependent Populations</h2>
+<div class="fragment" style="font-size:.9em;" data-fragment-index="1">
+<ul>
+<li>There are multiple ways we get dependent populations
+<ul>
+<li><span class="fragment" data-fragment-index="2">pre and post treatment from the same subject</span></li>
+<li><span class="fragment" data-fragment-index="3">“pair” subjects based upon similarities <span class="subtext">most common</span></span></li>
+<li><span class="fragment" data-fragment-index="4">genetics: twins, litters, ect.</span></li>
+</ul></li>
+</ul>
+</div>
+<div class="fragment" data-fragment-index="5">
+<ul>
+<li>For dependent populations, to test whether there is a difference, we consider the <span class="fragment" data-fragment-index="7"><span class="mysolution">differenced data</span></span></li>
+</ul>
+</div>
+<div class="fragment" data-fragment-index="6">
+<table class="caption-top">
+<colgroup>
+<col style="width: 28%">
+<col style="width: 27%">
+<col style="width: 44%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: center;"><span class="math inline">\(X_{1}\)</span> = Dep Pop 1</th>
+<th style="text-align: center;"><span class="math inline">\(X_{2}\)</span> = Dep Pop 2</th>
+<th style="text-align: center;"><span class="fragment" data-fragment-index="7"><span class="mysolution">Difference (<span class="math inline">\(X_{1} - X_{2}\)</span>)</span></span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">74</td>
+<td style="text-align: center;">70</td>
+<td style="text-align: center;"><span class="fragment" data-fragment-index="7"><span class="mysolution"><span class="math inline">\(4\)</span></span></span></td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">80</td>
+<td style="text-align: center;">73</td>
+<td style="text-align: center;"><span class="fragment" data-fragment-index="7"><span class="mysolution"><span class="math inline">\(7\)</span></span></span></td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">68</td>
+<td style="text-align: center;">69</td>
+<td style="text-align: center;"><span class="fragment" data-fragment-index="7"><span class="mysolution"><span class="math inline">\(-1\)</span></span></span></td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">71</td>
+<td style="text-align: center;">76</td>
+<td style="text-align: center;"><span class="fragment" data-fragment-index="7"><span class="mysolution"><span class="math inline">\(-6\)</span></span></span></td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;"><span class="math inline">\(\vdots\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(\vdots\)</span></td>
+<td style="text-align: center;"><span class="fragment" data-fragment-index="7"><span class="mysolution"><span class="math inline">\(\vdots\)</span></span></span></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="hypothesis-test-for-two-dependent-means" class="slide level2">
+<h2>Hypothesis Test for Two Dependent Means</h2>
+<div title="Paired t-Test" style="font-size:1.1em;">
+<div class="callout callout-note callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Paired t-Test</strong></p>
+</div>
+<div class="callout-content">
+<p>Let <span class="math inline">\(X_{1}\)</span> and <span class="math inline">\(X_{2}\)</span> represent populations 1 and 2, respectively, and, let <span class="math inline">\(X_{d} = X_{1} - X_{2}\)</span> and <span class="math inline">\(\mu_{d} = \mu_{1} - \mu_{2}\)</span>. Then, o conduct a hypothesis test for two dependent population means, we will use the <em>Paired t-Test</em>:</p>
+<div class="fragment">
+<p><u>Null and Alternative Hypothesis</u></p>
+<div class="fragment">
+<p><span class="math inline">\(H_{0}: \mu_{d} = value\)</span> <span class="subtext">typically <span class="math inline">\(value = 0\)</span>, i.e.&nbsp;<span class="math inline">\(\mu_{1} = \mu_{2}\)</span></span></p>
+</div>
+<div class="fragment">
+<p><span class="math inline">\(H_{a}: \mu_{d} &lt; value\)</span>, <span class="math inline">\(&gt; value\)</span>, or <span class="math inline">\(\neq value\)</span></p>
+</div>
+</div>
+<div class="fragment">
+<p><u>Test-Statistic and Distribution</u></p>
+</div>
+<div class="fragment">
+<div class="mysolution center">
+<p><span style="font-size:1.4em;"><span class="math inline">\(t\)</span></span> <span style="font-size:1.5em;"><span class="math inline">\(= \frac{\bar{x}_{d} - \mu_{d}}{s_{d}/\sqrt{n}}\)</span></span> <span class="fragment"><span style="font-size:1.2em;"><span class="math inline">\(\sim t(df = n - 1)\)</span></span> <br> <span class="subtext">again <span class="math inline">\(\mu_{d} = 0\)</span> is the common case</span></span></p>
+</div>
+</div>
+<div class="fragment">
+<p><strong>Assumption for Paired t-Test:</strong> <span class="fragment"><span class="mysolution">Normality of the <span class="math inline">\(X_{d}\)</span> <span class="subtext">(check with QQ-Plot of the differenced data)</span></span></span></p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<ul>
+<li class="fragment">To do a paired t-Test in <span class="math inline">\(\texttt{R}\)</span>, we will just the <code>t.test()</code> function on the differenced data</li>
+</ul>
+</section>
+<section id="paired-t-test-in-r" class="slide level2">
+<h2>Paired t-Test in R</h2>
+<div style="font-size:0.8em;">
+<ul>
+<li class="fragment">To conduct a paired t-test in R, we can create the differenced data <span class="math inline">\(X_{d} = X_{1} - X_{2}\)</span> and then use the <code>t.test()</code> function on it. The arguments of interest are:
+<ul>
+<li class="fragment"><code>x</code>: the numeric vector of the differenced data</li>
+<li class="fragment"><code>mu</code>: the hypothesized value of <span class="math inline">\(\mu_{d}\)</span> in <span class="math inline">\(H_{0}\)</span> (default is 0)</li>
+<li class="fragment"><code>alternative</code>: the form of <span class="math inline">\(H_{a}\)</span>, either <code>"less"</code>, <code>"greater"</code>, or <code>"two.sided"</code> (default is <code>"two.sided"</code>)</li>
+</ul></li>
+<li class="fragment">Or, we can keep our variables separate and use <code>t.test(x, y, paired = TRUE)</code></li>
+</ul>
+</div>
+<div class="fragment">
+<div class="absolute" style="top: 300px; width: 80%; ">
+<div style="transform: scale(0.7); transform-origin: top left;">
+<div class="cell">
+<div>
+<div id="webr-1" class="exercise-cell">
+
+</div>
+<script type="webr-1-contents">
+eyJhdHRyIjp7ImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoiIyBIb3VycyBvZiBleHRyYSBzbGVlcCBmb3IgdGhlIHNhbWUgMTAgcGF0aWVudHMgdW5kZXIgZHJ1ZyAxIGFuZCBkcnVnIDJcbmRydWcxIDwtIHNsZWVwJGV4dHJhW3NsZWVwJGdyb3VwID09IDFdXG5kcnVnMiA8LSBzbGVlcCRleHRyYVtzbGVlcCRncm91cCA9PSAyXVxuXG4jIERpZmZlcmVuY2VkIGRhdGE6IFhfZCA9IFhfMSAtIFhfMiwgd2l0aCBYXzEgPSBkcnVnIDEgYW5kIFhfMiA9IGRydWcgMlxuZGlmZl9kYXRhIDwtIGRydWcxIC0gZHJ1ZzJcblxuIyBUZXN0IEgwOiBtdV9kID0gMCB2cyBIYTogbXVfZCA+IDAgaS5lLiBkcnVnIDEgPiBkcnVnIDJcbnQudGVzdChkaWZmX2RhdGEsIGFsdGVybmF0aXZlID0gXCJncmVhdGVyXCIpIn0=
+</script>
+</div>
+</div>
+</div>
+</div>
+<div class="cell">
+<div>
+<div id="webr-2" class="exercise-cell">
+
+</div>
+<script type="webr-2-contents">
+eyJhdHRyIjp7ImVjaG8iOmZhbHNlLCJlZGl0IjpmYWxzZSwiZXZhbCI6dHJ1ZSwiaW5jbHVkZSI6ZmFsc2UsIm91dHB1dCI6ZmFsc2V9LCJjb2RlIjoiIyBIb3VycyBvZiBleHRyYSBzbGVlcCBmb3IgdGhlIHNhbWUgMTAgcGF0aWVudHMgdW5kZXIgZHJ1ZyAxIGFuZCBkcnVnIDJcbmRydWcxIDwtIHNsZWVwJGV4dHJhW3NsZWVwJGdyb3VwID09IDFdXG5kcnVnMiA8LSBzbGVlcCRleHRyYVtzbGVlcCRncm91cCA9PSAyXSJ9
+</script>
+</div>
+</div>
+<div class="absolute" style="top: 300px; left: 600px; width: 60%; ">
+<div style="transform: scale(0.7); transform-origin: top left;">
+<div class="cell">
+<div>
+<div id="webr-3" class="exercise-cell">
+
+</div>
+<script type="webr-3-contents">
+eyJhdHRyIjp7ImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoiIyBFcXVpdmFsZW50OiBsZXQgdC50ZXN0KCkgZG8gdGhlIGRpZmZlcmVuY2luZyB3aXRoIHBhaXJlZCA9IFRSVUVcbnQudGVzdChkcnVnMSwgZHJ1ZzIsIHBhaXJlZCA9IFRSVUUsIGFsdGVybmF0aXZlID0gXCJncmVhdGVyXCIpIn0=
+</script>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="paired-t-test-example" class="slide level2">
+<h2>Paired t-Test Example</h2>
+<div title="Example" style="font-size:1.1em;">
+<div class="callout callout-tip callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Example</strong></p>
+</div>
+<div class="callout-content">
+<p>Suppose one is interested in determining if there is a difference between the mean SAT scores for the genders Female and Male at the 10% significance level. 100 female students were paired to 100 male students based upon their GPA and SAT tutoring and studying hours. The mean difference (Female - Male) for the sample was 9.64, and the standard deviation of the difference was 65.63.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="columns">
+<div class="column fragment" style="width:45%;">
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="" aria-label="1"></a>sat_scores <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"data/sat_scores.csv"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div style="font-size:.6em;">
+<div class="cell">
+<div class="cell-output-display">
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th style="text-align: right;">female</th>
+<th style="text-align: right;">male</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">1036</td>
+<td style="text-align: right;">1019</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">1069</td>
+<td style="text-align: right;">1059</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">1021</td>
+<td style="text-align: right;">1008</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">1075</td>
+<td style="text-align: right;">1130</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">1034</td>
+<td style="text-align: right;">1066</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">1155</td>
+<td style="text-align: right;">1009</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">1103</td>
+<td style="text-align: right;">1074</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">1113</td>
+<td style="text-align: right;">1087</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">1086</td>
+<td style="text-align: right;">1079</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">1151</td>
+<td style="text-align: right;">1035</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</div><div class="column" style="font-size:.9em;">
+<ol type="1">
+<li class="fragment">What are the null and alternative hypotheses?</li>
+</ol>
+<div class="fragment">
+<p><span class="mysolution"><span class="math inline">\(H_{0}: \mu_{d} = 0\)</span> <span class="subtext">where <span class="math inline">\(\mu_{d} = \mu_{female} - \mu_{male}\)</span></span></span></p>
+</div>
+<div class="fragment">
+<p><span class="mysolution"><span class="math inline">\(H_{a}: \mu \neq 0\)</span></span></p>
+</div>
+<ol start="2" type="1">
+<li class="fragment">What is the Test-Statistic?</li>
+</ol>
+<div class="fragment">
+<p><span class="mysolution"><span class="math display">\[t = \frac{9.64 - 0}{65.63/\sqrt{100}} = 1.47\]</span></span></p>
+</div>
+</div></div>
+</section>
+<section id="paired-t-test-example-assumptions" class="slide level2">
+<h2>Paired t-Test Example: Assumptions</h2>
+<ul>
+<li>Before we can perform the paired t-Test, we must check the assumptions for the test</li>
+</ul>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="" aria-label="1"></a>diff_data <span class="ot">&lt;-</span> sat_scores<span class="sc">$</span>female <span class="sc">-</span> sat_scores<span class="sc">$</span>male</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div style="font-size:.6em;">
+<div class="cell">
+<details class="code-fold">
+<summary>Show the code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="" aria-label="1"></a><span class="fu">library</span>(<span class="st">"qqplotr"</span>)</span>
+<span id="cb3-2"><a href="" aria-label="2"></a><span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">sample =</span> diff_data), <span class="at">data =</span> <span class="cn">NULL</span>)<span class="sc">+</span></span>
+<span id="cb3-3"><a href="" aria-label="3"></a>  <span class="fu">stat_qq_band</span>(<span class="at">color =</span> <span class="st">"lightgrey"</span>)<span class="sc">+</span></span>
+<span id="cb3-4"><a href="" aria-label="4"></a>  <span class="fu">stat_qq_line</span>(<span class="at">color =</span> <span class="st">"red"</span>) <span class="sc">+</span></span>
+<span id="cb3-5"><a href="" aria-label="5"></a>  <span class="fu">stat_qq_point</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+</div>
+<div class="center">
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure>
+<p><img data-src="SDS320E_6_Multiple_Population_Hypo_Test_files/figure-revealjs/unnamed-chunk-10-1.png" width="960"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+<div class="fragment">
+<p><span class="mysolution">The normality assumption is reasonable</span></p>
+</div>
+</section>
+<section id="paired-t-test-example-1" class="slide level2">
+<h2>Paired t-Test Example</h2>
+<div title="Example" style="font-size:.8em;">
+<div class="callout callout-tip callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Example</strong></p>
+</div>
+<div class="callout-content">
+<p>Suppose one is interested in determining if there is a difference between the mean SAT scores for the genders Female and Male at the 10% significance level. 100 female students were paired to 100 male students based upon their GPA and SAT tutoring and studying hours. The mean difference (Female - Male) for the sample was 9.64, and the standard deviation of the difference was 65.63.</p>
+</div>
+</div>
+</div>
+</div>
+<ol start="3" type="1">
+<li class="fragment">Make a conclusion for the test.</li>
+</ol>
+<div class="fragment">
+<div class="cell">
+<div>
+<div id="webr-4" class="exercise-cell">
+
+</div>
+<script type="webr-4-contents">
+eyJhdHRyIjp7ImVjaG8iOmZhbHNlLCJlZGl0IjpmYWxzZSwiZXZhbCI6dHJ1ZSwiaW5jbHVkZSI6ZmFsc2UsIm91dHB1dCI6ZmFsc2V9LCJjb2RlIjoiIyBzYXRfc2NvcmVzIDwtIHJlYWQuY3N2KFwiZGF0YS9zYXRfc2NvcmVzLmNzdlwiKVxuIyBkaWZmX2RhdGEgPC0gc2F0X3Njb3JlcyRmZW1hbGUgLSBzYXRfc2NvcmVzJG1hbGUifQ==
+</script>
+</div>
+</div>
+<div style="font-size:.9em;">
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="" aria-label="1"></a><span class="fu">t.test</span>(diff_data)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    One Sample t-test
+
+data:  diff_data
+t = 1.4688, df = 99, p-value = 0.1451
+alternative hypothesis: true mean is not equal to 0
+95 percent confidence interval:
+ -3.383036 22.663036
+sample estimates:
+mean of x 
+     9.64 </code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="fragment">
+<div class="mysolution" style="font-size:.8em;">
+<p>The p-value <span class="math inline">\(= 0.1451 &gt; \alpha = 0.10\)</span>. Therefore, we fail to reject <span class="math inline">\(H_{0}\)</span> &amp; conclude there is not sufficient evidence that mean SAT scores are different between genders.</p>
+</div>
+</div>
+<ol start="4" type="1">
+<li class="fragment">What do we notice about the confidence interval? <span class="fragment"><span class="mysolution" style="font-size:.9em;">The 95% confidence interval for <span class="math inline">\(\mu_{d}\)</span> is (-3.38, 22.66), and it contains 0, which agrees with failing to reject <span class="math inline">\(H_{0}\)</span>.</span></span></li>
+</ol>
+</section>
+<section id="hypothesis-test-for-two-independent-means" class="slide level2">
+<h2>Hypothesis Test for Two Independent Means</h2>
+<div title="Pooled t-Test" style="font-size:1.em;">
+<div class="callout callout-note callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Pooled t-Test</strong></p>
+</div>
+<div class="callout-content">
+<p>Let <span class="math inline">\(X_{1}\)</span> and <span class="math inline">\(X_{2}\)</span> represent populations 1 and 2, respectively, with means <span class="math inline">\(\mu_{1}\)</span> and <span class="math inline">\(\mu_{2}\)</span>. Then, to conduct a hypothesis test for two independent population means, we will use the <em>Pooled t-Test</em>:</p>
+<div class="fragment">
+<p><u>Null and Alternative Hypothesis</u></p>
+<div class="fragment">
+<p><span class="math inline">\(H_{0}: \mu_{1} - \mu_{2} = value\)</span> <span class="subtext">typically <span class="math inline">\(value = 0\)</span>, i.e.&nbsp;<span class="math inline">\(\mu_{1} = \mu_{2}\)</span></span></p>
+</div>
+<div class="fragment">
+<p><span class="math inline">\(H_{a}: \mu_{1} - \mu_{2} &lt; value\)</span>, <span class="math inline">\(&gt; value\)</span>, or <span class="math inline">\(\neq value\)</span></p>
+</div>
+</div>
+<div class="fragment">
+<p><u>Test-Statistic and Distribution</u></p>
+</div>
+<div class="fragment">
+<div class="mysolution center">
+<p><span style="font-size:1.4em;"><span class="math inline">\(t\)</span></span> <span style="font-size:1.5em;"><span class="math inline">\(= \frac{(\bar{x}_{1} - \bar{x}_{2}) - (\mu_{1} - \mu_{2})}{\sqrt{\frac{s_{1}^{2}}{n_{1}} + \frac{s_{2}^{2}}{n_{2}}}}\)</span></span> <span class="fragment"><span style="font-size:1.2em;"><span class="math inline">\(\sim t(df = n_{1} + n_{2} - 2)\)</span></span> <br> <span class="subtext">again <span class="math inline">\(\mu_{1} - \mu_{2} = 0\)</span> is the common case</span></span></p>
+</div>
+</div>
+<div class="fragment">
+<p><u>Assumptions for Pooled t-Test</u></p>
+<ol type="1">
+<li><span class="fragment"><span class="mysolution">Normality of both <span class="math inline">\(X_{1}\)</span> and <span class="math inline">\(X_{2}\)</span> <span class="subtext">(check with a QQ-Plot for each sample)</span></span></span></li>
+<li><span class="fragment"><span class="mysolution">Equal Variances <span class="subtext">(i.e.&nbsp;assumes <span class="math inline">\(\sigma_{1} = \sigma_{2}\)</span>. Check with boxplots/densities/histograms)</span></span></span></li>
+</ol>
+</div>
+<ul>
+<li class="fragment">Note: If the equal variance assumption is not reasonable, then we could perform Welch’s Unpooled t-Test <span class="subtext">(less powerful than pooled t-Test)</span></li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="pooled-t-test-in-r" class="slide level2">
+<h2>Pooled t-Test in R</h2>
+<div style="font-size:0.8em;">
+<ul>
+<li class="fragment">To conduct a pooled t-test in R, we can keep the two samples separate and use the <code>t.test()</code> function with <code>var.equal = TRUE</code>. The arguments of interest are:
+<ul>
+<li class="fragment"><code>x</code>, <code>y</code>: the numeric vectors of the data for population 1 and population 2, respectively</li>
+<li class="fragment"><code>mu</code>: the hypothesized value of <span class="math inline">\(\mu_{1} - \mu_{2}\)</span> in <span class="math inline">\(H_{0}\)</span> (default is 0)</li>
+<li class="fragment"><code>alternative</code>: the form of <span class="math inline">\(H_{a}\)</span>, either <code>"less"</code>, <code>"greater"</code>, or <code>"two.sided"</code> (default is <code>"two.sided"</code>)</li>
+<li class="fragment"><code>var.equal</code>: set to <code>TRUE</code> for the pooled test (default is <code>FALSE</code>, which gives the unpooled test)</li>
+</ul></li>
+<li class="fragment">Or, if the data is in one column with a second column of group labels, we can use the formula version <code>t.test(y ~ group, data = data, var.equal = TRUE)</code></li>
+</ul>
+</div>
+<div class="fragment">
+<div class="absolute" style="top: 350px; width: 80%; ">
+<div style="transform: scale(0.7); transform-origin: top left;">
+<div class="cell">
+<div>
+<div id="webr-5" class="exercise-cell">
+
+</div>
+<script type="webr-5-contents">
+eyJhdHRyIjp7ImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoiIyBNaWxlcyBwZXIgZ2FsbG9uIGZvciBjYXJzIHdpdGggYXV0b21hdGljIGFuZCBtYW51YWwgdHJhbnNtaXNzaW9uc1xuYXV0byAgIDwtIG10Y2FycyRtcGdbbXRjYXJzJGFtID09IDBdXG5tYW51YWwgPC0gbXRjYXJzJG1wZ1ttdGNhcnMkYW0gPT0gMV1cblxuIyBUZXN0IEgwOiBtdV8xIC0gbXVfMiA9IDAgdnMgSGE6IG11XzEgLSBtdV8yICE9IDBcbiMgd2l0aCBYXzEgPSBhdXRvbWF0aWMgYW5kIFhfMiA9IG1hbnVhbFxudC50ZXN0KGF1dG8sIG1hbnVhbCwgdmFyLmVxdWFsID0gVFJVRSkifQ==
+</script>
+</div>
+</div>
+</div>
+</div>
+<div class="absolute" style="top: 350px; left: 600px; width: 60%; ">
+<div style="transform: scale(0.7); transform-origin: top left;">
+<div class="cell">
+<div>
+<div id="webr-6" class="exercise-cell">
+
+</div>
+<script type="webr-6-contents">
+eyJhdHRyIjp7ImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoiIyBFcXVpdmFsZW50OiBmb3JtdWxhIHZlcnNpb24sIGFtID0gMCAoYXV0b21hdGljKSBpcyBncm91cCAxXG50LnRlc3QobXBnIH4gYW0sIGRhdGEgPSBtdGNhcnMsIHZhci5lcXVhbCA9IFRSVUUpIn0=
+</script>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="pooled-t-test-example" class="slide level2">
+<h2>Pooled t-Test Example</h2>
+<div title="Example">
+<div class="callout callout-tip callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Example</strong></p>
+</div>
+<div class="callout-content">
+<p>A researcher is testing a new blood pressure medication. They randomly assigns 29 patients with high blood pressure to one of two groups: 15 receive the new medication and 14 receive a placebo. After 8 weeks, they recorded each patient’s reduction in systolic blood pressure (mmHg). They want to know if the new medication reduces blood pressure more than the placebo at the 5% significance level.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="columns">
+<div class="column fragment" style="width:45%;">
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="" aria-label="1"></a>bp_data</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div style="font-size:.6em;">
+<div class="cell">
+<div class="cell-output-display">
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th style="text-align: right;">patient_id</th>
+<th style="text-align: left;">group</th>
+<th style="text-align: right;">reduction_mmHg</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">7</td>
+<td style="text-align: left;">Treatment</td>
+<td style="text-align: right;">13</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">2</td>
+<td style="text-align: left;">Treatment</td>
+<td style="text-align: right;">8</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">9</td>
+<td style="text-align: left;">Treatment</td>
+<td style="text-align: right;">9</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">1</td>
+<td style="text-align: left;">Treatment</td>
+<td style="text-align: right;">14</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">12</td>
+<td style="text-align: left;">Treatment</td>
+<td style="text-align: right;">12</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">21</td>
+<td style="text-align: left;">Placebo</td>
+<td style="text-align: right;">11</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">19</td>
+<td style="text-align: left;">Placebo</td>
+<td style="text-align: right;">9</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">25</td>
+<td style="text-align: left;">Placebo</td>
+<td style="text-align: right;">2</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">22</td>
+<td style="text-align: left;">Placebo</td>
+<td style="text-align: right;">5</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">24</td>
+<td style="text-align: left;">Placebo</td>
+<td style="text-align: right;">8</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</div><div class="column" style="font-size:.8em;">
+<ol type="1">
+<li class="fragment">Are the two populations independent or dependent?</li>
+</ol>
+<div class="fragment">
+<p><span class="mysolution">Independent because patients were randomly assigned to each group</span></p>
+</div>
+<ol start="2" type="1">
+<li class="fragment">What test should we perform?</li>
+</ol>
+<div class="fragment">
+<p><span class="mysolution">Pooled t-Test</span></p>
+</div>
+<ol start="3" type="1">
+<li class="fragment">What are the null and alternative hypotheses?</li>
+</ol>
+<div class="fragment">
+<p><span class="mysolution"><span class="math inline">\(H_{0}: \mu_{1} = \mu_{2}\)</span> <span class="subtext">where <span class="math inline">\(\mu_{1} =\)</span> mean reduction in BP for Treatment &amp; <span class="math inline">\(\mu_{2} =\)</span> mean reduction in BP for Placebo</span></span></p>
+</div>
+<div class="fragment">
+<p><span class="mysolution"><span class="math inline">\(H_{a}: \mu_{1} &gt; \mu_{2}\)</span></span></p>
+</div>
+</div></div>
+</section>
+<section id="pooled-t-test-example-assumptions" class="slide level2">
+<h2>Pooled t-Test Example: Assumptions</h2>
+<ul>
+<li>Before we can proceed with our test, we must check the assumptions first!</li>
+</ul>
+<div class="columns">
+<div class="column fragment" style="width:50%;">
+<ol type="1">
+<li>Normality</li>
+</ol>
+<div style="font-size:.5em;">
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="" aria-label="1"></a><span class="fu">library</span>(qqplotr)</span>
+<span id="cb7-2"><a href="" aria-label="2"></a><span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">sample =</span> reduction_mmHg), <span class="at">data =</span> bp_data)<span class="sc">+</span></span>
+<span id="cb7-3"><a href="" aria-label="3"></a>  <span class="fu">stat_qq_band</span>(<span class="at">color =</span> <span class="st">"lightgrey"</span>)<span class="sc">+</span></span>
+<span id="cb7-4"><a href="" aria-label="4"></a>  <span class="fu">stat_qq_line</span>(<span class="at">color =</span> <span class="st">"red"</span>) <span class="sc">+</span></span>
+<span id="cb7-5"><a href="" aria-label="5"></a>  <span class="fu">stat_qq_point</span>()<span class="sc">+</span></span>
+<span id="cb7-6"><a href="" aria-label="6"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>group)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</div>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure>
+<p><img data-src="SDS320E_6_Multiple_Population_Hypo_Test_files/figure-revealjs/unnamed-chunk-19-1.png" width="960"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="fragment">
+<p><span class="mysolution">The normality assumption is reasonable for both populations</span></p>
+</div>
+</div><div class="column fragment" style="width:50%;">
+<ol start="2" type="1">
+<li>Equal Variance</li>
+</ol>
+<div style="font-size:.6em;">
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="" aria-label="1"></a><span class="fu">ggplot</span>(<span class="fu">aes</span>(group, reduction_mmHg), <span class="at">data =</span> bp_data)<span class="sc">+</span></span>
+<span id="cb8-2"><a href="" aria-label="2"></a>  <span class="fu">geom_boxplot</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</div>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure>
+<p><img data-src="SDS320E_6_Multiple_Population_Hypo_Test_files/figure-revealjs/unnamed-chunk-21-1.png" width="960"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="fragment">
+<p><span class="mysolution">The variability seems very similar for both populations</span></p>
+</div>
+</div></div>
+</section>
+<section id="pooled-t-test-example-conclusions" class="slide level2">
+<h2>Pooled t-Test Example: Conclusions</h2>
+<div title="Example" style="font-size:.8em;">
+<div class="callout callout-tip callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Example</strong></p>
+</div>
+<div class="callout-content">
+<p>A researcher is testing a new blood pressure medication. They randomly assigns 29 patients with high blood pressure to one of two groups: 15 receive the new medication and 14 receive a placebo. After 8 weeks, they recorded each patient’s reduction in systolic blood pressure (mmHg). They want to know if the new medication reduces blood pressure more than the placebo at the 5% significance level.</p>
+</div>
+</div>
+</div>
+</div>
+<ol start="3" type="1">
+<li class="fragment">Make a conclusion for the test.</li>
+</ol>
+<div class="cell">
+<div>
+<div id="webr-7" class="exercise-cell">
+
+</div>
+<script type="webr-7-contents">
+eyJhdHRyIjp7ImVjaG8iOmZhbHNlLCJlZGl0IjpmYWxzZSwiZXZhbCI6dHJ1ZSwiaW5jbHVkZSI6ZmFsc2UsIm91dHB1dCI6ZmFsc2V9LCJjb2RlIjoiXG5saWJyYXJ5KHRpYmJsZSlcblxuIyBTeW50aGV0aWMgZGF0YSBmb3IgYSBwb29sZWQgdHdvLXNhbXBsZSB0LXRlc3QgZXhhbXBsZVxuYnBfZGF0YSA8LSB0cmliYmxlKFxuICB+cGF0aWVudF9pZCwgfmdyb3VwLCAgICAgICB+cmVkdWN0aW9uX21tSGcsXG4gICAxLCAgICAgICAgICBcIlRyZWF0bWVudFwiLCAxNCxcbiAgIDIsICAgICAgICAgIFwiVHJlYXRtZW50XCIsICA4LFxuICAgMywgICAgICAgICAgXCJUcmVhdG1lbnRcIiwgMTksXG4gICA0LCAgICAgICAgICBcIlRyZWF0bWVudFwiLCAxMSxcbiAgIDUsICAgICAgICAgIFwiVHJlYXRtZW50XCIsICA2LFxuICAgNiwgICAgICAgICAgXCJUcmVhdG1lbnRcIiwgMTYsXG4gICA3LCAgICAgICAgICBcIlRyZWF0bWVudFwiLCAxMyxcbiAgIDgsICAgICAgICAgIFwiVHJlYXRtZW50XCIsIDIxLFxuICAgOSwgICAgICAgICAgXCJUcmVhdG1lbnRcIiwgIDksXG4gIDEwLCAgICAgICAgICBcIlRyZWF0bWVudFwiLCAxNSxcbiAgMTEsICAgICAgICAgIFwiVHJlYXRtZW50XCIsICA1LFxuICAxMiwgICAgICAgICAgXCJUcmVhdG1lbnRcIiwgMTIsXG4gIDEzLCAgICAgICAgICBcIlRyZWF0bWVudFwiLCAxOCxcbiAgMTQsICAgICAgICAgIFwiVHJlYXRtZW50XCIsIDEwLFxuICAxNSwgICAgICAgICAgXCJUcmVhdG1lbnRcIiwgMTMsXG4gIDE2LCAgICAgICAgICBcIlBsYWNlYm9cIiwgICAgIDcsXG4gIDE3LCAgICAgICAgICBcIlBsYWNlYm9cIiwgICAgMTIsXG4gIDE4LCAgICAgICAgICBcIlBsYWNlYm9cIiwgICAgIDMsXG4gIDE5LCAgICAgICAgICBcIlBsYWNlYm9cIiwgICAgIDksXG4gIDIwLCAgICAgICAgICBcIlBsYWNlYm9cIiwgICAgLTEsXG4gIDIxLCAgICAgICAgICBcIlBsYWNlYm9cIiwgICAgMTEsXG4gIDIyLCAgICAgICAgICBcIlBsYWNlYm9cIiwgICAgIDUsXG4gIDIzLCAgICAgICAgICBcIlBsYWNlYm9cIiwgICAgMTQsXG4gIDI0LCAgICAgICAgICBcIlBsYWNlYm9cIiwgICAgIDgsXG4gIDI1LCAgICAgICAgICBcIlBsYWNlYm9cIiwgICAgIDIsXG4gIDI2LCAgICAgICAgICBcIlBsYWNlYm9cIiwgICAgMTAsXG4gIDI3LCAgICAgICAgICBcIlBsYWNlYm9cIiwgICAgIDAsXG4gIDI4LCAgICAgICAgICBcIlBsYWNlYm9cIiwgICAgIDYsXG4gIDI5LCAgICAgICAgICBcIlBsYWNlYm9cIiwgICAgIDRcbikifQ==
+</script>
+</div>
+</div>
+<div class="fragment" style="transform: scale(0.7); transform-origin: top left;">
+<div class="cell" data-autorun="false">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="" aria-label="1"></a>treatment <span class="ot">&lt;-</span> bp_data<span class="sc">$</span>reduction_mmHg[bp_data<span class="sc">$</span>group <span class="sc">==</span> <span class="st">"Treatment"</span>]</span>
+<span id="cb9-2"><a href="" aria-label="2"></a>placebo <span class="ot">&lt;-</span> bp_data<span class="sc">$</span>reduction_mmHg[bp_data<span class="sc">$</span>group <span class="sc">==</span> <span class="st">"Placebo"</span>]</span>
+<span id="cb9-3"><a href="" aria-label="3"></a></span>
+<span id="cb9-4"><a href="" aria-label="4"></a><span class="fu">t.test</span>(treatment, placebo, <span class="at">alternative =</span> <span class="st">"greater"</span>, <span class="at">var.equal =</span> <span class="cn">TRUE</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    Two Sample t-test
+
+data:  treatment and placebo
+t = 3.6447, df = 27, p-value = 0.000562
+alternative hypothesis: true difference in means is greater than 0
+95 percent confidence interval:
+ 3.322799      Inf
+sample estimates:
+mean of x mean of y 
+12.666667  6.428571 </code></pre>
+</div>
+</div>
+</div>
+<div class="fragment absolute" style="top: 520px; ">
+<p><span class="mysolution" style="font-size:.8em;">The p-value <span class="math inline">\(= 0.00056 &lt; \alpha = 0.05\)</span>. Therefore, we reject <span class="math inline">\(H_{0}\)</span> and conclude that there is sufficient evidence that the mean reduction for Treatment is larger than Placebo.</span></p>
+</div>
+<ol start="4" type="1">
+<li class="fragment">What is the effect size? <span class="fragment"><span class="mysolution" style="font-size:.8em;">We are 95% confident that the true mean reduction in systolic blood pressure for the new medication is at least 3.32 mmHg greater than the placebo <span class="subtext">i.e.&nbsp;<span class="math inline">\(\mu_{1} - \mu_{2} &gt; 3.32\)</span>.</span></span></span></li>
+</ol>
+</section></section>
+<section>
+<section id="hypothesis-testing-for-more-than-two-population-means-anova" class="title-slide slide level1 center">
+<h1>Hypothesis Testing for more than Two Population Means: ANOVA</h1>
+
+</section>
+<section id="test-for-multiple-populations" class="slide level2">
+<h2>Test for Multiple Populations</h2>
+<div title="Example" style="font-size:1.0em;">
+<div class="callout callout-tip callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Example</strong></p>
+</div>
+<div class="callout-content">
+<p>Consider the Iris dataset which consist of petal length of three different flower species: Setos, Versicolor, and Virginica of the Iris flower.</p>
+</div>
+</div>
+</div>
+</div>
+<div style="font-size:.9em;">
+<div class="panel-tabset">
+<ul id="tabset-1" class="panel-tabset-tabby"><li><a data-tabby-default="" href="#tabset-1-1">Boxplots</a></li><li><a href="#tabset-1-2">Data</a></li></ul>
+<div class="tab-content">
+<div id="tabset-1-1">
+<div class="center">
+<p><img data-src="figures/iris_petal.png" style="width:65.0%"></p>
+</div>
+</div>
+<div id="tabset-1-2">
+<div style="font-size:.8em;">
+<div class="cell">
+<div class="cell-output-display">
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th style="text-align: right;">Petal.Length</th>
+<th style="text-align: left;">Species</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">1.4</td>
+<td style="text-align: left;">setosa</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">1.4</td>
+<td style="text-align: left;">setosa</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">1.4</td>
+<td style="text-align: left;">setosa</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">4.1</td>
+<td style="text-align: left;">versicolor</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">4.2</td>
+<td style="text-align: left;">versicolor</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">4.4</td>
+<td style="text-align: left;">versicolor</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">6.1</td>
+<td style="text-align: left;">virginica</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">5.1</td>
+<td style="text-align: left;">virginica</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">5.6</td>
+<td style="text-align: left;">virginica</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="fragment" style="font-size:.9em;">
+<ul>
+<li>Visually, we see there is a difference in the typical value among each Species. Now, we will formalize this into a hypothesis test.</li>
+</ul>
+</div>
+</section>
+<section id="test-for-multiple-populations-cont." class="slide level2">
+<h2>Test for Multiple Populations Cont.</h2>
+<ul>
+<li class="fragment">For testing one and two population means, we often use the t-test
+<ul>
+<li class="fragment">For testing more than two population means, we need a different approach</li>
+</ul></li>
+<li class="fragment"><strong>Analysis of Variance (ANOVA)</strong> <em>is a statistical method used to compare the means of three or more groups to determine whether there is a statistically significant difference among them.</em></li>
+</ul>
+<ul>
+<li class="fragment">ANOVA examines how the <em>dependent/response</em> variable changes with the levels of the factor(s)
+<ul>
+<li class="fragment">A <strong>factor</strong> is a qualitative variable that represents conditions, groups, or categories <span class="subtext">Ex: Factor is hair color with levels of brown, black, blonde, red, gray</span></li>
+<li class="fragment">The <strong>dependent/response</strong> variable is the quantitative outcome being measured and compared across the different groups.</li>
+<li class="fragment">A <strong>one-factor ANOVA</strong> examines how a dependent/response variable changes over the levels of a single factor</li>
+</ul></li>
+</ul>
+</section>
+<section id="one-factor-anova" class="slide level2">
+<h2>One-Factor ANOVA</h2>
+<div title="One-Factor ANOVA" style="font-size:1.1em;">
+<div class="callout callout-note callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>One-Factor ANOVA</strong></p>
+</div>
+<div class="callout-content">
+<p>Let <span class="math inline">\(X_{1}, \ldots, X_{K}\)</span> represent <em>K</em> different populations and <span class="math inline">\(\mu_k, k = 1, \ldots, K\)</span> are the population means for a specific variable measured across <em>K</em> different populations. Then, to conduct a hypothesis test to determine whether the mean is different or the same across the <em>K</em> populations, we will use <em>ANOVA</em>:</p>
+<div class="fragment">
+<p><u>Null and Alternative Hypothesis</u></p>
+<div class="fragment">
+<p><span class="math inline">\(H_0: \mu_1 = \mu_2 = \ldots = \mu_K\)</span> <span class="subtext">i.e.&nbsp;the means are all the same</span></p>
+</div>
+<div class="fragment">
+<p><span class="math inline">\(H_{a}: \text{At least one mean } \mu \text{ is different.}\)</span></p>
+</div>
+</div>
+<div class="fragment">
+<p><u>Test-Statistic and Distribution</u></p>
+</div>
+<div class="fragment">
+<div class="center">
+<p><span class="math inline">\(F = \frac{\sum_{k = 1}^{K}n_{k}(\bar{X}_{k} - \bar{X})^{2}/(K - 1)}{\sum_{k = 1}^{K}\sum_{i = 1}^{n_{k}}(X_{i} - \bar{X}_{k})^{2}/(n - K)}\)</span> <span class="fragment"><span class="mysolution"><span class="math inline">\(= \frac{MSB}{MSW}\)</span></span></span> <span class="fragment"><span class="math inline">\(\sim F(df_{1} = K - 1, df_{2} = n - K)\)</span></span> <br> <span class="subtext">F is another distribution like <span class="math inline">\(t\)</span>, normal, ect.</span></p>
+</div>
+</div>
+<div class="fragment">
+<p><u>Assumptions for ANOVA</u></p>
+<ol type="1">
+<li><span class="mysolution">Normality of all populations <span class="subtext">Check w/ QQ plots</span></span></li>
+<li><span class="mysolution">Equal Variance <span class="subtext">Check with boxplots</span></span></li>
+</ol>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="between-vs-with-variability" class="slide level2">
+<h2>Between vs With Variability</h2>
+<div title="Idea" style="font-size:1.1em;">
+<div class="callout callout-tip callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Idea</strong></p>
+</div>
+<div class="callout-content">
+<p>The main idea of <em>ANOVA</em> is to measure the variation <span style="color: #005f86;">between</span> groups relative to the variation <span style="color:#f8971f;">within</span> groups.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="fragment absolute" style="font-size:.8em;top: 170px; left: 250px; ">
+<p><strong>Table 1. Sepal.Width measurement for three Iris Species</strong></p>
+<table border="1" style="border-collapse:collapse; text-align:center;">
+<thead>
+<tr>
+<th style="border-right:3px solid black;">
+</th>
+<th>
+setosa
+</th>
+<th>
+versicolor
+</th>
+<th>
+virginica
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="border-right:3px solid black;">
+</td>
+<td>
+<span style="visibility:hidden;">3.5</span>
+</td>
+<td>
+<span style="visibility:hidden;">3.2</span>
+</td>
+<td>
+<span style="visibility:hidden;">3.3</span>
+</td>
+</tr>
+<tr>
+<td style="border-right:3px solid black;">
+</td>
+<td>
+<span style="visibility:hidden;">3.0</span>
+</td>
+<td>
+<span style="visibility:hidden;">3.2</span>
+</td>
+<td>
+<span style="visibility:hidden;">2.7</span>
+</td>
+</tr>
+<tr>
+<td style="border-right:3px solid black;">
+</td>
+<td>
+<span style="visibility:hidden;">3.2</span>
+</td>
+<td>
+<span style="visibility:hidden;">3.1</span>
+</td>
+<td>
+<span style="visibility:hidden;">3.0</span>
+</td>
+</tr>
+<tr>
+<td style="border-right:3px solid black;">
+</td>
+<td>
+<span style="visibility:hidden;">3.1</span>
+</td>
+<td>
+<span style="visibility:hidden;">2.3</span>
+</td>
+<td>
+<span style="visibility:hidden;">2.9</span>
+</td>
+</tr>
+<tr>
+<td style="border-right:3px solid black;">
+</td>
+<td>
+<span style="visibility:hidden;">3.6</span>
+</td>
+<td>
+<span style="visibility:hidden;">2.8</span>
+</td>
+<td>
+<span style="visibility:hidden;">3.0</span>
+</td>
+</tr>
+<tr>
+<td style="border-right:3px solid black;">
+</td>
+<td>
+<span style="visibility:hidden;">3.9</span>
+</td>
+<td>
+<span style="visibility:hidden;">2.8</span>
+</td>
+<td>
+<span style="visibility:hidden;">3.0</span>
+</td>
+</tr>
+<tr>
+<td style="border-right:3px solid black;">
+<b>Mean</b>
+</td>
+<td>
+<b>3.38</b>
+</td>
+<td>
+<b>2.90</b>
+</td>
+<td>
+<b>3.15</b>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="fragment">
+<div class="absolute" style="top: 540px; ">
+<ul>
+<li><span style="color:#005f86;">Between</span> group variability refers to the variation of the group means relative to the overall mean <span class="subtext">i.e.&nbsp;how far apart the groups are from each other</span></li>
+</ul>
+</div>
+<div class="absolute" style="top: 485px; left: 400px; ">
+<div style="width:300px; height:65px; border:3px solid #005f86; border-radius:50%;">
+
+</div>
+</div>
+</div>
+<div class="fragment">
+<div class="absolute" style="top: 620px; ">
+<ul>
+<li><span style="color:#f8971f;">Within</span> group variability refers to the variation of the measurement values inside each group <span class="subtext">i.e.&nbsp;how spread out the observations are within that group</span></li>
+</ul>
+</div>
+<div class="absolute" style="font-size:.8em;top: 170px; left: 250px; ">
+<p><strong>Table 1. Sepal.Width measurement for three Iris Species</strong></p>
+<table border="1" style="border-collapse:collapse; text-align:center;">
+<thead>
+<tr>
+<th style="border-right:3px solid black;">
+</th>
+<th>
+setosa
+</th>
+<th>
+versicolor
+</th>
+<th>
+virginica
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="border-right:3px solid black;">
+</td>
+<td>
+<span>3.5</span>
+</td>
+<td>
+<span>3.2</span>
+</td>
+<td>
+<span>3.3</span>
+</td>
+</tr>
+<tr>
+<td style="border-right:3px solid black;">
+</td>
+<td>
+<span>3.0</span>
+</td>
+<td>
+<span>3.2</span>
+</td>
+<td>
+<span>2.7</span>
+</td>
+</tr>
+<tr>
+<td style="border-right:3px solid black;">
+</td>
+<td>
+<span>3.2</span>
+</td>
+<td>
+<span>3.1</span>
+</td>
+<td>
+<span>3.0</span>
+</td>
+</tr>
+<tr>
+<td style="border-right:3px solid black;">
+</td>
+<td>
+<span>3.1</span>
+</td>
+<td>
+<span>2.3</span>
+</td>
+<td>
+<span>2.9</span>
+</td>
+</tr>
+<tr>
+<td style="border-right:3px solid black;">
+</td>
+<td>
+<span>3.6</span>
+</td>
+<td>
+<span>2.8</span>
+</td>
+<td>
+<span>3.0</span>
+</td>
+</tr>
+<tr>
+<td style="border-right:3px solid black;">
+</td>
+<td>
+<span>3.9</span>
+</td>
+<td>
+<span>2.8</span>
+</td>
+<td>
+<span>3.0</span>
+</td>
+</tr>
+<tr>
+<td style="border-right:3px solid black;">
+<b>Mean</b>
+</td>
+<td>
+<b>3.38</b>
+</td>
+<td>
+<b>2.90</b>
+</td>
+<td>
+<b>3.15</b>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="fragment absolute" style="top: 250px; left: 385px; ">
+<div style="width:70px; height:250px; border:3px solid #f8971f; border-radius:50%;">
+
+</div>
+</div>
+<div class="fragment absolute" style="top: 250px; left: 470px; ">
+<div style="width:70px; height:250px; border:3px solid #f8971f; border-radius:50%;">
+
+</div>
+</div>
+<div class="fragment absolute" style="top: 250px; left: 600px; ">
+<div style="width:70px; height:250px; border:3px solid #f8971f; border-radius:50%;">
+
+</div>
+</div>
+</section>
+<section id="between-vs-within-illustrated" class="slide level2">
+<h2>Between vs Within Illustrated</h2>
+<div title="Example" style="font-size:1em;">
+<div class="callout callout-tip callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Example</strong></p>
+</div>
+<div class="callout-content">
+<p>Consider the width of three different flower species: Setos, Versicolor, and Virginica.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="absolute" style="top: 180px; left: 50px; ">
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure>
+<p><img data-src="SDS320E_6_Multiple_Population_Hypo_Test_files/figure-revealjs/unnamed-chunk-25-1.png" width="960"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+<div class="fragment absolute" style="font-size:.9em;top: 550px; ">
+<ul>
+<li>There is some <span style="color:#005f86;"><em>between</em></span> group variability among Versicolor and Virginica <span class="subtext">means are slightly different</span></li>
+</ul>
+</div>
+<div class="fragment">
+<div class="absolute subbullets" style="font-size:.9em;top: 580px; ">
+<ul>
+<li>However, when we consider the <span style="color:#f8971f;"><em>within</em></span> group variability, the difference is not significant</li>
+</ul>
+</div>
+<div class="absolute" style="top: 180px; left: 50px; ">
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure>
+<p><img data-src="SDS320E_6_Multiple_Population_Hypo_Test_files/figure-revealjs/unnamed-chunk-26-1.png" width="960"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="fragment absolute" style="top: 180px; left: 50px; ">
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure>
+<p><img data-src="SDS320E_6_Multiple_Population_Hypo_Test_files/figure-revealjs/unnamed-chunk-27-1.png" width="960"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+<div class="fragment">
+<div class="absolute" style="font-size:.9em;top: 620px; ">
+<ul>
+<li>Once we include Setosa, the <span style="color:#005f86;"><em>between</em></span> group variability is large enough compared to the <span style="color:#f8971f;"><em>within</em></span> group variability. Thus, the difference is significant <span class="subtext">i.e at least one mean is different than the rest</span></li>
+</ul>
+</div>
+<div class="absolute" style="top: 180px; left: 50px; ">
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure>
+<p><img data-src="SDS320E_6_Multiple_Population_Hypo_Test_files/figure-revealjs/unnamed-chunk-28-1.png" width="960"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="anova-in-r" class="slide level2">
+<h2>ANOVA in R</h2>
+<ul>
+<li>To perform a one-factor ANOVA test in R we use the <code>aov()</code> function</li>
+</ul>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="" aria-label="1"></a><span class="fu">aov</span>(response <span class="sc">~</span> factor, <span class="at">data =</span> my_data)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="fragment">
+<ul>
+<li>To summarize the results of our ANOVA test (p-value and ect…) we use the <code>summary()</code> function on our <code>aov</code> object</li>
+</ul>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="" aria-label="1"></a>aov_results <span class="ot">&lt;-</span> <span class="fu">aov</span>(response <span class="sc">~</span> factor, <span class="at">data =</span> my_data)</span>
+<span id="cb12-2"><a href="" aria-label="2"></a><span class="fu">summary</span>(aov_results)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</div>
+<div class="fragment">
+<div title="Example">
+<div class="callout callout-tip callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Example</strong></p>
+</div>
+<div class="callout-content">
+<p>Consider the previous example comparing the width among the Species for the iris dataset.</p>
+</div>
+</div>
+</div>
+</div>
+<div style="transform: scale(0.9); transform-origin: top left;">
+<div class="cell">
+<div>
+<div id="webr-8" class="exercise-cell">
+
+</div>
+<script type="webr-8-contents">
+eyJhdHRyIjp7ImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoiYW92X3Jlc3VsdHMgPC0gYW92KFNlcGFsLldpZHRoIH4gU3BlY2llcywgZGF0YSA9IGlyaXMpXG5zdW1tYXJ5KGFvdl9yZXN1bHRzKSJ9
+</script>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="anova-example" class="slide level2">
+<h2>ANOVA Example</h2>
+<div title="Example" style="font-size:.95em;">
+<div class="callout callout-tip callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Example</strong></p>
+</div>
+<div class="callout-content">
+<p>Suppose Starbucks wants to compare the effectiveness of different advertising channels. Starbucks selects 40 locations in the US to get TV adds only, 40 locations to get online adds, and 40 locations to get print ads. They record the sales increase percentage for all locations and want to compare the mean sales increase across the advertising methods. Using one-factor ANOVA, make a conclusion about the average sales increase across advertising methods at the 5% significance level.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="columns">
+<div class="column fragment" style="width:45%;">
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="" aria-label="1"></a>starbucks</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="panel-tabset">
+<ul id="tabset-2" class="panel-tabset-tabby"><li><a data-tabby-default="" href="#tabset-2-1">Data</a></li><li><a href="#tabset-2-2">Means</a></li></ul>
+<div class="tab-content">
+<div id="tabset-2-1">
+<div style="font-size:.6em;">
+<div class="cell">
+<div class="cell-output-display">
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th style="text-align: right;">sales</th>
+<th style="text-align: left;">method</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">3.1695297</td>
+<td style="text-align: left;">TV</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">1.0838348</td>
+<td style="text-align: left;">TV</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">-2.1311787</td>
+<td style="text-align: left;">TV</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">2.9337329</td>
+<td style="text-align: left;">Online</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">4.2399150</td>
+<td style="text-align: left;">Online</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">3.6701244</td>
+<td style="text-align: left;">Online</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">-3.8297766</td>
+<td style="text-align: left;">Print</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">0.1263476</td>
+<td style="text-align: left;">Print</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">-0.4055358</td>
+<td style="text-align: left;">Print</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</div>
+<div id="tabset-2-2">
+<div style="font-size:.7em;">
+<div class="cell">
+<details class="code-fold">
+<summary>Show code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="" aria-label="1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb14-2"><a href="" aria-label="2"></a>starbucks <span class="sc">|&gt;</span> </span>
+<span id="cb14-3"><a href="" aria-label="3"></a>  <span class="fu">group_by</span>(method) <span class="sc">|&gt;</span> </span>
+<span id="cb14-4"><a href="" aria-label="4"></a>  <span class="fu">summarise</span>(<span class="st">"mean"</span> <span class="ot">=</span> <span class="fu">mean</span>(sales))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+</div>
+<div class="cell">
+<div class="cell-output-display">
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th style="text-align: left;">method</th>
+<th style="text-align: right;">mean</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Online</td>
+<td style="text-align: right;">5.3608005</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Print</td>
+<td style="text-align: right;">0.3505189</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">TV</td>
+<td style="text-align: right;">2.2760785</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div><div class="column" style="font-size:.8em;">
+<ol type="1">
+<li class="fragment">What test should we perform?</li>
+</ol>
+<div class="fragment">
+<p><span class="mysolution">One-factor ANOVA because we are comparing more than 2 means</span></p>
+</div>
+<ol start="2" type="1">
+<li class="fragment">What are the null and alternative hypotheses?</li>
+</ol>
+<div class="fragment">
+<p><span class="mysolution"><span class="math inline">\(H_0: \mu_1 = \mu_2 = \mu_3\)</span> <span class="subtext">, where <span class="math inline">\(\mu_{1}, \mu_2, \mu_3\)</span> are the means for Online, Print, and TV, respectively.</span></span></p>
+</div>
+<div class="fragment">
+<p><span class="mysolution"><span class="math inline">\(H_a: \text{At least one mean } \mu_{k} \text{ is different}\)</span></span></p>
+</div>
+</div></div>
+</section>
+<section id="anova-example-assumptions" class="slide level2">
+<h2>ANOVA Example: Assumptions</h2>
+<ul>
+<li>Before we can proceed with our test, we must check the assumptions first!</li>
+</ul>
+<div class="columns">
+<div class="column fragment" style="width:50%;">
+<ol type="1">
+<li>Normality</li>
+</ol>
+<div style="font-size:.5em;">
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="" aria-label="1"></a><span class="fu">library</span>(<span class="st">"qqplotr"</span>)</span>
+<span id="cb15-2"><a href="" aria-label="2"></a>starbucks <span class="sc">|&gt;</span> </span>
+<span id="cb15-3"><a href="" aria-label="3"></a><span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">sample =</span> sales))<span class="sc">+</span></span>
+<span id="cb15-4"><a href="" aria-label="4"></a>  <span class="fu">stat_qq_band</span>(<span class="at">color =</span> <span class="st">"lightgrey"</span>)<span class="sc">+</span></span>
+<span id="cb15-5"><a href="" aria-label="5"></a>  <span class="fu">stat_qq_line</span>(<span class="at">color =</span> <span class="st">"red"</span>) <span class="sc">+</span></span>
+<span id="cb15-6"><a href="" aria-label="6"></a>  <span class="fu">stat_qq_point</span>()<span class="sc">+</span></span>
+<span id="cb15-7"><a href="" aria-label="7"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>method)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</div>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure>
+<p><img data-src="SDS320E_6_Multiple_Population_Hypo_Test_files/figure-revealjs/unnamed-chunk-38-1.png" width="960"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="fragment">
+<p><span class="mysolution">The normality assumption is reasonable for all 3 populations</span></p>
+</div>
+</div><div class="column fragment" style="width:50%;">
+<ol start="2" type="1">
+<li>Equal Variance</li>
+</ol>
+<div style="font-size:.6em;">
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="" aria-label="1"></a><span class="fu">ggplot</span>(<span class="fu">aes</span>(method, sales, <span class="at">fill =</span> method), <span class="at">data =</span> starbucks)<span class="sc">+</span></span>
+<span id="cb16-2"><a href="" aria-label="2"></a>  <span class="fu">geom_boxplot</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</div>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure>
+<p><img data-src="SDS320E_6_Multiple_Population_Hypo_Test_files/figure-revealjs/unnamed-chunk-40-1.png" width="960"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="fragment">
+<p><span class="mysolution">The variability seems very similar for all populations</span></p>
+</div>
+</div></div>
+</section>
+<section id="anova-example-conclusion" class="slide level2">
+<h2>ANOVA Example: Conclusion</h2>
+<div title="Example" style="font-size:.8em;">
+<div class="callout callout-tip callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Example</strong></p>
+</div>
+<div class="callout-content">
+<p>Suppose Starbucks wants to compare the effectiveness of different advertising channels. Starbucks selects 40 locations in the US to get TV adds only, 40 locations to get online adds, and 40 locations to get print ads. They record the sales increase percentage for all locations and want to compare the mean sales increase across the advertising methods. Using one-factor ANOVA, make a conclusion about the average sales increase across advertising methods at the 5% significance level.</p>
+</div>
+</div>
+</div>
+</div>
+<ol start="3" type="1">
+<li>Make a conclusion for the test.</li>
+</ol>
+<div class="fragment">
+<div class="cell">
+<div>
+<div id="webr-9" class="exercise-cell">
+
+</div>
+<script type="webr-9-contents">
+eyJhdHRyIjp7ImVjaG8iOmZhbHNlLCJlZGl0IjpmYWxzZSwiZXZhbCI6dHJ1ZSwiaW5jbHVkZSI6ZmFsc2UsIm91dHB1dCI6ZmFsc2V9LCJjb2RlIjoibG9hZChcImRhdGEvc3RhcmJ1Y2tzLlJEYXRhXCIpIn0=
+</script>
+</div>
+</div>
+<div class="absolute" style="transform: scale(0.9); transform-origin: top left;top: 280px; ">
+<div class="cell">
+<div>
+<div id="webr-10" class="exercise-cell">
+
+</div>
+<script type="webr-10-contents">
+eyJhdHRyIjp7ImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoiYW92X3Jlc3VsdHMgPC0gYW92KHNhbGVzIH4gbWV0aG9kLCBkYXRhID0gc3RhcmJ1Y2tzKVxuc3VtbWFyeShhb3ZfcmVzdWx0cykifQ==
+</script>
+</div>
+</div>
+</div>
+</div>
+<div class="absolute" style="top: 260px; left: 630px; ">
+<ul>
+<li class="fragment">Results:
+<ul>
+<li class="fragment">Between Variability (MSB) = <span class="mysolution" style="font-size:.9em;">255.51</span></li>
+<li class="fragment">Within Variability (MSW) = <span class="mysolution" style="font-size:.9em;">7.11</span></li>
+<li class="fragment">F-Statistic = <span class="mysolution" style="font-size:.9em;">35.93</span></li>
+<li class="fragment"><span class="mysolution" style="font-size:.9em;">p-value &lt; 0.001</span></li>
+</ul></li>
+</ul>
+</div>
+<div class="absolute" style="font-size:.9em;top: 580px; ">
+<p><span class="fragment"><strong>Conclusion</strong>: <span class="mysolution">Since the p-value &lt; 0.001 &lt; <span class="math inline">\(\alpha\)</span> = 0.05, we reject <span class="math inline">\(H_{0}\)</span>.</span></span> <span class="fragment"><span class="mysolution">Thus, there is sufficient evidence to conclude that at least one mean sales increase is different across the advertising strategies.</span></span></p>
+</div>
+</section>
+<section id="multiple-comparisons-for-anova" class="slide level2">
+<h2>Multiple Comparisons for ANOVA</h2>
+<div title="Reminder" style="font-size:1.1em;">
+<div class="callout callout-note callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Reminder</strong></p>
+</div>
+<div class="callout-content">
+<p>The hypotheses for ANOVA are <span class="math display">\[\begin{align*}
+          H_0&amp;: \mu_1 = \mu_2 = \mu_3\\
+          H_a&amp;: \text{At least one mean } \mu \text{ is different,}
+\end{align*}\]</span></p>
+</div>
+</div>
+</div>
+</div>
+<div style="font-size:.9em;">
+<ul>
+<li class="fragment">Thus, if p-value <span class="math inline">\(&lt; \alpha\)</span>, we reject <span class="math inline">\(H_{0}\)</span> and conclude we have sufficient evidence that <span class="fragment"><u><span class="mysolution">at least one mean is different</span></u></span>
+<ul>
+<li class="fragment">So, the question becomes which one(s) is/are different from one another?</li>
+</ul></li>
+</ul>
+</div>
+<ul>
+<li class="fragment">The goal of <strong>multiple comparison</strong> analysis is to determine which mean(s) is different from the rest <span class="subtext">sometimes all of the means are different</span></li>
+</ul>
+</section>
+<section id="multiple-comparisons-for-anova-cont." class="slide level2">
+<h2>Multiple Comparisons for ANOVA Cont.</h2>
+<ul>
+<li>We could answer this by performing pairwise hypothesis tests <span class="subtext">i.e.&nbsp;test each possible pair of groups</span></li>
+</ul>
+<div class="fragment">
+<div style="font-size:.9em;">
+<div class="absolute" style="top: 100px; left: 250px; ">
+<p><span class="math display">\[\begin{align*}
+          H_0&amp;: \mu_1 = \mu_2 \\
+          H_a&amp;: \mu_1 \neq \mu_2
+\end{align*}\]</span></p>
+</div>
+<div class="absolute" style="top: 100px; left: 450px; ">
+<p><span class="math display">\[\begin{align*}
+          H_0&amp;: \mu_1 = \mu_3 \\
+          H_a&amp;: \mu_1 \neq \mu_3
+\end{align*}\]</span></p>
+</div>
+<div class="absolute" style="top: 100px; left: 650px; ">
+<p><span class="math display">\[\begin{align*}
+          H_0&amp;: \mu_2 = \mu_3 \\
+          H_a&amp;: \mu_2 \neq \mu_3
+\end{align*}\]</span></p>
+</div>
+</div>
+</div>
+<div class="subbullets absolute fragment" style="top: 200px; ">
+<ul>
+<li>Intuitively this method is valid, however, statistically it creates a problem</li>
+</ul>
+</div>
+<div class="fragment">
+<div class="absolute" style="top: 260px; ">
+<div title="Issue" style="font-size:1.1em;">
+<div class="callout callout-important callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Issue</strong></p>
+</div>
+<div class="callout-content">
+<p>When we run many hypothesis tests, we increase the chance of finding a “significant” difference just by “luck”. <span class="subtext">Reminder: In hypothesis testing, we never know if our conclusion is correct</span></p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="fragment subbullets absolute" style="top: 420px; ">
+<ul>
+<li>Now, imagine if we have 100 means to compare…</li>
+</ul>
+</div>
+<div class="fragment" style="font-size:.9em;">
+<div class="absolute" style="top: 450px; left: 100px; ">
+<p><span class="math display">\[\begin{align*}
+          H_0&amp;: \mu_1 = \mu_2 \\
+          H_a&amp;: \mu_1 \neq \mu_2
+\end{align*}\]</span></p>
+</div>
+<div class="absolute" style="top: 450px; left: 300px; ">
+<p><span class="math display">\[\begin{align*}
+          H_0&amp;: \mu_1 = \mu_3 \\
+          H_a&amp;: \mu_1 \neq \mu_3
+\end{align*}\]</span></p>
+</div>
+<div class="absolute" style="top: 450px; left: 500px; ">
+<p><span class="math display">\[\begin{align*}
+          H_0&amp;: \mu_1 = \mu_3 \\
+          H_a&amp;: \mu_1 \neq \mu_3 \quad \ldots
+\end{align*}\]</span></p>
+</div>
+<div class="absolute" style="top: 450px; left: 750px; ">
+<p><span class="math display">\[\begin{align*}
+          H_0&amp;: \mu_1 = \mu_{100} \\
+          H_a&amp;: \mu_1 \neq \mu_{100}
+\end{align*}\]</span></p>
+</div>
+</div>
+<div class="fragment" style="font-size:.9em;">
+<div class="absolute" style="top: 450px; width: 35%; ">
+<p><img data-src="figures/white.png"></p>
+</div>
+<div class="absolute" style="top: 450px; left: 200px; width: 35%; ">
+<p><img data-src="figures/white.png"></p>
+</div>
+<div class="absolute" style="top: 450px; left: 400px; width: 35%; ">
+<p><img data-src="figures/white.png"></p>
+</div>
+<div class="absolute" style="top: 450px; left: 600px; width: 35%; ">
+<p><img data-src="figures/white.png"></p>
+</div>
+<div class="absolute" style="top: 450px; left: 100px; ">
+<p><span class="math display">\[\begin{align*}
+          H_0&amp;: \mu_2 = \mu_3 \\
+          H_a&amp;: \mu_2 \neq \mu_3
+\end{align*}\]</span></p>
+</div>
+<div class="absolute" style="top: 450px; left: 300px; ">
+<p><span class="math display">\[\begin{align*}
+          H_0&amp;: \mu_2 = \mu_4 \\
+          H_a&amp;: \mu_2 \neq \mu_4
+\end{align*}\]</span></p>
+</div>
+<div class="absolute" style="top: 450px; left: 500px; ">
+<p><span class="math display">\[\begin{align*}
+          H_0&amp;: \mu_2 = \mu_5 \\
+          H_a&amp;: \mu_2 \neq \mu_5 \quad \ldots
+\end{align*}\]</span></p>
+</div>
+<div class="absolute" style="top: 450px; left: 750px; ">
+<p><span class="math display">\[\begin{align*}
+          H_0&amp;: \mu_2 = \mu_{100} \\
+          H_a&amp;: \mu_2 \neq \mu_{100}
+\end{align*}\]</span></p>
+</div>
+</div>
+<div class="fragment" style="font-size:.9em;">
+<div class="absolute" style="top: 450px; width: 35%; ">
+<p><img data-src="figures/white.png"></p>
+</div>
+<div class="absolute" style="top: 450px; left: 200px; width: 35%; ">
+<p><img data-src="figures/white.png"></p>
+</div>
+<div class="absolute" style="top: 450px; left: 400px; width: 35%; ">
+<p><img data-src="figures/white.png"></p>
+</div>
+<div class="absolute" style="top: 450px; left: 600px; width: 35%; ">
+<p><img data-src="figures/white.png"></p>
+</div>
+<div class="absolute" style="top: 450px; left: 100px; ">
+<p><span class="math display">\[\begin{align*}
+          H_0&amp;: \mu_1 = \mu_2 \\
+          H_a&amp;: \mu_1 \neq \mu_2
+\end{align*}\]</span></p>
+</div>
+<div class="absolute" style="top: 500px; left: 300px; ">
+<p><span class="math inline">\(\ldots\)</span></p>
+</div>
+<div class="absolute" style="top: 450px; left: 350px; ">
+<p><span class="math display">\[\begin{align*}
+          H_0&amp;: \mu_{97} = \mu_{98} \\
+          H_a&amp;: \mu_{97} \neq \mu_{98}
+\end{align*}\]</span></p>
+</div>
+<div class="absolute" style="top: 450px; left: 550px; ">
+<p><span class="math display">\[\begin{align*}
+          H_0&amp;: \mu_{97} = \mu_{99} \\
+          H_a&amp;: \mu_{97} \neq \mu_{99}
+\end{align*}\]</span></p>
+</div>
+<div class="absolute" style="top: 450px; left: 740px; ">
+<p><span class="math display">\[\begin{align*}
+          H_0&amp;: \mu_{97} = \mu_{100} \\
+          H_a&amp;: \mu_{97} \neq \mu_{100}
+\end{align*}\]</span></p>
+</div>
+</div>
+<div class="absolute" style="top: 550px; ">
+<ul>
+<li class="fragment">That leaves a lot of chance for error, which we call the <strong>family-wise error rate (FWER) </strong></li>
+</ul>
+<div class="fragment center">
+<p><span class="math inline">\(FWER = P(\text{at least one error}) = 1 - (1 - \alpha)^{\text{# of test}}\)</span> <br> <span class="subtext">This is a lot bigger than our original <span class="math inline">\(\alpha\)</span>!</span></p>
+</div>
+</div>
+</section>
+<section id="tukeys-multiple-comparison-adjustment" class="slide level2">
+<h2>Tukey’s Multiple Comparison Adjustment</h2>
+<ul>
+<li><span style="font-size:.9em;">We need a way to adjust for this inflation of error before drawing conclusions</span></li>
+</ul>
+<div title="Tukey's Multiple Comparison" style="font-size:1.1em;">
+<div class="callout callout-note callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Tukey’s Multiple Comparison</strong></p>
+</div>
+<div class="callout-content">
+<p>After rejecting <span class="math inline">\(H_{0}\)</span> in ANOVA, we use <em>Tukey’s Multiple Comparison</em> to determine which pairs of means are different, while keeping the family-wise error rate at <span class="math inline">\(\alpha\)</span>:</p>
+<div class="fragment">
+<p><u>Null and Alternative Hypothesis</u></p>
+<div class="fragment">
+<p><span class="math inline">\(H_0: \mu_i = \mu_j\)</span> <span class="subtext">for every pair of groups <span class="math inline">\(i \neq j\)</span></span></p>
+</div>
+<div class="fragment">
+<p><span class="math inline">\(H_{a}: \mu_i \neq \mu_j\)</span></p>
+</div>
+</div>
+<div class="fragment">
+<p><u>Conclusions</u></p>
+<ul>
+<li class="fragment">If the adjusted p-value <span class="math inline">\(&lt; \alpha\)</span>, <span class="mysolution">we conclude the two means are different</span></li>
+<li class="fragment">Or, if the interval for <span class="math inline">\(\mu_i - \mu_j\)</span> does not contain 0, <span class="mysolution">we conclude the two means are different</span></li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="fragment">
+<ul>
+<li><span style="font-size:.9em;">To perform Tukey’s Multiple Comparison in R, we use <code>TukeyHSD()</code> with <code>aov()</code></span></li>
+</ul>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="" aria-label="1"></a>aov_results <span class="ot">&lt;-</span> <span class="fu">aov</span>(response <span class="sc">~</span> factor, <span class="at">data =</span> my_data)</span>
+<span id="cb17-2"><a href="" aria-label="2"></a><span class="fu">TukeyHSD</span>(aov_results)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</div>
+</section>
+<section id="tukey-multiple-comparison-example" class="slide level2">
+<h2>Tukey Multiple Comparison Example</h2>
+<div title="Starbucks Example Revisited" style="font-size:1.1em;">
+<div class="callout callout-tip callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Starbucks Example Revisited</strong></p>
+</div>
+<div class="callout-content">
+<p>We are wanting to compare advertising strategies for Starbucks between online, print, and tv ads at the 5% significance level. We rejected <span class="math inline">\(H_{0}\)</span>. Thus, we know at least one mean is signficantly different from another.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="fragment">
+<ul>
+<li>Now, we determine which mean is different using Tukey’s Multiple Comparisons</li>
+</ul>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="" aria-label="1"></a>aov_results <span class="ot">&lt;-</span> <span class="fu">aov</span>(sales <span class="sc">~</span> method, <span class="at">data =</span> starbucks)</span>
+<span id="cb18-2"><a href="" aria-label="2"></a><span class="fu">TukeyHSD</span>(aov_results)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  Tukey multiple comparisons of means
+    95% family-wise confidence level
+
+Fit: aov(formula = sales ~ method, data = starbucks)
+
+$method
+                  diff        lwr       upr     p adj
+Print-Online -5.010282 -6.4258489 -3.594714 0.0000000
+TV-Online    -3.084722 -4.5002892 -1.669155 0.0000029
+TV-Print      1.925560  0.5099923  3.341127 0.0045610</code></pre>
+</div>
+</div>
+</div>
+<div class="fragment">
+<div class="absolute" style="width:100px; height:0px; border:1px solid purple;top: 515px; left: 10px; ">
+
+</div>
+<div class="absolute" style="width:80px; height:0px; border:1px solid purple;top: 515px; left: 420px; ">
+
+</div>
+<div class="absolute" style="font-size:.8em;top: 350px; left: 485px; ">
+<ul>
+<li><span style="color:purple;"><u>Print vs Online</u></span>: <span class="fragment"><span class="mysolution">The p-value <span class="math inline">\(\approx 0 &lt; \alpha = 0.05\)</span>. Thus, they are different</span></span></li>
+</ul>
+</div>
+</div>
+<div class="fragment">
+<div class="absolute" style="width:100px; height:0px; border:1px solid green;top: 535px; left: 10px; ">
+
+</div>
+<div class="absolute" style="width:80px; height:0px; border:1px solid green;top: 535px; left: 420px; ">
+
+</div>
+<div class="absolute" style="font-size:.8em;top: 420px; left: 485px; ">
+<ul>
+<li><span style="color:green;"><u>TV vs Online</u></span>: <span class="fragment"><span class="mysolution">The p-value <span class="math inline">\(\approx 0 &lt; \alpha = 0.05\)</span>. Thus, they are different</span></span></li>
+</ul>
+</div>
+</div>
+<div class="fragment">
+<div class="absolute" style="width:100px; height:0px; border:1px solid orange;top: 555px; left: 10px; ">
+
+</div>
+<div class="absolute" style="width:80px; height:0px; border:1px solid orange;top: 555px; left: 420px; ">
+
+</div>
+<div class="absolute" style="font-size:.8em;top: 490px; left: 485px; ">
+<ul>
+<li><span style="color:orange;"><u>TV vs Print</u></span>: <span class="fragment"><span class="mysolution">The p-value <span class="math inline">\(= 0.005 &lt; \alpha = 0.05\)</span>. Thus, they are different</span></span></li>
+</ul>
+</div>
+<p><span class="fragment"><span class="mysolution"><span class="subtext">For this example, all the means were significantly different from one another</span></span></span></p>
+</div>
+</section>
+<section id="tukeys-multiple-comparison-example-cont." class="slide level2">
+<h2>Tukey’s Multiple Comparison Example Cont.</h2>
+<div style="font-size:.9em;">
+<ul>
+<li class="fragment">Using the p-values from Tukey’s Multiple comparisons tells us which means are different
+<ul>
+<li class="fragment">However, we also want to know how different the means are. Thus, we look at the Tukey’s Confidence Intervals</li>
+</ul></li>
+</ul>
+</div>
+<div class="fragment">
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="" aria-label="1"></a><span class="fu">TukeyHSD</span>(aov_results)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  Tukey multiple comparisons of means
+    95% family-wise confidence level
+
+Fit: aov(formula = sales ~ method, data = starbucks)
+
+$method
+                  diff        lwr       upr     p adj
+Print-Online -5.010282 -6.4258489 -3.594714 0.0000000
+TV-Online    -3.084722 -4.5002892 -1.669155 0.0000029
+TV-Print      1.925560  0.5099923  3.341127 0.0045610</code></pre>
+</div>
+</div>
+</div>
+<ul>
+<li class="fragment"><u>Print vs Online:</u> Print sales increase is 6.42% to 3.59% lower than Online, on average</li>
+<li class="fragment"><u>TV vs Online:</u> TV sales increase is 4.50% to 1.67% lower than Online, on average</li>
+<li class="fragment"><u>TV - Print:</u> TV sales increase is 0.51% to 3.34% higher than Print, on average</li>
+</ul>
+<div class="fragment" style="font-size:.9em;">
+<p><span class="mysolution">Notice, none of the intervals contain 0! This gives the same conclusion we reached using p-values.</span></p>
+</div>
+</section>
+<section id="tukeys-multiple-comparison-example-cont.-1" class="slide level2">
+<h2>Tukey’s Multiple Comparison Example Cont.</h2>
+<ul>
+<li>We can also plot the confidence intervals</li>
+</ul>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="" aria-label="1"></a>Tukey_results <span class="ot">&lt;-</span> <span class="fu">TukeyHSD</span>(aov_results)</span>
+<span id="cb22-2"><a href="" aria-label="2"></a><span class="fu">plot</span>(Tukey_results)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="center">
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure>
+<p><img data-src="SDS320E_6_Multiple_Population_Hypo_Test_files/figure-revealjs/unnamed-chunk-47-1.png" width="960"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+</section></section>
+<section id="the-end" class="title-slide slide level1 center">
+<h1>The End</h1>
+
+<script type="webr-data">
+eyJvcHRpb25zIjp7ImJhc2VVcmwiOiJodHRwczovL3dlYnIuci13YXNtLm9yZy92MC42LjAvIn0sInBhY2thZ2VzIjp7InBrZ3MiOlsiZXZhbHVhdGUiLCJrbml0ciIsImh0bWx0b29scyJdLCJyZXBvcyI6W119LCJyZW5kZXJfZGYiOiJkZWZhdWx0In0=
+</script>
+<script type="ojs-module-contents">
+eyJjb250ZW50cyI6W3siY2VsbE5hbWUiOiJ3ZWJyLXdpZGdldC0xMCIsImlubGluZSI6ZmFsc2UsIm1ldGhvZE5hbWUiOiJpbnRlcnByZXRRdWlldCIsInNvdXJjZSI6IntcbiAgLy8gV2FpdCBmb3Igb3V0cHV0IHRvIGJlIHdyaXR0ZW4gdG8gdGhlIERPTSwgdGhlbiB0cmlnZ2VyIHdpZGdldCByZW5kZXJpbmdcbiAgYXdhaXQgX3dlYnJfdmFsdWVfMTA7XG4gIGlmICh3aW5kb3cuSFRNTFdpZGdldHMpIHtcbiAgICB3aW5kb3cuSFRNTFdpZGdldHMuc3RhdGljUmVuZGVyKCk7XG4gIH1cbiAgaWYgKHdpbmRvdy5QYWdlZFRhYmxlRG9jKSB7XG4gICAgd2luZG93LlBhZ2VkVGFibGVEb2MuaW5pdEFsbCgpO1xuICB9XG59XG4ifSx7ImNlbGxOYW1lIjoid2Vici0xMCIsImlubGluZSI6ZmFsc2UsIm1ldGhvZE5hbWUiOiJpbnRlcnByZXQiLCJzb3VyY2UiOiJ2aWV3b2YgX3dlYnJfZWRpdG9yXzEwID0ge1xuICBjb25zdCB7IFdlYlJFeGVyY2lzZUVkaXRvciwgYjY0RGVjb2RlIH0gPSB3aW5kb3cuX2V4ZXJjaXNlX29qc19ydW50aW1lO1xuICBjb25zdCBzY3JpcHRDb250ZW50ID0gZG9jdW1lbnQucXVlcnlTZWxlY3Rvcihgc2NyaXB0W3R5cGU9XFxcIndlYnItMTAtY29udGVudHNcXFwiXWApLnRleHRDb250ZW50O1xuICBjb25zdCBibG9jayA9IEpTT04ucGFyc2UoYjY0RGVjb2RlKHNjcmlwdENvbnRlbnQpKTtcblxuICBjb25zdCBvcHRpb25zID0gT2JqZWN0LmFzc2lnbih7IGlkOiBgd2Vici0xMC1jb250ZW50c2AgfSwgYmxvY2suYXR0cik7XG4gIGNvbnN0IGVkaXRvciA9IG5ldyBXZWJSRXhlcmNpc2VFZGl0b3Iod2ViUk9qcy53ZWJSUHJvbWlzZSwgYmxvY2suY29kZSwgb3B0aW9ucyk7XG5cbiAgcmV0dXJuIGVkaXRvci5jb250YWluZXI7XG59XG5fd2Vicl92YWx1ZV8xMCA9IHdlYlJPanMucHJvY2Vzcyhfd2Vicl9lZGl0b3JfMTAsIHt9KTtcbiJ9LHsiY2VsbE5hbWUiOiJ3ZWJyLXdpZGdldC05IiwiaW5saW5lIjpmYWxzZSwibWV0aG9kTmFtZSI6ImludGVycHJldFF1aWV0Iiwic291cmNlIjoie1xuICAvLyBXYWl0IGZvciBvdXRwdXQgdG8gYmUgd3JpdHRlbiB0byB0aGUgRE9NLCB0aGVuIHRyaWdnZXIgd2lkZ2V0IHJlbmRlcmluZ1xuICBhd2FpdCBfd2Vicl92YWx1ZV85O1xuICBpZiAod2luZG93LkhUTUxXaWRnZXRzKSB7XG4gICAgd2luZG93LkhUTUxXaWRnZXRzLnN0YXRpY1JlbmRlcigpO1xuICB9XG4gIGlmICh3aW5kb3cuUGFnZWRUYWJsZURvYykge1xuICAgIHdpbmRvdy5QYWdlZFRhYmxlRG9jLmluaXRBbGwoKTtcbiAgfVxufVxuIn0seyJjZWxsTmFtZSI6IndlYnItOSIsImlubGluZSI6ZmFsc2UsIm1ldGhvZE5hbWUiOiJpbnRlcnByZXQiLCJzb3VyY2UiOiJfd2Vicl92YWx1ZV85ID0ge1xuICBjb25zdCB7IGhpZ2hsaWdodFIsIGI2NERlY29kZSB9ID0gd2luZG93Ll9leGVyY2lzZV9vanNfcnVudGltZTtcbiAgY29uc3Qgc2NyaXB0Q29udGVudCA9IGRvY3VtZW50LnF1ZXJ5U2VsZWN0b3IoYHNjcmlwdFt0eXBlPVxcXCJ3ZWJyLTktY29udGVudHNcXFwiXWApLnRleHRDb250ZW50O1xuICBjb25zdCBibG9jayA9IEpTT04ucGFyc2UoYjY0RGVjb2RlKHNjcmlwdENvbnRlbnQpKTtcblxuICAvLyBEZWZhdWx0IGV2YWx1YXRpb24gY29uZmlndXJhdGlvblxuICBjb25zdCBvcHRpb25zID0gT2JqZWN0LmFzc2lnbih7XG4gICAgaWQ6IFwid2Vici05LWNvbnRlbnRzXCIsXG4gICAgZWNobzogdHJ1ZSxcbiAgICBvdXRwdXQ6IHRydWVcbiAgfSwgYmxvY2suYXR0cik7XG5cbiAgLy8gRXZhbHVhdGUgdGhlIHByb3ZpZGVkIFIgY29kZVxuICBjb25zdCByZXN1bHQgPSB3ZWJST2pzLnByb2Nlc3Moe2NvZGU6IGJsb2NrLmNvZGUsIG9wdGlvbnN9LCB7fSk7XG5cbiAgLy8gRWFybHkgeWllbGQgd2hpbGUgd2Ugd2FpdCBmb3IgdGhlIGZpcnN0IGV2YWx1YXRpb24gYW5kIHJlbmRlclxuICBpZiAob3B0aW9ucy5vdXRwdXQgJiYgIShcIjlcIiBpbiB3ZWJST2pzLnJlbmRlcmVkT2pzKSkge1xuICAgIGNvbnN0IGNvbnRhaW5lciA9IGRvY3VtZW50LmNyZWF0ZUVsZW1lbnQoXCJkaXZcIik7XG4gICAgY29uc3Qgc3Bpbm5lciA9IGRvY3VtZW50LmNyZWF0ZUVsZW1lbnQoXCJkaXZcIik7XG5cbiAgICBpZiAob3B0aW9ucy5lY2hvKSB7XG4gICAgICAvLyBTaG93IG91dHB1dCBhcyBoaWdobGlnaHRlZCBzb3VyY2VcbiAgICAgIGNvbnN0IHByZUVsZW0gPSBkb2N1bWVudC5jcmVhdGVFbGVtZW50KFwicHJlXCIpO1xuICAgICAgY29udGFpbmVyLmNsYXNzTmFtZSA9IFwic291cmNlQ29kZVwiO1xuICAgICAgcHJlRWxlbS5jbGFzc05hbWUgPSBcInNvdXJjZUNvZGUgclwiO1xuICAgICAgcHJlRWxlbS5hcHBlbmRDaGlsZChoaWdobGlnaHRSKGJsb2NrLmNvZGUpKTtcbiAgICAgIHNwaW5uZXIuY2xhc3NOYW1lID0gXCJzcGlubmVyLWdyb3cgc3Bpbm5lci1ncm93LXNtIG0tMiBwb3NpdGlvbi1hYnNvbHV0ZSB0b3AtMCBlbmQtMFwiO1xuICAgICAgcHJlRWxlbS5hcHBlbmRDaGlsZChzcGlubmVyKTtcbiAgICAgIGNvbnRhaW5lci5hcHBlbmRDaGlsZChwcmVFbGVtKTtcbiAgICB9IGVsc2Uge1xuICAgICAgc3Bpbm5lci5jbGFzc05hbWUgPSBcInNwaW5uZXItYm9yZGVyIHNwaW5uZXItYm9yZGVyLXNtXCI7XG4gICAgICBjb250YWluZXIuYXBwZW5kQ2hpbGQoc3Bpbm5lcik7XG4gICAgfVxuXG4gICAgeWllbGQgY29udGFpbmVyO1xuICB9XG5cbiAgd2ViUk9qcy5yZW5kZXJlZE9qc1tcIjlcIl0gPSB0cnVlO1xuICB5aWVsZCBhd2FpdCByZXN1bHQ7XG59XG4ifSx7ImNlbGxOYW1lIjoid2Vici13aWRnZXQtOCIsImlubGluZSI6ZmFsc2UsIm1ldGhvZE5hbWUiOiJpbnRlcnByZXRRdWlldCIsInNvdXJjZSI6IntcbiAgLy8gV2FpdCBmb3Igb3V0cHV0IHRvIGJlIHdyaXR0ZW4gdG8gdGhlIERPTSwgdGhlbiB0cmlnZ2VyIHdpZGdldCByZW5kZXJpbmdcbiAgYXdhaXQgX3dlYnJfdmFsdWVfODtcbiAgaWYgKHdpbmRvdy5IVE1MV2lkZ2V0cykge1xuICAgIHdpbmRvdy5IVE1MV2lkZ2V0cy5zdGF0aWNSZW5kZXIoKTtcbiAgfVxuICBpZiAod2luZG93LlBhZ2VkVGFibGVEb2MpIHtcbiAgICB3aW5kb3cuUGFnZWRUYWJsZURvYy5pbml0QWxsKCk7XG4gIH1cbn1cbiJ9LHsiY2VsbE5hbWUiOiJ3ZWJyLTgiLCJpbmxpbmUiOmZhbHNlLCJtZXRob2ROYW1lIjoiaW50ZXJwcmV0Iiwic291cmNlIjoidmlld29mIF93ZWJyX2VkaXRvcl84ID0ge1xuICBjb25zdCB7IFdlYlJFeGVyY2lzZUVkaXRvciwgYjY0RGVjb2RlIH0gPSB3aW5kb3cuX2V4ZXJjaXNlX29qc19ydW50aW1lO1xuICBjb25zdCBzY3JpcHRDb250ZW50ID0gZG9jdW1lbnQucXVlcnlTZWxlY3Rvcihgc2NyaXB0W3R5cGU9XFxcIndlYnItOC1jb250ZW50c1xcXCJdYCkudGV4dENvbnRlbnQ7XG4gIGNvbnN0IGJsb2NrID0gSlNPTi5wYXJzZShiNjREZWNvZGUoc2NyaXB0Q29udGVudCkpO1xuXG4gIGNvbnN0IG9wdGlvbnMgPSBPYmplY3QuYXNzaWduKHsgaWQ6IGB3ZWJyLTgtY29udGVudHNgIH0sIGJsb2NrLmF0dHIpO1xuICBjb25zdCBlZGl0b3IgPSBuZXcgV2ViUkV4ZXJjaXNlRWRpdG9yKHdlYlJPanMud2ViUlByb21pc2UsIGJsb2NrLmNvZGUsIG9wdGlvbnMpO1xuXG4gIHJldHVybiBlZGl0b3IuY29udGFpbmVyO1xufVxuX3dlYnJfdmFsdWVfOCA9IHdlYlJPanMucHJvY2Vzcyhfd2Vicl9lZGl0b3JfOCwge30pO1xuIn0seyJjZWxsTmFtZSI6IndlYnItd2lkZ2V0LTciLCJpbmxpbmUiOmZhbHNlLCJtZXRob2ROYW1lIjoiaW50ZXJwcmV0UXVpZXQiLCJzb3VyY2UiOiJ7XG4gIC8vIFdhaXQgZm9yIG91dHB1dCB0byBiZSB3cml0dGVuIHRvIHRoZSBET00sIHRoZW4gdHJpZ2dlciB3aWRnZXQgcmVuZGVyaW5nXG4gIGF3YWl0IF93ZWJyX3ZhbHVlXzc7XG4gIGlmICh3aW5kb3cuSFRNTFdpZGdldHMpIHtcbiAgICB3aW5kb3cuSFRNTFdpZGdldHMuc3RhdGljUmVuZGVyKCk7XG4gIH1cbiAgaWYgKHdpbmRvdy5QYWdlZFRhYmxlRG9jKSB7XG4gICAgd2luZG93LlBhZ2VkVGFibGVEb2MuaW5pdEFsbCgpO1xuICB9XG59XG4ifSx7ImNlbGxOYW1lIjoid2Vici03IiwiaW5saW5lIjpmYWxzZSwibWV0aG9kTmFtZSI6ImludGVycHJldCIsInNvdXJjZSI6Il93ZWJyX3ZhbHVlXzcgPSB7XG4gIGNvbnN0IHsgaGlnaGxpZ2h0UiwgYjY0RGVjb2RlIH0gPSB3aW5kb3cuX2V4ZXJjaXNlX29qc19ydW50aW1lO1xuICBjb25zdCBzY3JpcHRDb250ZW50ID0gZG9jdW1lbnQucXVlcnlTZWxlY3Rvcihgc2NyaXB0W3R5cGU9XFxcIndlYnItNy1jb250ZW50c1xcXCJdYCkudGV4dENvbnRlbnQ7XG4gIGNvbnN0IGJsb2NrID0gSlNPTi5wYXJzZShiNjREZWNvZGUoc2NyaXB0Q29udGVudCkpO1xuXG4gIC8vIERlZmF1bHQgZXZhbHVhdGlvbiBjb25maWd1cmF0aW9uXG4gIGNvbnN0IG9wdGlvbnMgPSBPYmplY3QuYXNzaWduKHtcbiAgICBpZDogXCJ3ZWJyLTctY29udGVudHNcIixcbiAgICBlY2hvOiB0cnVlLFxuICAgIG91dHB1dDogdHJ1ZVxuICB9LCBibG9jay5hdHRyKTtcblxuICAvLyBFdmFsdWF0ZSB0aGUgcHJvdmlkZWQgUiBjb2RlXG4gIGNvbnN0IHJlc3VsdCA9IHdlYlJPanMucHJvY2Vzcyh7Y29kZTogYmxvY2suY29kZSwgb3B0aW9uc30sIHt9KTtcblxuICAvLyBFYXJseSB5aWVsZCB3aGlsZSB3ZSB3YWl0IGZvciB0aGUgZmlyc3QgZXZhbHVhdGlvbiBhbmQgcmVuZGVyXG4gIGlmIChvcHRpb25zLm91dHB1dCAmJiAhKFwiN1wiIGluIHdlYlJPanMucmVuZGVyZWRPanMpKSB7XG4gICAgY29uc3QgY29udGFpbmVyID0gZG9jdW1lbnQuY3JlYXRlRWxlbWVudChcImRpdlwiKTtcbiAgICBjb25zdCBzcGlubmVyID0gZG9jdW1lbnQuY3JlYXRlRWxlbWVudChcImRpdlwiKTtcblxuICAgIGlmIChvcHRpb25zLmVjaG8pIHtcbiAgICAgIC8vIFNob3cgb3V0cHV0IGFzIGhpZ2hsaWdodGVkIHNvdXJjZVxuICAgICAgY29uc3QgcHJlRWxlbSA9IGRvY3VtZW50LmNyZWF0ZUVsZW1lbnQoXCJwcmVcIik7XG4gICAgICBjb250YWluZXIuY2xhc3NOYW1lID0gXCJzb3VyY2VDb2RlXCI7XG4gICAgICBwcmVFbGVtLmNsYXNzTmFtZSA9IFwic291cmNlQ29kZSByXCI7XG4gICAgICBwcmVFbGVtLmFwcGVuZENoaWxkKGhpZ2hsaWdodFIoYmxvY2suY29kZSkpO1xuICAgICAgc3Bpbm5lci5jbGFzc05hbWUgPSBcInNwaW5uZXItZ3JvdyBzcGlubmVyLWdyb3ctc20gbS0yIHBvc2l0aW9uLWFic29sdXRlIHRvcC0wIGVuZC0wXCI7XG4gICAgICBwcmVFbGVtLmFwcGVuZENoaWxkKHNwaW5uZXIpO1xuICAgICAgY29udGFpbmVyLmFwcGVuZENoaWxkKHByZUVsZW0pO1xuICAgIH0gZWxzZSB7XG4gICAgICBzcGlubmVyLmNsYXNzTmFtZSA9IFwic3Bpbm5lci1ib3JkZXIgc3Bpbm5lci1ib3JkZXItc21cIjtcbiAgICAgIGNvbnRhaW5lci5hcHBlbmRDaGlsZChzcGlubmVyKTtcbiAgICB9XG5cbiAgICB5aWVsZCBjb250YWluZXI7XG4gIH1cblxuICB3ZWJST2pzLnJlbmRlcmVkT2pzW1wiN1wiXSA9IHRydWU7XG4gIHlpZWxkIGF3YWl0IHJlc3VsdDtcbn1cbiJ9LHsiY2VsbE5hbWUiOiJ3ZWJyLXdpZGdldC02IiwiaW5saW5lIjpmYWxzZSwibWV0aG9kTmFtZSI6ImludGVycHJldFF1aWV0Iiwic291cmNlIjoie1xuICAvLyBXYWl0IGZvciBvdXRwdXQgdG8gYmUgd3JpdHRlbiB0byB0aGUgRE9NLCB0aGVuIHRyaWdnZXIgd2lkZ2V0IHJlbmRlcmluZ1xuICBhd2FpdCBfd2Vicl92YWx1ZV82O1xuICBpZiAod2luZG93LkhUTUxXaWRnZXRzKSB7XG4gICAgd2luZG93LkhUTUxXaWRnZXRzLnN0YXRpY1JlbmRlcigpO1xuICB9XG4gIGlmICh3aW5kb3cuUGFnZWRUYWJsZURvYykge1xuICAgIHdpbmRvdy5QYWdlZFRhYmxlRG9jLmluaXRBbGwoKTtcbiAgfVxufVxuIn0seyJjZWxsTmFtZSI6IndlYnItNiIsImlubGluZSI6ZmFsc2UsIm1ldGhvZE5hbWUiOiJpbnRlcnByZXQiLCJzb3VyY2UiOiJ2aWV3b2YgX3dlYnJfZWRpdG9yXzYgPSB7XG4gIGNvbnN0IHsgV2ViUkV4ZXJjaXNlRWRpdG9yLCBiNjREZWNvZGUgfSA9IHdpbmRvdy5fZXhlcmNpc2Vfb2pzX3J1bnRpbWU7XG4gIGNvbnN0IHNjcmlwdENvbnRlbnQgPSBkb2N1bWVudC5xdWVyeVNlbGVjdG9yKGBzY3JpcHRbdHlwZT1cXFwid2Vici02LWNvbnRlbnRzXFxcIl1gKS50ZXh0Q29udGVudDtcbiAgY29uc3QgYmxvY2sgPSBKU09OLnBhcnNlKGI2NERlY29kZShzY3JpcHRDb250ZW50KSk7XG5cbiAgY29uc3Qgb3B0aW9ucyA9IE9iamVjdC5hc3NpZ24oeyBpZDogYHdlYnItNi1jb250ZW50c2AgfSwgYmxvY2suYXR0cik7XG4gIGNvbnN0IGVkaXRvciA9IG5ldyBXZWJSRXhlcmNpc2VFZGl0b3Iod2ViUk9qcy53ZWJSUHJvbWlzZSwgYmxvY2suY29kZSwgb3B0aW9ucyk7XG5cbiAgcmV0dXJuIGVkaXRvci5jb250YWluZXI7XG59XG5fd2Vicl92YWx1ZV82ID0gd2ViUk9qcy5wcm9jZXNzKF93ZWJyX2VkaXRvcl82LCB7fSk7XG4ifSx7ImNlbGxOYW1lIjoid2Vici13aWRnZXQtNSIsImlubGluZSI6ZmFsc2UsIm1ldGhvZE5hbWUiOiJpbnRlcnByZXRRdWlldCIsInNvdXJjZSI6IntcbiAgLy8gV2FpdCBmb3Igb3V0cHV0IHRvIGJlIHdyaXR0ZW4gdG8gdGhlIERPTSwgdGhlbiB0cmlnZ2VyIHdpZGdldCByZW5kZXJpbmdcbiAgYXdhaXQgX3dlYnJfdmFsdWVfNTtcbiAgaWYgKHdpbmRvdy5IVE1MV2lkZ2V0cykge1xuICAgIHdpbmRvdy5IVE1MV2lkZ2V0cy5zdGF0aWNSZW5kZXIoKTtcbiAgfVxuICBpZiAod2luZG93LlBhZ2VkVGFibGVEb2MpIHtcbiAgICB3aW5kb3cuUGFnZWRUYWJsZURvYy5pbml0QWxsKCk7XG4gIH1cbn1cbiJ9LHsiY2VsbE5hbWUiOiJ3ZWJyLTUiLCJpbmxpbmUiOmZhbHNlLCJtZXRob2ROYW1lIjoiaW50ZXJwcmV0Iiwic291cmNlIjoidmlld29mIF93ZWJyX2VkaXRvcl81ID0ge1xuICBjb25zdCB7IFdlYlJFeGVyY2lzZUVkaXRvciwgYjY0RGVjb2RlIH0gPSB3aW5kb3cuX2V4ZXJjaXNlX29qc19ydW50aW1lO1xuICBjb25zdCBzY3JpcHRDb250ZW50ID0gZG9jdW1lbnQucXVlcnlTZWxlY3Rvcihgc2NyaXB0W3R5cGU9XFxcIndlYnItNS1jb250ZW50c1xcXCJdYCkudGV4dENvbnRlbnQ7XG4gIGNvbnN0IGJsb2NrID0gSlNPTi5wYXJzZShiNjREZWNvZGUoc2NyaXB0Q29udGVudCkpO1xuXG4gIGNvbnN0IG9wdGlvbnMgPSBPYmplY3QuYXNzaWduKHsgaWQ6IGB3ZWJyLTUtY29udGVudHNgIH0sIGJsb2NrLmF0dHIpO1xuICBjb25zdCBlZGl0b3IgPSBuZXcgV2ViUkV4ZXJjaXNlRWRpdG9yKHdlYlJPanMud2ViUlByb21pc2UsIGJsb2NrLmNvZGUsIG9wdGlvbnMpO1xuXG4gIHJldHVybiBlZGl0b3IuY29udGFpbmVyO1xufVxuX3dlYnJfdmFsdWVfNSA9IHdlYlJPanMucHJvY2Vzcyhfd2Vicl9lZGl0b3JfNSwge30pO1xuIn0seyJjZWxsTmFtZSI6IndlYnItd2lkZ2V0LTQiLCJpbmxpbmUiOmZhbHNlLCJtZXRob2ROYW1lIjoiaW50ZXJwcmV0UXVpZXQiLCJzb3VyY2UiOiJ7XG4gIC8vIFdhaXQgZm9yIG91dHB1dCB0byBiZSB3cml0dGVuIHRvIHRoZSBET00sIHRoZW4gdHJpZ2dlciB3aWRnZXQgcmVuZGVyaW5nXG4gIGF3YWl0IF93ZWJyX3ZhbHVlXzQ7XG4gIGlmICh3aW5kb3cuSFRNTFdpZGdldHMpIHtcbiAgICB3aW5kb3cuSFRNTFdpZGdldHMuc3RhdGljUmVuZGVyKCk7XG4gIH1cbiAgaWYgKHdpbmRvdy5QYWdlZFRhYmxlRG9jKSB7XG4gICAgd2luZG93LlBhZ2VkVGFibGVEb2MuaW5pdEFsbCgpO1xuICB9XG59XG4ifSx7ImNlbGxOYW1lIjoid2Vici00IiwiaW5saW5lIjpmYWxzZSwibWV0aG9kTmFtZSI6ImludGVycHJldCIsInNvdXJjZSI6Il93ZWJyX3ZhbHVlXzQgPSB7XG4gIGNvbnN0IHsgaGlnaGxpZ2h0UiwgYjY0RGVjb2RlIH0gPSB3aW5kb3cuX2V4ZXJjaXNlX29qc19ydW50aW1lO1xuICBjb25zdCBzY3JpcHRDb250ZW50ID0gZG9jdW1lbnQucXVlcnlTZWxlY3Rvcihgc2NyaXB0W3R5cGU9XFxcIndlYnItNC1jb250ZW50c1xcXCJdYCkudGV4dENvbnRlbnQ7XG4gIGNvbnN0IGJsb2NrID0gSlNPTi5wYXJzZShiNjREZWNvZGUoc2NyaXB0Q29udGVudCkpO1xuXG4gIC8vIERlZmF1bHQgZXZhbHVhdGlvbiBjb25maWd1cmF0aW9uXG4gIGNvbnN0IG9wdGlvbnMgPSBPYmplY3QuYXNzaWduKHtcbiAgICBpZDogXCJ3ZWJyLTQtY29udGVudHNcIixcbiAgICBlY2hvOiB0cnVlLFxuICAgIG91dHB1dDogdHJ1ZVxuICB9LCBibG9jay5hdHRyKTtcblxuICAvLyBFdmFsdWF0ZSB0aGUgcHJvdmlkZWQgUiBjb2RlXG4gIGNvbnN0IHJlc3VsdCA9IHdlYlJPanMucHJvY2Vzcyh7Y29kZTogYmxvY2suY29kZSwgb3B0aW9uc30sIHt9KTtcblxuICAvLyBFYXJseSB5aWVsZCB3aGlsZSB3ZSB3YWl0IGZvciB0aGUgZmlyc3QgZXZhbHVhdGlvbiBhbmQgcmVuZGVyXG4gIGlmIChvcHRpb25zLm91dHB1dCAmJiAhKFwiNFwiIGluIHdlYlJPanMucmVuZGVyZWRPanMpKSB7XG4gICAgY29uc3QgY29udGFpbmVyID0gZG9jdW1lbnQuY3JlYXRlRWxlbWVudChcImRpdlwiKTtcbiAgICBjb25zdCBzcGlubmVyID0gZG9jdW1lbnQuY3JlYXRlRWxlbWVudChcImRpdlwiKTtcblxuICAgIGlmIChvcHRpb25zLmVjaG8pIHtcbiAgICAgIC8vIFNob3cgb3V0cHV0IGFzIGhpZ2hsaWdodGVkIHNvdXJjZVxuICAgICAgY29uc3QgcHJlRWxlbSA9IGRvY3VtZW50LmNyZWF0ZUVsZW1lbnQoXCJwcmVcIik7XG4gICAgICBjb250YWluZXIuY2xhc3NOYW1lID0gXCJzb3VyY2VDb2RlXCI7XG4gICAgICBwcmVFbGVtLmNsYXNzTmFtZSA9IFwic291cmNlQ29kZSByXCI7XG4gICAgICBwcmVFbGVtLmFwcGVuZENoaWxkKGhpZ2hsaWdodFIoYmxvY2suY29kZSkpO1xuICAgICAgc3Bpbm5lci5jbGFzc05hbWUgPSBcInNwaW5uZXItZ3JvdyBzcGlubmVyLWdyb3ctc20gbS0yIHBvc2l0aW9uLWFic29sdXRlIHRvcC0wIGVuZC0wXCI7XG4gICAgICBwcmVFbGVtLmFwcGVuZENoaWxkKHNwaW5uZXIpO1xuICAgICAgY29udGFpbmVyLmFwcGVuZENoaWxkKHByZUVsZW0pO1xuICAgIH0gZWxzZSB7XG4gICAgICBzcGlubmVyLmNsYXNzTmFtZSA9IFwic3Bpbm5lci1ib3JkZXIgc3Bpbm5lci1ib3JkZXItc21cIjtcbiAgICAgIGNvbnRhaW5lci5hcHBlbmRDaGlsZChzcGlubmVyKTtcbiAgICB9XG5cbiAgICB5aWVsZCBjb250YWluZXI7XG4gIH1cblxuICB3ZWJST2pzLnJlbmRlcmVkT2pzW1wiNFwiXSA9IHRydWU7XG4gIHlpZWxkIGF3YWl0IHJlc3VsdDtcbn1cbiJ9LHsiY2VsbE5hbWUiOiJ3ZWJyLXdpZGdldC0zIiwiaW5saW5lIjpmYWxzZSwibWV0aG9kTmFtZSI6ImludGVycHJldFF1aWV0Iiwic291cmNlIjoie1xuICAvLyBXYWl0IGZvciBvdXRwdXQgdG8gYmUgd3JpdHRlbiB0byB0aGUgRE9NLCB0aGVuIHRyaWdnZXIgd2lkZ2V0IHJlbmRlcmluZ1xuICBhd2FpdCBfd2Vicl92YWx1ZV8zO1xuICBpZiAod2luZG93LkhUTUxXaWRnZXRzKSB7XG4gICAgd2luZG93LkhUTUxXaWRnZXRzLnN0YXRpY1JlbmRlcigpO1xuICB9XG4gIGlmICh3aW5kb3cuUGFnZWRUYWJsZURvYykge1xuICAgIHdpbmRvdy5QYWdlZFRhYmxlRG9jLmluaXRBbGwoKTtcbiAgfVxufVxuIn0seyJjZWxsTmFtZSI6IndlYnItMyIsImlubGluZSI6ZmFsc2UsIm1ldGhvZE5hbWUiOiJpbnRlcnByZXQiLCJzb3VyY2UiOiJ2aWV3b2YgX3dlYnJfZWRpdG9yXzMgPSB7XG4gIGNvbnN0IHsgV2ViUkV4ZXJjaXNlRWRpdG9yLCBiNjREZWNvZGUgfSA9IHdpbmRvdy5fZXhlcmNpc2Vfb2pzX3J1bnRpbWU7XG4gIGNvbnN0IHNjcmlwdENvbnRlbnQgPSBkb2N1bWVudC5xdWVyeVNlbGVjdG9yKGBzY3JpcHRbdHlwZT1cXFwid2Vici0zLWNvbnRlbnRzXFxcIl1gKS50ZXh0Q29udGVudDtcbiAgY29uc3QgYmxvY2sgPSBKU09OLnBhcnNlKGI2NERlY29kZShzY3JpcHRDb250ZW50KSk7XG5cbiAgY29uc3Qgb3B0aW9ucyA9IE9iamVjdC5hc3NpZ24oeyBpZDogYHdlYnItMy1jb250ZW50c2AgfSwgYmxvY2suYXR0cik7XG4gIGNvbnN0IGVkaXRvciA9IG5ldyBXZWJSRXhlcmNpc2VFZGl0b3Iod2ViUk9qcy53ZWJSUHJvbWlzZSwgYmxvY2suY29kZSwgb3B0aW9ucyk7XG5cbiAgcmV0dXJuIGVkaXRvci5jb250YWluZXI7XG59XG5fd2Vicl92YWx1ZV8zID0gd2ViUk9qcy5wcm9jZXNzKF93ZWJyX2VkaXRvcl8zLCB7fSk7XG4ifSx7ImNlbGxOYW1lIjoid2Vici13aWRnZXQtMiIsImlubGluZSI6ZmFsc2UsIm1ldGhvZE5hbWUiOiJpbnRlcnByZXRRdWlldCIsInNvdXJjZSI6IntcbiAgLy8gV2FpdCBmb3Igb3V0cHV0IHRvIGJlIHdyaXR0ZW4gdG8gdGhlIERPTSwgdGhlbiB0cmlnZ2VyIHdpZGdldCByZW5kZXJpbmdcbiAgYXdhaXQgX3dlYnJfdmFsdWVfMjtcbiAgaWYgKHdpbmRvdy5IVE1MV2lkZ2V0cykge1xuICAgIHdpbmRvdy5IVE1MV2lkZ2V0cy5zdGF0aWNSZW5kZXIoKTtcbiAgfVxuICBpZiAod2luZG93LlBhZ2VkVGFibGVEb2MpIHtcbiAgICB3aW5kb3cuUGFnZWRUYWJsZURvYy5pbml0QWxsKCk7XG4gIH1cbn1cbiJ9LHsiY2VsbE5hbWUiOiJ3ZWJyLTIiLCJpbmxpbmUiOmZhbHNlLCJtZXRob2ROYW1lIjoiaW50ZXJwcmV0Iiwic291cmNlIjoiX3dlYnJfdmFsdWVfMiA9IHtcbiAgY29uc3QgeyBoaWdobGlnaHRSLCBiNjREZWNvZGUgfSA9IHdpbmRvdy5fZXhlcmNpc2Vfb2pzX3J1bnRpbWU7XG4gIGNvbnN0IHNjcmlwdENvbnRlbnQgPSBkb2N1bWVudC5xdWVyeVNlbGVjdG9yKGBzY3JpcHRbdHlwZT1cXFwid2Vici0yLWNvbnRlbnRzXFxcIl1gKS50ZXh0Q29udGVudDtcbiAgY29uc3QgYmxvY2sgPSBKU09OLnBhcnNlKGI2NERlY29kZShzY3JpcHRDb250ZW50KSk7XG5cbiAgLy8gRGVmYXVsdCBldmFsdWF0aW9uIGNvbmZpZ3VyYXRpb25cbiAgY29uc3Qgb3B0aW9ucyA9IE9iamVjdC5hc3NpZ24oe1xuICAgIGlkOiBcIndlYnItMi1jb250ZW50c1wiLFxuICAgIGVjaG86IHRydWUsXG4gICAgb3V0cHV0OiB0cnVlXG4gIH0sIGJsb2NrLmF0dHIpO1xuXG4gIC8vIEV2YWx1YXRlIHRoZSBwcm92aWRlZCBSIGNvZGVcbiAgY29uc3QgcmVzdWx0ID0gd2ViUk9qcy5wcm9jZXNzKHtjb2RlOiBibG9jay5jb2RlLCBvcHRpb25zfSwge30pO1xuXG4gIC8vIEVhcmx5IHlpZWxkIHdoaWxlIHdlIHdhaXQgZm9yIHRoZSBmaXJzdCBldmFsdWF0aW9uIGFuZCByZW5kZXJcbiAgaWYgKG9wdGlvbnMub3V0cHV0ICYmICEoXCIyXCIgaW4gd2ViUk9qcy5yZW5kZXJlZE9qcykpIHtcbiAgICBjb25zdCBjb250YWluZXIgPSBkb2N1bWVudC5jcmVhdGVFbGVtZW50KFwiZGl2XCIpO1xuICAgIGNvbnN0IHNwaW5uZXIgPSBkb2N1bWVudC5jcmVhdGVFbGVtZW50KFwiZGl2XCIpO1xuXG4gICAgaWYgKG9wdGlvbnMuZWNobykge1xuICAgICAgLy8gU2hvdyBvdXRwdXQgYXMgaGlnaGxpZ2h0ZWQgc291cmNlXG4gICAgICBjb25zdCBwcmVFbGVtID0gZG9jdW1lbnQuY3JlYXRlRWxlbWVudChcInByZVwiKTtcbiAgICAgIGNvbnRhaW5lci5jbGFzc05hbWUgPSBcInNvdXJjZUNvZGVcIjtcbiAgICAgIHByZUVsZW0uY2xhc3NOYW1lID0gXCJzb3VyY2VDb2RlIHJcIjtcbiAgICAgIHByZUVsZW0uYXBwZW5kQ2hpbGQoaGlnaGxpZ2h0UihibG9jay5jb2RlKSk7XG4gICAgICBzcGlubmVyLmNsYXNzTmFtZSA9IFwic3Bpbm5lci1ncm93IHNwaW5uZXItZ3Jvdy1zbSBtLTIgcG9zaXRpb24tYWJzb2x1dGUgdG9wLTAgZW5kLTBcIjtcbiAgICAgIHByZUVsZW0uYXBwZW5kQ2hpbGQoc3Bpbm5lcik7XG4gICAgICBjb250YWluZXIuYXBwZW5kQ2hpbGQocHJlRWxlbSk7XG4gICAgfSBlbHNlIHtcbiAgICAgIHNwaW5uZXIuY2xhc3NOYW1lID0gXCJzcGlubmVyLWJvcmRlciBzcGlubmVyLWJvcmRlci1zbVwiO1xuICAgICAgY29udGFpbmVyLmFwcGVuZENoaWxkKHNwaW5uZXIpO1xuICAgIH1cblxuICAgIHlpZWxkIGNvbnRhaW5lcjtcbiAgfVxuXG4gIHdlYlJPanMucmVuZGVyZWRPanNbXCIyXCJdID0gdHJ1ZTtcbiAgeWllbGQgYXdhaXQgcmVzdWx0O1xufVxuIn0seyJjZWxsTmFtZSI6IndlYnItd2lkZ2V0LTEiLCJpbmxpbmUiOmZhbHNlLCJtZXRob2ROYW1lIjoiaW50ZXJwcmV0UXVpZXQiLCJzb3VyY2UiOiJ7XG4gIC8vIFdhaXQgZm9yIG91dHB1dCB0byBiZSB3cml0dGVuIHRvIHRoZSBET00sIHRoZW4gdHJpZ2dlciB3aWRnZXQgcmVuZGVyaW5nXG4gIGF3YWl0IF93ZWJyX3ZhbHVlXzE7XG4gIGlmICh3aW5kb3cuSFRNTFdpZGdldHMpIHtcbiAgICB3aW5kb3cuSFRNTFdpZGdldHMuc3RhdGljUmVuZGVyKCk7XG4gIH1cbiAgaWYgKHdpbmRvdy5QYWdlZFRhYmxlRG9jKSB7XG4gICAgd2luZG93LlBhZ2VkVGFibGVEb2MuaW5pdEFsbCgpO1xuICB9XG59XG4ifSx7ImNlbGxOYW1lIjoid2Vici0xIiwiaW5saW5lIjpmYWxzZSwibWV0aG9kTmFtZSI6ImludGVycHJldCIsInNvdXJjZSI6InZpZXdvZiBfd2Vicl9lZGl0b3JfMSA9IHtcbiAgY29uc3QgeyBXZWJSRXhlcmNpc2VFZGl0b3IsIGI2NERlY29kZSB9ID0gd2luZG93Ll9leGVyY2lzZV9vanNfcnVudGltZTtcbiAgY29uc3Qgc2NyaXB0Q29udGVudCA9IGRvY3VtZW50LnF1ZXJ5U2VsZWN0b3IoYHNjcmlwdFt0eXBlPVxcXCJ3ZWJyLTEtY29udGVudHNcXFwiXWApLnRleHRDb250ZW50O1xuICBjb25zdCBibG9jayA9IEpTT04ucGFyc2UoYjY0RGVjb2RlKHNjcmlwdENvbnRlbnQpKTtcblxuICBjb25zdCBvcHRpb25zID0gT2JqZWN0LmFzc2lnbih7IGlkOiBgd2Vici0xLWNvbnRlbnRzYCB9LCBibG9jay5hdHRyKTtcbiAgY29uc3QgZWRpdG9yID0gbmV3IFdlYlJFeGVyY2lzZUVkaXRvcih3ZWJST2pzLndlYlJQcm9taXNlLCBibG9jay5jb2RlLCBvcHRpb25zKTtcblxuICByZXR1cm4gZWRpdG9yLmNvbnRhaW5lcjtcbn1cbl93ZWJyX3ZhbHVlXzEgPSB3ZWJST2pzLnByb2Nlc3MoX3dlYnJfZWRpdG9yXzEsIHt9KTtcbiJ9LHsiY2VsbE5hbWUiOiJ3ZWJyLXByZWx1ZGUiLCJpbmxpbmUiOmZhbHNlLCJtZXRob2ROYW1lIjoiaW50ZXJwcmV0UXVpZXQiLCJzb3VyY2UiOiJ3ZWJST2pzID0ge1xuICBjb25zdCB7IFdlYlIsIENoYW5uZWxUeXBlIH0gPSB3aW5kb3cuX2V4ZXJjaXNlX29qc19ydW50aW1lLldlYlI7XG4gIGNvbnN0IHtcbiAgICBXZWJSRXZhbHVhdG9yLFxuICAgIFdlYlJFbnZpcm9ubWVudE1hbmFnZXIsXG4gICAgc2V0dXBSLFxuICAgIGI2NERlY29kZSxcbiAgICBjb2xsYXBzZVBhdGhcbiAgfSA9IHdpbmRvdy5fZXhlcmNpc2Vfb2pzX3J1bnRpbWU7XG5cbiAgY29uc3Qgc3RhdHVzQ29udGFpbmVyID0gZG9jdW1lbnQuZ2V0RWxlbWVudEJ5SWQoXCJleGVyY2lzZS1sb2FkaW5nLXN0YXR1c1wiKTtcbiAgY29uc3QgaW5kaWNhdG9yQ29udGFpbmVyID0gZG9jdW1lbnQuZ2V0RWxlbWVudEJ5SWQoXCJleGVyY2lzZS1sb2FkaW5nLWluZGljYXRvclwiKTtcbiAgaW5kaWNhdG9yQ29udGFpbmVyLmNsYXNzTGlzdC5yZW1vdmUoXCJkLW5vbmVcIik7XG5cbiAgbGV0IHN0YXR1c1RleHQgPSBkb2N1bWVudC5jcmVhdGVFbGVtZW50KFwiZGl2XCIpXG4gIHN0YXR1c1RleHQuY2xhc3NMaXN0ID0gXCJleGVyY2lzZS1sb2FkaW5nLWRldGFpbHNcIjtcbiAgc3RhdHVzVGV4dCA9IHN0YXR1c0NvbnRhaW5lci5hcHBlbmRDaGlsZChzdGF0dXNUZXh0KTtcbiAgc3RhdHVzVGV4dC50ZXh0Q29udGVudCA9IGBJbml0aWFsaXNlYDtcblxuICAvLyBIb2lzdCBpbmRpY2F0b3Igb3V0IGZyb20gZmluYWwgc2xpZGUgd2hlbiBydW5uaW5nIHVuZGVyIHJldmVhbFxuICBjb25zdCByZXZlYWxTdGF0dXMgPSBkb2N1bWVudC5xdWVyeVNlbGVjdG9yKFwiLnJldmVhbCAuZXhlcmNpc2UtbG9hZGluZy1pbmRpY2F0b3JcIik7XG4gIGlmIChyZXZlYWxTdGF0dXMpIHtcbiAgICByZXZlYWxTdGF0dXMucmVtb3ZlKCk7XG4gICAgZG9jdW1lbnQucXVlcnlTZWxlY3RvcihcIi5yZXZlYWwgPiAuc2xpZGVzXCIpLmFwcGVuZENoaWxkKHJldmVhbFN0YXR1cyk7XG4gIH1cblxuICAvLyBNYWtlIGFueSByZXZlYWwgc2xpZGVzIHdpdGggbGl2ZSBjZWxscyBzY3JvbGxhYmxlXG4gIGRvY3VtZW50LnF1ZXJ5U2VsZWN0b3JBbGwoXCIucmV2ZWFsIC5leGVyY2lzZS1jZWxsXCIpLmZvckVhY2goKGVsKSA9PiB7XG4gICAgZWwuY2xvc2VzdCgnc2VjdGlvbi5zbGlkZScpLmNsYXNzTGlzdC5hZGQoXCJzY3JvbGxhYmxlXCIpO1xuICB9KVxuXG4gIC8vIHdlYlIgc3VwcGxlbWVudGFsIGRhdGEgYW5kIG9wdGlvbnNcbiAgY29uc3QgZGF0YUNvbnRlbnQgPSBkb2N1bWVudC5xdWVyeVNlbGVjdG9yKGBzY3JpcHRbdHlwZT1cXFwid2Vici1kYXRhXFxcIl1gKS50ZXh0Q29udGVudDtcbiAgY29uc3QgZGF0YSA9IEpTT04ucGFyc2UoYjY0RGVjb2RlKGRhdGFDb250ZW50KSk7XG5cbiAgLy8gR3JhYiBsaXN0IG9mIHJlc291cmNlcyB0byBiZSBkb3dubG9hZGVkXG4gIGNvbnN0IGZpbGVzQ29udGVudCA9IGRvY3VtZW50LnF1ZXJ5U2VsZWN0b3IoYHNjcmlwdFt0eXBlPVxcXCJ2ZnMtZmlsZVxcXCJdYCkudGV4dENvbnRlbnQ7XG4gIGNvbnN0IGZpbGVzID0gSlNPTi5wYXJzZShiNjREZWNvZGUoZmlsZXNDb250ZW50KSk7XG5cbiAgLy8gSW5pdGlhbGlzZSB3ZWJSIGFuZCBzZXR1cCBmb3IgUiBjb2RlIGV2YWx1YXRpb25cbiAgbGV0IHdlYlJQcm9taXNlID0gKGFzeW5jICh3ZWJSKSA9PiB7XG4gICAgc3RhdHVzVGV4dC50ZXh0Q29udGVudCA9IGBEb3dubG9hZGluZyB3ZWJSYDtcbiAgICBhd2FpdCB3ZWJSLmluaXQoKTtcblxuICAgIC8vIEluc3RhbGwgcHJvdmlkZWQgbGlzdCBvZiBwYWNrYWdlc1xuICAgIC8vIEVuc3VyZSB3ZWJSIGRlZmF1bHQgcmVwbyBpcyBpbmNsdWRlZFxuICAgIGRhdGEucGFja2FnZXMucmVwb3MucHVzaChcImh0dHBzOi8vcmVwby5yLXdhc20ub3JnXCIpXG4gICAgYXdhaXQgZGF0YS5wYWNrYWdlcy5wa2dzLm1hcCgocGtnKSA9PiAoKSA9PiB7XG4gICAgICBzdGF0dXNUZXh0LnRleHRDb250ZW50ID0gYERvd25sb2FkaW5nIHBhY2thZ2U6ICR7cGtnfWA7XG4gICAgICByZXR1cm4gd2ViUi5ldmFsUlZvaWQoYFxuICAgICAgICB3ZWJyOjppbnN0YWxsKHBrZywgcmVwb3MgPSByZXBvcylcbiAgICAgICAgbGlicmFyeShwa2csIGNoYXJhY3Rlci5vbmx5ID0gVFJVRSlcbiAgICAgIGAsIHsgZW52OiB7XG4gICAgICAgIHBrZzogcGtnLFxuICAgICAgICByZXBvczogZGF0YS5wYWNrYWdlcy5yZXBvcyxcbiAgICAgIH19KTtcbiAgICB9KS5yZWR1Y2UoKGN1ciwgbmV4dCkgPT4gY3VyLnRoZW4obmV4dCksIFByb21pc2UucmVzb2x2ZSgpKTtcblxuICAgIC8vIERvd25sb2FkIGFuZCBpbnN0YWxsIHJlc291cmNlc1xuICAgIGF3YWl0IGZpbGVzLm1hcCgoZmlsZSkgPT4gYXN5bmMgKCkgPT4ge1xuICAgICAgY29uc3QgbmFtZSA9IGZpbGUuc3Vic3RyaW5nKGZpbGUubGFzdEluZGV4T2YoJy8nKSArIDEpO1xuICAgICAgc3RhdHVzVGV4dC50ZXh0Q29udGVudCA9IGBEb3dubG9hZGluZyByZXNvdXJjZTogJHtuYW1lfWA7XG4gICAgICBjb25zdCByZXNwb25zZSA9IGF3YWl0IGZldGNoKGZpbGUpO1xuICAgICAgaWYgKCFyZXNwb25zZS5vaykge1xuICAgICAgICB0aHJvdyBuZXcgRXJyb3IoYENhbid0IGRvd25sb2FkIFxcYCR7ZmlsZX1cXGAuIEVycm9yICR7cmVzcG9uc2Uuc3RhdHVzfTogXCIke3Jlc3BvbnNlLnN0YXR1c1RleHR9XCIuYCk7XG4gICAgICB9XG4gICAgICBjb25zdCBkYXRhID0gYXdhaXQgcmVzcG9uc2UuYXJyYXlCdWZmZXIoKTtcblxuICAgICAgLy8gU3RvcmUgVVJMcyBpbiB0aGUgY3dkIHdpdGhvdXQgYW55IHN1YmRpcmVjdG9yeSBzdHJ1Y3R1cmVcbiAgICAgIGlmIChmaWxlLmluY2x1ZGVzKFwiOi8vXCIpKSB7XG4gICAgICAgIGZpbGUgPSBuYW1lO1xuICAgICAgfVxuXG4gICAgICAvLyBDb2xsYXBzZSBoaWdoZXIgZGlyZWN0b3J5IHN0cnVjdHVyZVxuICAgICAgZmlsZSA9IGNvbGxhcHNlUGF0aChmaWxlKTtcblxuICAgICAgLy8gQ3JlYXRlIGRpcmVjdG9yeSB0cmVlLCBpZ25vcmluZyBcImRpcmVjdG9yeSBleGlzdHNcIiBWRlMgZXJyb3JzXG4gICAgICBjb25zdCBwYXJ0cyA9IGZpbGUuc3BsaXQoJy8nKS5zbGljZSgwLCAtMSk7XG4gICAgICBsZXQgcGF0aCA9ICcnO1xuICAgICAgd2hpbGUgKHBhcnRzLmxlbmd0aCA+IDApIHtcbiAgICAgICAgcGF0aCArPSBwYXJ0cy5zaGlmdCgpICsgJy8nO1xuICAgICAgICBjb25zdCBhbmFseXNpcyA9IGF3YWl0IHdlYlIuRlMuYW5hbHl6ZVBhdGgocGF0aCk7XG4gICAgICAgIGlmICghYW5hbHlzaXMuZXhpc3RzKSB7XG4gICAgICAgICAgdHJ5IHtcbiAgICAgICAgICAgIGF3YWl0IHdlYlIuRlMubWtkaXIocGF0aCk7XG4gICAgICAgICAgfSBjYXRjaCAoZSkge1xuICAgICAgICAgICAgdGhyb3cgbmV3IEVycm9yKGBGaWxlc3lzdGVtIEVycm9yOiBcIiR7ZS5tZXNzYWdlfVwiLmApO1xuICAgICAgICAgIH1cbiAgICAgICAgfVxuICAgICAgfVxuXG4gICAgICAvLyBXcml0ZSB0aGlzIGZpbGUgdG8gdGhlIFZGU1xuICAgICAgcmV0dXJuIGF3YWl0IHdlYlIuRlMud3JpdGVGaWxlKGZpbGUsIG5ldyBVaW50OEFycmF5KGRhdGEpKTtcbiAgICB9KS5yZWR1Y2UoKGN1ciwgbmV4dCkgPT4gY3VyLnRoZW4obmV4dCksIFByb21pc2UucmVzb2x2ZSgpKTtcblxuICAgIHN0YXR1c1RleHQudGV4dENvbnRlbnQgPSBgSW5zdGFsbGluZyB3ZWJSIHNoaW1zYDtcbiAgICBhd2FpdCB3ZWJSLmV2YWxSVm9pZChgd2Vicjo6c2hpbV9pbnN0YWxsKClgKTtcblxuICAgIHN0YXR1c1RleHQudGV4dENvbnRlbnQgPSBgV2ViUiBlbnZpcm9ubWVudCBzZXR1cGA7XG4gICAgYXdhaXQgc2V0dXBSKHdlYlIsIGRhdGEpO1xuXG4gICAgc3RhdHVzVGV4dC5yZW1vdmUoKTtcbiAgICBpZiAoc3RhdHVzQ29udGFpbmVyLmNoaWxkcmVuLmxlbmd0aCA9PSAwKSB7XG4gICAgICBzdGF0dXNDb250YWluZXIucGFyZW50Tm9kZS5yZW1vdmUoKTtcbiAgICB9XG4gICAgcmV0dXJuIHdlYlI7XG4gIH0pKG5ldyBXZWJSKGRhdGEub3B0aW9ucykpO1xuXG4gIC8vIEtlZXAgdHJhY2sgb2YgaW5pdGlhbCBPSlMgYmxvY2sgcmVuZGVyXG4gIGNvbnN0IHJlbmRlcmVkT2pzID0ge307XG5cbiAgY29uc3QgcHJvY2VzcyA9IGFzeW5jIChjb250ZXh0LCBpbnB1dHMpID0+IHtcbiAgICBjb25zdCB3ZWJSID0gYXdhaXQgd2ViUlByb21pc2U7XG4gICAgY29uc3QgZXZhbHVhdG9yID0gbmV3IFdlYlJFdmFsdWF0b3Iod2ViUiwgY29udGV4dClcbiAgICBhd2FpdCBldmFsdWF0b3IucHJvY2VzcyhpbnB1dHMpO1xuICAgIHJldHVybiBldmFsdWF0b3IuY29udGFpbmVyO1xuICB9XG5cbiAgcmV0dXJuIHtcbiAgICBwcm9jZXNzLFxuICAgIHdlYlJQcm9taXNlLFxuICAgIHJlbmRlcmVkT2pzLFxuICB9O1xufVxuIn1dfQ==
+</script>
+<div id="exercise-loading-indicator" class="exercise-loading-indicator d-none d-flex align-items-center gap-2">
+<div id="exercise-loading-status" class="d-flex gap-2">
+
+</div>
+<div class="spinner-grow spinner-grow-sm">
+
+</div>
+</div>
+<script type="vfs-file">
+WyJkYXRhL3NhdF9zY29yZXMuY3N2IiwiZGF0YS9zdGFyYnVja3MuUkRhdGEiXQ==
+</script>
+</section>
+    </div>
+  <div class="quarto-auto-generated-content" style="display: none;">
+<p><img src="quarto-assets/logo.png" class="slide-logo"></p>
+<div class="footer footer-default">
+<p>Derik Boonstra, Ph.D.</p>
+</div>
+</div></div>
+
+  <script>window.backupDefine = window.define; window.define = undefined;</script>
+  <script src="SDS320E_6_Multiple_Population_Hypo_Test_files/libs/revealjs/dist/reveal.js"></script>
+  <!-- reveal.js plugins -->
+  <script src="SDS320E_6_Multiple_Population_Hypo_Test_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.js"></script>
+  <script src="SDS320E_6_Multiple_Population_Hypo_Test_files/libs/revealjs/plugin/pdf-export/pdfexport.js"></script>
+  <script src="SDS320E_6_Multiple_Population_Hypo_Test_files/libs/revealjs/plugin/reveal-menu/menu.js"></script>
+  <script src="SDS320E_6_Multiple_Population_Hypo_Test_files/libs/revealjs/plugin/reveal-menu/quarto-menu.js"></script>
+  <script src="SDS320E_6_Multiple_Population_Hypo_Test_files/libs/revealjs/plugin/reveal-chalkboard/plugin.js"></script>
+  <script src="SDS320E_6_Multiple_Population_Hypo_Test_files/libs/revealjs/plugin/reveal-drop/drop-runtime.js"></script>
+  <script src="SDS320E_6_Multiple_Population_Hypo_Test_files/libs/revealjs/plugin/quarto-support/support.js"></script>
+  
+
+  <script src="SDS320E_6_Multiple_Population_Hypo_Test_files/libs/revealjs/plugin/notes/notes.js"></script>
+  <script src="SDS320E_6_Multiple_Population_Hypo_Test_files/libs/revealjs/plugin/search/search.js"></script>
+  <script src="SDS320E_6_Multiple_Population_Hypo_Test_files/libs/revealjs/plugin/zoom/zoom.js"></script>
+  <script src="SDS320E_6_Multiple_Population_Hypo_Test_files/libs/revealjs/plugin/math/math.js"></script>
+  <script>window.define = window.backupDefine; window.backupDefine = undefined;</script>
+
+  <script>
+
+      // Full list of configuration options available at:
+      // https://revealjs.com/config/
+      Reveal.initialize({
+'controlsAuto': true,
+'previewLinksAuto': true,
+'pdfSeparateFragments': false,
+'autoAnimateEasing': "ease",
+'autoAnimateDuration': 1,
+'autoAnimateUnmatched': true,
+'jumpToSlide': true,
+'pdfMaxPagesPerSlide': 1,
+'menu': {"side":"left","useTextContentForMissingTitles":false,"markers":false,"loadIcons":false,"custom":[{"title":"Tools","icon":"<i class=\"fas fa-gear\"></i>","content":"<ul class=\"slide-menu-items\">\n<li class=\"slide-tool-item active\" data-item=\"0\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.fullscreen(event)\"><kbd>f</kbd> Fullscreen</a></li>\n<li class=\"slide-tool-item\" data-item=\"1\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.speakerMode(event)\"><kbd>s</kbd> Speaker View</a></li>\n<li class=\"slide-tool-item\" data-item=\"2\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.overview(event)\"><kbd>o</kbd> Slide Overview</a></li>\n<li class=\"slide-tool-item\" data-item=\"3\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.togglePdfExport(event)\"><kbd>e</kbd> PDF Export Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"4\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.toggleScrollView(event)\"><kbd>r</kbd> Scroll View Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"5\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.toggleChalkboard(event)\"><kbd>b</kbd> Toggle Chalkboard</a></li>\n<li class=\"slide-tool-item\" data-item=\"6\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.toggleNotesCanvas(event)\"><kbd>c</kbd> Toggle Notes Canvas</a></li>\n<li class=\"slide-tool-item\" data-item=\"7\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.downloadDrawings(event)\"><kbd>d</kbd> Download Drawings</a></li>\n<li class=\"slide-tool-item\" data-item=\"8\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.keyboardHelp(event)\"><kbd>?</kbd> Keyboard Help</a></li>\n</ul>"}],"openButton":true,"titleSelector":"h1","hideMissingTitles":true},
+'chalkboard': {"buttons":true},
+'drop': {"button":true,"shortcut":"`","engine":"webr","webr":{"packages":[]},"pyodide":{"packages":[]}},
+'smaller': false,
+ 
+        // Display controls in the bottom right corner
+        controls: false,
+
+        // Help the user learn the controls by providing hints, for example by
+        // bouncing the down arrow when they first encounter a vertical slide
+        controlsTutorial: false,
+
+        // Determines where controls appear, "edges" or "bottom-right"
+        controlsLayout: 'edges',
+
+        // Visibility rule for backwards navigation arrows; "faded", "hidden"
+        // or "visible"
+        controlsBackArrows: 'faded',
+
+        // Display a presentation progress bar
+        progress: true,
+
+        // Display the page number of the current slide
+        slideNumber: 'c',
+
+        // 'all', 'print', or 'speaker'
+        showSlideNumber: 'all',
+
+        // Add the current slide number to the URL hash so that reloading the
+        // page/copying the URL will return you to the same slide
+        hash: true,
+
+        // Start with 1 for the hash rather than 0
+        hashOneBasedIndex: false,
+
+        // Flags if we should monitor the hash and change slides accordingly
+        respondToHashChanges: true,
+
+        // Push each slide change to the browser history
+        history: true,
+
+        // Enable keyboard shortcuts for navigation
+        keyboard: true,
+
+        // Enable the slide overview mode
+        overview: true,
+
+        // Disables the default reveal.js slide layout (scaling and centering)
+        // so that you can use custom CSS layout
+        disableLayout: false,
+
+        // Vertical centering of slides
+        center: false,
+
+        // Enables touch navigation on devices with touch input
+        touch: true,
+
+        // Loop the presentation
+        loop: false,
+
+        // Change the presentation direction to be RTL
+        rtl: false,
+
+        // see https://revealjs.com/vertical-slides/#navigation-mode
+        navigationMode: 'linear',
+
+        // Randomizes the order of slides each time the presentation loads
+        shuffle: false,
+
+        // Turns fragments on and off globally
+        fragments: true,
+
+        // Flags whether to include the current fragment in the URL,
+        // so that reloading brings you to the same fragment position
+        fragmentInURL: false,
+
+        // Flags if the presentation is running in an embedded mode,
+        // i.e. contained within a limited portion of the screen
+        embedded: false,
+
+        // Flags if we should show a help overlay when the questionmark
+        // key is pressed
+        help: true,
+
+        // Flags if it should be possible to pause the presentation (blackout)
+        pause: true,
+
+        // Flags if speaker notes should be visible to all viewers
+        showNotes: false,
+
+        // Global override for autoplaying embedded media (null/true/false)
+        autoPlayMedia: null,
+
+        // Global override for preloading lazy-loaded iframes (null/true/false)
+        preloadIframes: null,
+
+        // Number of milliseconds between automatically proceeding to the
+        // next slide, disabled when set to 0, this value can be overwritten
+        // by using a data-autoslide attribute on your slides
+        autoSlide: 0,
+
+        // Stop auto-sliding after user input
+        autoSlideStoppable: true,
+
+        // Use this method for navigation when auto-sliding
+        autoSlideMethod: null,
+
+        // Specify the average time in seconds that you think you will spend
+        // presenting each slide. This is used to show a pacing timer in the
+        // speaker view
+        defaultTiming: null,
+
+        // Enable slide navigation via mouse wheel
+        mouseWheel: false,
+
+        // The display mode that will be used to show slides
+        display: 'block',
+
+        // Hide cursor if inactive
+        hideInactiveCursor: true,
+
+        // Time before the cursor is hidden (in ms)
+        hideCursorTime: 5000,
+
+        // Opens links in an iframe preview overlay
+        previewLinks: false,
+
+        // Transition style (none/fade/slide/convex/concave/zoom)
+        transition: 'none',
+
+        // Transition speed (default/fast/slow)
+        transitionSpeed: 'default',
+
+        // Transition style for full page slide backgrounds
+        // (none/fade/slide/convex/concave/zoom)
+        backgroundTransition: 'none',
+
+        // Number of slides away from the current that are visible
+        viewDistance: 3,
+
+        // Number of slides away from the current that are visible on mobile
+        // devices. It is advisable to set this to a lower number than
+        // viewDistance in order to save resources.
+        mobileViewDistance: 2,
+
+        // The "normal" size of the presentation, aspect ratio will be preserved
+        // when the presentation is scaled to fit different resolutions. Can be
+        // specified using percentage units.
+        width: 1050,
+
+        height: 700,
+
+        // Factor of the display size that should remain empty around the content
+        margin: 0.1,
+
+        math: {
+          mathjax: 'https://cdn.jsdelivr.net/npm/mathjax@2.7.9/MathJax.js',
+          config: 'TeX-AMS_HTML-full',
+          tex2jax: {
+            inlineMath: [['\\(','\\)']],
+            displayMath: [['\\[','\\]']],
+            balanceBraces: true,
+            processEscapes: false,
+            processRefs: true,
+            processEnvironments: true,
+            preview: 'TeX',
+            skipTags: ['script','noscript','style','textarea','pre','code'],
+            ignoreClass: 'tex2jax_ignore',
+            processClass: 'tex2jax_process'
+          },
+        },
+
+        // reveal.js plugins
+        plugins: [QuartoLineHighlight, PdfExport, RevealMenu, RevealChalkboard, RevealDrop, QuartoSupport,
+
+          RevealMath,
+          RevealNotes,
+          RevealSearch,
+          RevealZoom
+        ]
+      });
+    </script>
+    <script type="ojs-module-contents">
+    eyJjb250ZW50cyI6W119
+    </script>
+    <script type="module">
+    if (window.location.protocol === "file:") { alert("The OJS runtime does not work with file:// URLs. Please use a web server to view this document."); }
+    window._ojs.paths.runtimeToDoc = "../../..";
+    window._ojs.paths.runtimeToRoot = "../../..";
+    window._ojs.paths.docToRoot = "";
+    window._ojs.selfContained = false;
+    window._ojs.runtime.interpretFromScriptTags();
+    </script>
+    
+    <script>
+      // htmlwidgets need to know to resize themselves when slides are shown/hidden.
+      // Fire the "slideenter" event (handled by htmlwidgets.js) when the current
+      // slide changes (different for each slide format).
+      (function () {
+        // dispatch for htmlwidgets
+        function fireSlideEnter() {
+          const event = window.document.createEvent("Event");
+          event.initEvent("slideenter", true, true);
+          window.document.dispatchEvent(event);
+        }
+
+        function fireSlideChanged(previousSlide, currentSlide) {
+          fireSlideEnter();
+
+          // dispatch for shiny
+          if (window.jQuery) {
+            if (previousSlide) {
+              window.jQuery(previousSlide).trigger("hidden");
+            }
+            if (currentSlide) {
+              window.jQuery(currentSlide).trigger("shown");
+            }
+          }
+        }
+
+        // hookup for slidy
+        if (window.w3c_slidy) {
+          window.w3c_slidy.add_observer(function (slide_num) {
+            // slide_num starts at position 1
+            fireSlideChanged(null, w3c_slidy.slides[slide_num - 1]);
+          });
+        }
+
+      })();
+    </script>
+
+    <script id="quarto-html-after-body" type="application/javascript">
+      window.document.addEventListener("DOMContentLoaded", function (event) {
+        const tabsets =  window.document.querySelectorAll(".panel-tabset-tabby")
+        tabsets.forEach(function(tabset) {
+          const tabby = new Tabby('#' + tabset.id);
+        });
+        const isCodeAnnotation = (el) => {
+          for (const clz of el.classList) {
+            if (clz.startsWith('code-annotation-')) {                     
+              return true;
+            }
+          }
+          return false;
+        }
+        const onCopySuccess = function(e) {
+          // button target
+          const button = e.trigger;
+          // don't keep focus
+          button.blur();
+          // flash "checked"
+          button.classList.add('code-copy-button-checked');
+          var currentTitle = button.getAttribute("title");
+          button.setAttribute("title", "Copied!");
+          let tooltip;
+          if (window.bootstrap) {
+            button.setAttribute("data-bs-toggle", "tooltip");
+            button.setAttribute("data-bs-placement", "left");
+            button.setAttribute("data-bs-title", "Copied!");
+            tooltip = new bootstrap.Tooltip(button, 
+              { trigger: "manual", 
+                customClass: "code-copy-button-tooltip",
+                offset: [0, -8]});
+            tooltip.show();    
+          }
+          setTimeout(function() {
+            if (tooltip) {
+              tooltip.hide();
+              button.removeAttribute("data-bs-title");
+              button.removeAttribute("data-bs-toggle");
+              button.removeAttribute("data-bs-placement");
+            }
+            button.setAttribute("title", currentTitle);
+            button.classList.remove('code-copy-button-checked');
+          }, 1000);
+          // clear code selection
+          e.clearSelection();
+        }
+        const getTextToCopy = function(trigger) {
+          const outerScaffold = trigger.parentElement.cloneNode(true);
+          const codeEl = outerScaffold.querySelector('code');
+          for (const childEl of codeEl.children) {
+            if (isCodeAnnotation(childEl)) {
+              childEl.remove();
+            }
+          }
+          return codeEl.innerText;
+        }
+        const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+          text: getTextToCopy
+        });
+        clipboard.on('success', onCopySuccess);
+        if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+          const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+            text: getTextToCopy,
+            container: window.document.getElementById('quarto-embedded-source-code-modal')
+          });
+          clipboardModal.on('success', onCopySuccess);
+        }
+          var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+          var mailtoRegex = new RegExp(/^mailto:/);
+            var filterRegex = new RegExp('/' + window.location.host + '/');
+          var isInternal = (href) => {
+              return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+          }
+          // Inspect non-navigation links and adorn them if external
+         var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+          for (var i=0; i<links.length; i++) {
+            const link = links[i];
+            if (!isInternal(link.href)) {
+              // undo the damage that might have been done by quarto-nav.js in the case of
+              // links that we want to consider external
+              if (link.dataset.originalHref !== undefined) {
+                link.href = link.dataset.originalHref;
+              }
+            }
+          }
+        function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+          const config = {
+            allowHTML: true,
+            maxWidth: 500,
+            delay: 100,
+            arrow: false,
+            appendTo: function(el) {
+                return el.closest('section.slide') || el.parentElement;
+            },
+            interactive: true,
+            interactiveBorder: 10,
+            theme: 'light-border',
+            placement: 'bottom-start',
+          };
+          if (contentFn) {
+            config.content = contentFn;
+          }
+          if (onTriggerFn) {
+            config.onTrigger = onTriggerFn;
+          }
+          if (onUntriggerFn) {
+            config.onUntrigger = onUntriggerFn;
+          }
+            config['offset'] = [0,0];
+            config['maxWidth'] = 700;
+          window.tippy(el, config); 
+        }
+        const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+        for (var i=0; i<noterefs.length; i++) {
+          const ref = noterefs[i];
+          tippyHover(ref, function() {
+            // use id or data attribute instead here
+            let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+            try { href = new URL(href).hash; } catch {}
+            const id = href.replace(/^#\/?/, "");
+            const note = window.document.getElementById(id);
+            if (note) {
+              return note.innerHTML;
+            } else {
+              return "";
+            }
+          });
+        }
+        const findCites = (el) => {
+          const parentEl = el.parentElement;
+          if (parentEl) {
+            const cites = parentEl.dataset.cites;
+            if (cites) {
+              return {
+                el,
+                cites: cites.split(' ')
+              };
+            } else {
+              return findCites(el.parentElement)
+            }
+          } else {
+            return undefined;
+          }
+        };
+        var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+        for (var i=0; i<bibliorefs.length; i++) {
+          const ref = bibliorefs[i];
+          const citeInfo = findCites(ref);
+          if (citeInfo) {
+            tippyHover(citeInfo.el, function() {
+              var popup = window.document.createElement('div');
+              citeInfo.cites.forEach(function(cite) {
+                var citeDiv = window.document.createElement('div');
+                citeDiv.classList.add('hanging-indent');
+                citeDiv.classList.add('csl-entry');
+                var biblioDiv = window.document.getElementById('ref-' + cite);
+                if (biblioDiv) {
+                  citeDiv.innerHTML = biblioDiv.innerHTML;
+                }
+                popup.appendChild(citeDiv);
+              });
+              return popup.innerHTML;
+            });
+          }
+        }
+      });
+      </script>
+    
+
+</body></html>
