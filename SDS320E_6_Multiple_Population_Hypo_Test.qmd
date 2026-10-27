@@ -477,7 +477,7 @@ Suppose one is interested in determining if there is a difference between the me
 
 :::{style="font-size:.9em;"}
 ```{r}
-t.test(diff_data)
+t.test(diff_data, conf.level = 0.90)
 ```
 :::
 :::
@@ -1596,6 +1596,307 @@ Tukey_results <- TukeyHSD(aov_results)
 plot(Tukey_results)
 ```
 :::
+
+# Hypothesis Testing for Categorical Data: $\chi^{2}$ GOF
+
+## Chi-Square Goodness of Fit Test
+
+:::{.callout-note title="Chi-Square Goodness of Fit Test" style="font-size:1.1em;"}
+Let a categorical variable have *K* categories, and let $p_k, k = 1, \ldots, K$ be the population proportions of each category. Then, to conduct a hypothesis test to determine whether the proportions match a hypothesized distribution, we will use the *Chi-Square Goodness of Fit Test*:
+
+
+:::{.fragment}
+[Null and Alternative Hypothesis]{.underline}
+
+:::{.fragment}
+$H_0: p_1 = p_{1,0},\ p_2 = p_{2,0},\ \ldots,\ p_K = p_{K,0}$ [sometimes $p_{1} = p_{2} = \ldots = p_{K} = 1/K$]{.subtext}
+:::
+
+:::{.fragment}
+$H_{a}: \text{At least one proportion } p_k \text{ is different from its hypothesized value.}$
+:::
+:::
+
+:::{.fragment}
+[Test-Statistic and Distribution]{.underline}
+:::
+
+
+:::{.fragment}
+:::{.center}
+[$\chi^{2} = \sum_{k = 1}^{K}\frac{(O_{k} - E_{k})^{2}}{E_{k}}$]{.mysolution} [[$ \stackrel{\cdot}{\sim} \chi^{2}(df = K - 1)$]{.mysolution}]{.fragment} <br> [$O_{k}$ = observed count, $E_{k} = n \cdot p_{k,0}$ = expected count if $H_{0}$ is true]{.subtext}
+:::
+:::
+
+:::{.fragment}
+[Assumptions for Chi-Square Goodness of Fit]{.underline} 
+
+1. ["Sufficiently" large sample size: All expected counts are at least 5 [$E_{k} \geq 5$]{.subtext}]{.mysolution} 
+:::
+
+:::
+
+## Chi-Square Goodness of Fit Test in R
+
+:::{.incremental style="font-size:0.8em;"}
+- To conduct a chi-square goodness of fit test in R, we can use the `chisq.test()` function on the observed counts. The arguments of interest are: 
+  - `x`: the numeric vector of the observed counts $O_{k}$ for each category
+  - `p`: the vector of hypothesized proportions $p_{k,0}$ in $H_{0}$, in the same order as `x` (default is equal proportions)
+- Or, if we have the raw data, we can first use `table()` to get the counts and then use `chisq.test(table(data), p = p)`
+- To check the assumption that all expected counts are at least 5, we can use `$expected`
+:::
+
+:::{.fragment}
+:::{.absolute top=350px width=80%}
+:::{style="transform: scale(0.7); transform-origin: top left;"}
+```{webr}
+# Number of cars with 4, 6, and 8 cylinders
+observed <- c(11, 7, 14)
+
+# Test H0: p_4 = 0.4, p_6 = 0.2, p_8 = 0.4
+# vs Ha: at least one proportion is different
+chisq.test(x = observed, p = c(0.4, 0.2, 0.4))
+```
+:::
+:::
+
+:::{.absolute top=350px left=600px width=60%}
+:::{style="transform: scale(0.7); transform-origin: top left;"}
+```{webr}
+# Equivalent: start from the raw data and use table() for the counts
+chisq.test(table(mtcars$cyl), p = c(0.4, 0.2, 0.4))
+```
+:::
+:::
+:::
+
+## Election Example
+
+:::{.callout-tip title="Example" style="font-size:1.2em;"}
+The latest [Emerson College poll](https://emersoncollegepolling.com/texas-2026-poll-toss-up/) for the Texas Senate race polled 947 decided voters that were likely to vote. Of the 947, 476 said they would vote for James Talarico [(D)]{style="color:blue;"}, 458 for Ken Paxton [(R)]{style="color:red;"}, and 13 for Ted Brown [(L)]{style="color:green;"}. We want to make a conclusion at the 5% level of significance on whether there is a significant difference in the proportion of likely voters who support each of the three candidates. 
+:::
+
+:::{.incremental style="font-size:.9em;"}
+1. What test should we perform?
+
+:::{.fragment}
+[$\chi^{2}$ GOF test because we are comparing multiple categories.]{.mysolution}
+:::
+
+2. What are the null and alternative hypothesis? 
+
+:::{.fragment}
+[$H_0: p_{D} = p_{R} = p_{L} = 1/3$]{.mysolution}
+:::
+
+:::{.fragment}
+[$H_a: \text{At least one } p_{k} \text{ is different than hypothesized}$]{.mysolution}
+:::
+
+3. Are the assumptions for the Test met?
+
+:::{.fragment}
+[The assumption is $E_{k} = n \cdot p_{k} \geq 5$.]{.mysolution} [[Here, $E_{k} = 947 \cdot (1/3) > 5$ for all $k$.]{.mysolution}]{.fragment}
+:::
+
+:::
+
+
+## Election Example Continued
+
+:::{.callout-tip title="Example" style="font-size:.8em;"}
+The latest [Emerson College poll](https://emersoncollegepolling.com/texas-2026-poll-toss-up/) for the Texas Senate race polled 947 decided voters that were likely to vote. Of the 947, 476 said they would vote for James Talarico [(D)]{style="color:blue;"}, 458 for Ken Paxton [(R)]{style="color:red;"}, and 13 for Ted Brown [(L)]{style="color:green;"}. We want to make a conclusion at the 5% level of significance on whether there is a significant difference in the proportion of likely voters who support each of the three candidates. 
+:::
+
+:::{.incremental}
+[4. Make a conclusion for the test.]{style="font-size:.9em;"}
+
+:::{.fragment}
+:::{style="transform: scale(0.7); transform-origin: top left;"}
+```{webr}
+observed <- c("Talarico" = 476, "Ken Paxton" = 458, "Brown" = 13)
+
+chisq.test(observed, p = c(1/3, 1/3, 1/3))
+```
+:::
+:::
+
+:::{.fragment .absolute top=450px}
+[The p-value < 0.001 < $\alpha = 0.05$. Therefore, we reject $H_{0}$ and have sufficient evidence to conclude that at least one proportion is significantly different than assumed.]{.mysolution style="font-size:.9em;"}  
+:::
+:::
+
+:::{.fragment .absolute top=550px style="font-size:.9em;"}
+5. From the poll, Talarico "had" 476 votes $>$ Ken Paxton's 458 votes. Does our conclusion support that Talarico will win? [[We don't know! It only supports that at least one candidate's proportion of votes is different than 1/3.]{.mysolution}]{.fragment}
+:::
+
+## Bonferroni Confidence Intervals
+
+:::{.incremental style="font-size:.9em;"}
+- Since we rejected $H_{0}$, the natural question is: which proportion(s) are different from the hypothesized value?
+  - We can answer this by estimating each proportion with a confidence interval
+- However, just like multiple hypothesis tests, [multiple confidence intervals inflate our overall $\alpha$]{.mysolution}
+:::
+
+:::{.fragment .callout-note title="Bonferroni Confidence Intervals" style="font-size:1.1em;"}
+To build $K$ confidence intervals while keeping the overall level of significance at $\alpha$, we use the *Bonferroni adjustment*:
+
+
+:::{.fragment}
+We will split $\alpha$ across the $K$ different confidence intervals [(i.e. each interval gets $\alpha/K$ instead of $\alpha$)]{.subtext} [and construct $K$
+intervals at [$(1 - \alpha/K) \times 100\%$]{.mysolution} level of confidence. ]{.fragment}
+:::
+
+:::{.fragment}
+[Bonferroni CI in $\texttt{R}$:]{.underline} Copy, paste, and save this function to your environment in $\texttt{R}$. 
+```{r}
+bonferroni_ci <- function(observed, alpha = 0.05) {
+  K <- length(observed)
+  n <- sum(observed)
+  lapply(observed, function(x) {
+    prop.test(x, n, conf.level = 1 - alpha / K, correct = FALSE)$conf.int
+  })
+}
+```
+
+:::{.fragment style="font-size:.85em;"}
+- `observed`: the numeric vector of the observed counts for each category
+- `alpha`: the overall (family-wise) level of significance (default is 0.05)
+:::
+
+:::
+
+:::
+
+## Election Example Cont. 
+
+:::{.callout-tip title="Example" style="font-size:.8em;"}
+The latest [Emerson College poll](https://emersoncollegepolling.com/texas-2026-poll-toss-up/) for the Texas Senate race polled 947 decided voters that were likely to vote. Of the 947, 476 said they would vote for James Talarico [(D)]{style="color:blue;"}, 458 for Ken Paxton [(R)]{style="color:red;"}, and 13 for Ted Brown [(L)]{style="color:green;"}. We want to make a conclusion at the 5% level of significance on whether there is a significant difference in the proportion of likely voters who support each of the three candidates. 
+:::
+
+:::{.incremental}
+6. Since we rejected $H_{0}$, which candidate(s) have a proportion different from assumed?
+
+```{webr}
+#| include: false
+bonferroni_ci <- function(observed, alpha = 0.05) {
+  K <- length(observed)
+  n <- sum(observed)
+  lapply(observed, function(x) {
+    prop.test(x, n, conf.level = 1 - alpha / K, correct = FALSE)$conf.int
+  })
+}
+```
+
+::::{.columns}
+
+:::{.fragment .column width=50%}
+:::{style="transform: scale(0.7); transform-origin: top left;"}
+```{webr}
+observed <- c(476, 458, 13)
+bonferroni_ci(observed, alpha = 0.05)
+```
+:::
+:::
+
+:::{.incremental .column width=50% style="font-size:.9em;"}
+- [CI for Talarico:]{.underline} (46.38%, 54.14%). [[Because the CI does not contain 1/3, we conclude the proportion of votes is different (specifically, larger than) 1/3.]{.mysolution}]{.fragment} 
+
+- [CI for Paxton:]{.underline} (44.50%, 52.25%). [Proportion of votes is significantly larger than 1/3.]{.mysolution} 
+
+- [CI for Brown:]{.underline} (0.72%, 2.61%) [Proportion of votes is significantly less than 1/3.]{.mysolution} 
+:::
+
+::::
+
+:::{.fragment .subtext}
+Note: This tells us which proportions are different than assumed. But, we can not make a conclusion on whether Talarico or Paxton will win. 
+:::
+:::
+
+## Bonferroni Confidence Intervals: Multiple Comparisons
+
+:::{.incremental style="font-size:.9em;"}
+- Since we rejected $H_0$, we know that the candidates do not have equal support.
+  - But can we conclude that one candidate is more likely to win?
+- To answer this, we compare the population proportions for each pair of candidates.
+  - We construct bonferroni confidence intervals for the differences between proportions, $p_i-p_j$.
+:::
+
+:::{.fragment}
+More math and statistics that is beyond this course...
+
+```{r, echo=FALSE}
+bonferroni_compare <- function(observed, alpha = 0.05) {
+  n <- sum(observed)
+  p <- observed / n
+  
+  K <- choose(length(observed), 2)
+  z <- qnorm(1 - alpha / (2 * K))
+  
+  # Get category names
+  category_names <- names(observed)
+  if (is.null(category_names)) {
+    category_names <- paste0("Category ", seq_along(observed))
+  }
+  
+  pairs <- combn(seq_along(observed), 2, simplify = FALSE)
+  
+  do.call(rbind, lapply(pairs, function(pair) {
+    diff <- p[pair[1]] - p[pair[2]]
+    se <- sqrt((p[pair[1]] + p[pair[2]] - diff^2) / n)
+    
+    data.frame(
+      Comparison = paste(category_names[pair], collapse = " vs. "),
+      Lower_CI = diff - z * se,
+      Upper_CI = diff + z * se
+    )
+  }))
+}
+observed <- c(
+  "Talarico" = 476,
+  "Ken Paxton" = 458,
+  "Brown" = 13
+)
+
+out <- bonferroni_compare(observed)
+rownames(out) <- NULL
+
+knitr::kable(out)
+```
+
+
+:::{.incremental}
+- The interval for Talarico vs Ken Paxton contains 0. Thus, we can not conclude there is a significant difference between Talarico and Ken Paxton [i.e., we can not conclude who will win.]{.subtext}
+:::
+:::
+
+
+<!-- ## [M&M Example]{style="font-size:.8em;"} -->
+<!-- :::{.callout-tip title="---------- Example" style="font-size:1.2em;"} -->
+<!-- According to M&M Mars Inc., the colors of M&M's <img src="figures/mm.png" style="height:1.0em; vertical-align:middle;"> follow the distribution in the table below. We want test whether M&M's claim about distribution of colors.  -->
+<!-- ::: -->
+<!-- :::{.absolute top=68px left=50px width=67px} -->
+<!-- ![](figures/mm.png) -->
+<!-- ::: -->
+
+<!-- :::{style="font-size:.8em;"} -->
+<!-- | Color  | Claimed Percentage | -->
+<!-- |:------:|:------------------:| -->
+<!-- | Blue   | 24%                | -->
+<!-- | Orange | 20%                | -->
+<!-- | Green  | 16%                | -->
+<!-- | Yellow | 14%                | -->
+<!-- | Red    | 13%                | -->
+<!-- | Brown  | 13%                | -->
+<!-- ::: -->
+
+<!-- :::{.incremental style="font-size:.9em;"} -->
+<!-- 1. What test should we perform? [[$\chi^{2}$ GOF test because we are comparing multiple categories.]{.mysolution}]{.fragment} -->
+
+<!-- 2. What are the null and alternative hypothesis? <br> [[$H_0: p_{blue} = 0.24,\ p_{orange} = 0.20,\ p_{green} = 0.16,\ p_{yellow} = 0.14,\ p_{red} = 0.13,\ p_{brown} = 0.13$]{.mysolution}]{.fragment} <br> [[$H_a: \text{At least one } p_{k} \text{ is different than hypothesized}$]{.mysolution}]{.fragment} -->
+
+<!-- ::: -->
 
 # The End
 
