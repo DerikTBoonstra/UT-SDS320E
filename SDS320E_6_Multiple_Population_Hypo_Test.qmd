@@ -1624,7 +1624,7 @@ $H_{a}: \text{At least one proportion } p_k \text{ is different from its hypothe
 
 :::{.fragment}
 :::{.center}
-[$\chi^{2} = \sum_{k = 1}^{K}\frac{(O_{k} - E_{k})^{2}}{E_{k}}$]{.mysolution} [[$ \stackrel{\cdot}{\sim} \chi^{2}(df = K - 1)$]{.mysolution}]{.fragment} <br> [$O_{k}$ = observed count, $E_{k} = n \cdot p_{k,0}$ = expected count if $H_{0}$ is true]{.subtext}
+[$\chi^{2} = \sum_{k = 1}^{K}\frac{(O_{k} - E_{k})^{2}}{E_{k}}$]{.mysolution} [[$\stackrel{\cdot}{\sim} \chi^{2}(df = K - 1)$]{.mysolution}]{.fragment} <br> [$O_{k}$ = observed count, $E_{k} = n \cdot p_{k,0}$ = expected count if $H_{0}$ is true]{.subtext}
 :::
 :::
 
