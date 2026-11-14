@@ -516,7 +516,7 @@ $H_{a}: \mu_{1} - \mu_{2} < value$, $> value$, or $\neq value$
 
 :::{.fragment}
 :::{.mysolution .center }
-[$t$]{style="font-size:1.4em;"} [$= \frac{(\bar{x}_{1} - \bar{x}_{2}) - (\mu_{1} - \mu_{2})}{\sqrt{\frac{s_{1}^{2}}{n_{1}} + \frac{s_{2}^{2}}{n_{2}}}}$]{style="font-size:1.5em;"} [[$\sim t(df = n_{1} + n_{2} - 2)$]{style="font-size:1.2em;"} <br> [again $\mu_{1} - \mu_{2} = 0$ is the common case]{.subtext}]{.fragment}
+[$t$]{style="font-size:1.4em;"} [$= \frac{(\bar{x}_{1} - \bar{x}_{2}) - (\mu_{1} - \mu_{2})}{\sqrt{\frac{s_{p}^{2}}{n_{1}} + \frac{s_{p}^{2}}{n_{2}}}}$]{style="font-size:1.5em;"} [[$\sim t(df = n_{1} + n_{2} - 2)$]{style="font-size:1.2em;"} <br> [again $\mu_{1} - \mu_{2} = 0$ is the common case]{.subtext}]{.fragment}
 :::
 :::
 
