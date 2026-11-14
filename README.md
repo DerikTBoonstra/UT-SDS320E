@@ -20,6 +20,8 @@ Introduction to statistics. Topics may include: probability; principles of obser
 
 [6. Hypothesis Testing for Multiple Population](https://deriktboonstra.github.io/UT-SDS320E/SDS320E_6_Multiple_Population_Hypo_Test)
 
+[7. Introduction to Simple Linear Regression and Modeling](https://deriktboonstra.github.io/UT-SDS320E/SDS320E_7_Modeling_Simple_Linear_Regression)
+
 
 ## R Labs
 [R Demo Exercises](https://deriktboonstra.github.io/UT-SDS320E/R_Demo.html)
@@ -28,4 +30,5 @@ Introduction to statistics. Topics may include: probability; principles of obser
 
 ## Other
 [Z-Table](https://DerikTBoonstra.github.io/UT-SDS320E/Z_Table.pdf)
+
 [T-Table](https://DerikTBoonstra.github.io/UT-SDS320E/T_table.pdf)
