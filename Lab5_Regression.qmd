@@ -52,7 +52,7 @@ The dataset for this handout is from a morphological survey (cited below) conduc
 
 ------------------------------------------------------------------------
 
-Download **RegressionHandout_crabs.csv** from Canvas, import it into RStudio, and call the data frame *crabs*:
+Download the `RegressionHandout_crabs.csv` file from Canvas or here: [Download Dataset](data/RegressionHandout_crabs.csv){download="RegressionHandout_crabs.csv"}, import it into RStudio, and call the data frame *crabs*:
 
 
 
