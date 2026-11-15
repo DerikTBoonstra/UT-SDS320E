@@ -28,6 +28,8 @@ Introduction to statistics. Topics may include: probability; principles of obser
 
 [4. Two Population T Tests](https://deriktboonstra.github.io/UT-SDS320E/Lab4_T_Tests.html)
 
+[5. Regression](https://deriktboonstra.github.io/UT-SDS320E/Lab5_Regression.html)
+
 ## Other
 [Z-Table](https://DerikTBoonstra.github.io/UT-SDS320E/Z_Table.pdf)
 
