@@ -9,8 +9,8 @@ format:
   live-revealjs:
     # webr:
     #   cell-options:
-    # revealjs-plugins:
-    #   - drop
+    revealjs-plugins:
+      - drop
     theme: quarto-assets/presentation-theme.scss
     embed-resources: false
     slide-number: "c"
@@ -1549,7 +1549,7 @@ Reminder: If $X$ is a significant predictor for $Y$, this simply means that $\be
 :::
 
 :::{.fragment .callout-tip title="Example"}
-Suppose we have to candidate predictor variables $X_{1}$ and $X_{2}$ for $Y$. We fit two models for each predictor variable and find:
+Suppose we have two candidate predictor variables $X_{1}$ and $X_{2}$ for $Y$. We fit two models for each predictor variable and find:
 
 :::{.columns}
 

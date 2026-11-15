@@ -1,0 +1,445 @@
+---
+title: "SDS 320E Regression Lab"
+author: "Department of Statistics and Data Sciences, UT Austin"
+format:
+  html:
+    toc: true
+    toc-depth: 3
+    toc-location: left
+    embed-resources: true
+---
+
+```{r}
+#| include: false
+knitr::opts_chunk$set(fig.height = 3.5)
+library("tidyverse");theme_set(theme_minimal() + theme(strip.background = element_rect(fill = "lightgrey")));library("patchwork");library("ggfunction")
+```
+
+
+------------------------------------------------------------------------
+
+## **Introduction**
+
+In this lab, we'll learn how to run linear regression models, both those with a single numeric predictor (*simple* regression models) and with multiple predictors (*multiple* regression models).
+
+------------------------------------------------------------------------
+
+### **Lab Objectives**
+
+-   Fit a simple and multiple linear model and interpret the results.
+-   Create a multivariate plot to visualize the relationship between two explanatory variables and a numeric response variable.
+
+------------------------------------------------------------------------
+
+### **New R Functions**
+
+| Function     | What it Does                            |
+|--------------|-----------------------------------------|
+| `lm()`       | Defines a linear regression model       |
+| `summary()`  | Displays the results of an `lm()` model |
+
+------------------------------------------------------------------------
+
+## **Dataset**
+
+<img src="figures/Handout12_crab.jpg" style="float: right;"/>
+
+The dataset for this handout is from a morphological survey (cited below) conducted by two Australian biologists, Dr. N.A. Campbell and Dr. R.J. Mahon. They studied a sample of rock crabs, *Leptograpsus variegatus*, from Freemantle, Australia, including both blue and orange crabs. In addition to the sex of each crab, they recorded various measurements (all in mm) of the carapace, which is the upper section of exoskeleton.
+
+------------------------------------------------------------------------
+
+"A Multivariate Study of Variation in Two Species of Rock Crab of the Genus *Leptograpsus*" by N.A. Campbell and R.J. Mahon. *Australian Zoology* Vol. 22 (1974), pp. 417-425.
+
+------------------------------------------------------------------------
+
+Download **RegressionHandout_crabs.csv** from Canvas, import it into RStudio, and call the data frame *crabs*:
+
+
+
+```{r, eval=FALSE}
+crabs <- read.csv("RegressionHandout_crabs.csv")
+head(crabs)
+```
+```{r, echo=FALSE}
+crabs <- read.csv("data/RegressionHandout_crabs.csv")
+head(crabs)
+```
+
+
+The final five variables contain all of the carapace measurements (in mm): frontal lip (FL), rear width (RW), carapace length (CL), carapace width (CW), and body depth (BD). We are interested in predicting a rock crab's frontal lip size, as it is an indicator of the size of their brain.
+
+------------------------------------------------------------------------
+
+## **Research Questions**
+
+> *RQ1: Does a rock crab's rear width predict its frontal lip size?*
+
+> *RQ2: Does a rock crab's color predict frontal lip size, after controlling for rear width size?*
+
+> *RQ3: Does a rock crab's rear width size predict frontal lip size, after controlling for color?*
+
+------------------------------------------------------------------------
+
+## **Simple Linear Regression Model**
+
+We can answer *RQ1* by building a simple linear model with rear width as our explanatory variable and frontal lip as our response variable.
+
+
+### **Step 1: Assess assumptions**
+For simple linear regression models, we have the following assumptions: 
+
+1. Linearity: There exists a linear relationship between X and Y [check w/ scatterplot]{style="font-size:.85em; color:#b3b3b3"}
+2. Normality: The errors $\varepsilon$ are normally distributed $\varepsilon_{i} \sim N(0, \sigma^{2})$ [check w/ QQ plot]{style="font-size:.85em; color:#b3b3b3;"}
+3. Equal Variance: The errors $\varepsilon$ all have the same variance $\sigma^2$ [check with plot of residuals]{style="font-size:.85em; color:#b3b3b3"}
+4. Independence: The errors $\varepsilon$ are independent from one another. [check with autocorrelation plot]{style="font-size:.85em; color:#b3b3b3"}
+
+Read [Assessing Assumptions for Regression](https://deriktboonstra.github.io/UT-SDS320E/SDS320E_7_Modeling_Simple_Linear_Regression#/appendix-assumptions-for-regression) for interpretation of the plots. 
+
+
+We will first assess the linearity assumptions by making a scatter plot between our response and predictor variable. 
+
+
+::: panel-tabset
+
+### ggplot
+
+```{r}
+ggplot(aes(RW, FL), data = crabs)+
+  geom_point()
+```
+
+### base R
+
+```{r}
+plot(crabs$RW, crabs$FL)
+```
+
+:::
+
+**1. Linearity Assessment:** Based upon the scatter plot, there clearly is a linear relationship between our response and predictor. 
+
+To assess the assumptions for the residuals (last 3 assumptions), we'll first need to define our model using the `lm()` function (similar to what we did in ANOVA). 
+
+```{r}
+my_model <- lm(FL ~ RW, data = crabs)
+```
+
+We can visually assess the residual assumptions with residual plots using the [`residual_diagnostics()`](residual_diagnostics.R){download="residual_diagnostics.R"} function I created below. [Make sure to copy the function and save it to your R environment to run it.]{style="font-size:.85em; color:red"}
+
+
+::: panel-tabset
+
+### ggplot
+
+```{r}
+#| code-fold: true
+#| code-summary: "residual_diagnostics() code"
+residual_diagnostics <- function(model){
+  pkgs <- c("qqplotr", "patchwork", "forecast")
+  installed <- pkgs %in% installed.packages()[, "Package"]
+  if (any(!installed)) {
+    install.packages(pkgs[!installed])
+  }
+  library("qqplotr")
+  library("patchwork")
+  
+  residuals <- model$residuals
+  
+  p1 <- ggplot(aes(sample = residuals), data = NULL)+
+    stat_qq_band(color = "lightgrey")+
+    stat_qq_line(color = "red") +
+    stat_qq_point()+
+    labs(x = "Theoretical Residuals", y = "Sample Residuals")+
+    theme_minimal()
+  
+  p2 <- ggplot(aes(model$fitted.values, residuals), data = NULL)+
+    geom_point()+
+    geom_hline(yintercept = 0, color = "red")+
+    labs(x = "Fitted Values", y = "Residual")+
+    theme_minimal()
+  
+  p3 <- forecast::ggAcf(residuals)+
+    theme_minimal()
+  
+  ## Return
+  p1 / (p2 + p3)
+}
+```
+
+
+```{r, message=FALSE}
+residual_diagnostics(my_model)
+```
+
+### base R
+
+```{r}
+#| code-fold: true
+#| code-summary: "residual_diagnostics() code"
+residual_diagnostics <- function(model) {
+  
+  if (!requireNamespace("car", quietly = TRUE)) {
+    install.packages("car")
+  }
+  
+  residuals <- model$residuals
+  
+  layout(matrix(c(1, 1, 2, 3), nrow = 2, byrow = TRUE),
+         heights = c(1.5, 1))
+  par(mar = c(4, 4, 1, 1))
+  
+  car::qqPlot(residuals,
+              col.lines = "red",
+              xlab = "Theoretical Residuals",
+              ylab = "Sample Residuals")
+  
+  plot(model$fitted.values, residuals,
+       pch = 19,
+       xlab = "Fitted Values",
+       ylab = "Residual")
+  abline(h = 0, col = "red")
+  
+  plot(acf(residuals, plot = FALSE)[1:20])
+}
+```
+
+```{r, message=FALSE}
+residual_diagnostics(my_model)
+```
+
+:::
+
+
+**2. Normality Assessment:** Most of the points are within the bounds and on the line for the QQ plot. Thus, the normality assumption is reasonable. 
+
+**3. Equal Variance Assessment:** From bottom left plot, we see that there is clear funneling in the residual plot, which indicates a violation of the equal variance assumption. [We will need to report this as a limitation when we interpret the model results.]{style="font-size:.85em; color:#b3b3b3"}
+
+**4. Independence Assessment:** From the autocorrelation plot (bottom right), we see almost all of the lines are outside of the bounds, which indicates a violation of the independence assumption. [We will need to report this as a limitation when we interpret the model results.]{style="font-size:.85em; color:#b3b3b3"}
+
+### **Step 2: Hypothesis Test for Slope**
+Let $\beta_1 =$ the slope of the rear width on frontal lip for all rock crabs
+
+$H_0:$ $\beta_1 = 0$\
+$H_a:$ $\beta_1 \neq 0$
+
+To perform the test and get the model results, we use the `summary()` function on the model we defined above:
+
+```{r}
+#View regression analysis results
+summary(my_model)
+```
+
+### **Step 3: Write a conclusion in context**
+
+The p-value $\approx 0 < \alpha = 0.05$. Thus, we would reject $H_{0}$, and conclude that there is sufficient evidence that rear-width is a significant predictor for frontal lip length. [However, the equal variance and independence assumptions did not seem reasonably met. Thus, we cannot confirm the results are reliable.]{style="color:red;"}
+
+### **Slope interpretation**
+
+We can plot the fitted regression line. 
+
+::: panel-tabset
+
+### ggplot
+
+```{r, message=FALSE}
+ggplot(aes(RW, FL), data = crabs)+
+  geom_point()+
+  geom_smooth(method = "lm", se = FALSE)
+```
+
+### base R
+
+```{r}
+plot(crabs$RW, crabs$FL)
+abline(my_model, col = "blue")
+```
+
+:::
+
+For every additional 1mm increase in rear width length of rock crabs, frontal lip length increases by 1.231 mm, on average.
+
+------------------------------------------------------------------------
+
+## **Multiple Linear Regression Model**
+
+We can answer both *RQ2* and *RQ3* by building a multiple regression model that includes both color and rear width as explanatory variables.
+
+
+### **Step 1: Assess assumptions**
+First, we will check our assumptions, starting with linearity. We will first assess the linearity assumption by making a scatter plot between our response and the numeric predictor, colored by the crab color group. 
+
+
+::: panel-tabset
+
+### ggplot
+
+```{r}
+ggplot(aes(RW, FL, color = Color), data = crabs)+
+  geom_point()+
+  scale_color_manual(values = c("blue", "orange"))
+```
+
+
+### base R
+
+```{r}
+plot(crabs$RW, crabs$FL, col = c("blue", "orange")[factor(crabs$Color)])
+```
+
+:::
+
+[Note: For color blind consideration, you might consider making the colors different shapes as well!]{style="font-size:.85em; color:#b3b3b3;"}
+
+**1. Linearity Assessment:** Based upon the scatter plot, there appears to be a linear relationship between our response and rear width for both blue and orange crabs.
+
+To assess the assumptions for the residuals (last 3 assumptions), we'll first need to define our model using the `lm()` function and include **both predictors**:
+
+```{r}
+my_model2 <- lm(FL ~ Color + RW, data = crabs)
+```
+
+Again, we will visually assess the residual assumptions using the `residual_diagnostics()` function from above. [Make sure you have run that function's code before running the chunk below.]{style="font-size:.85em; color:#b3b3b3;"}
+
+::: panel-tabset
+
+### ggplot
+
+```{r}
+#| code-fold: true
+#| code-summary: "residual_diagnostics() code"
+residual_diagnostics <- function(model){
+  pkgs <- c("qqplotr", "patchwork", "forecast")
+  installed <- pkgs %in% installed.packages()[, "Package"]
+  if (any(!installed)) {
+    install.packages(pkgs[!installed])
+  }
+  library("qqplotr")
+  library("patchwork")
+  
+  residuals <- model$residuals
+  
+  p1 <- ggplot(aes(sample = residuals), data = NULL)+
+    stat_qq_band(color = "lightgrey")+
+    stat_qq_line(color = "red") +
+    stat_qq_point()+
+    labs(x = "Theoretical Residuals", y = "Sample Residuals")+
+    theme_minimal()
+  
+  p2 <- ggplot(aes(model$fitted.values, residuals), data = NULL)+
+    geom_point()+
+    geom_hline(yintercept = 0, color = "red")+
+    labs(x = "Fitted Values", y = "Residual")+
+    theme_minimal()
+  
+  p3 <- forecast::ggAcf(residuals)+
+    theme_minimal()
+  
+  ## Return
+  p1 / (p2 + p3)
+}
+```
+
+
+```{r, message=FALSE}
+residual_diagnostics(my_model2)
+```
+
+### base R
+
+```{r}
+#| code-fold: true
+#| code-summary: "residual_diagnostics() code"
+residual_diagnostics <- function(model) {
+  
+  if (!requireNamespace("car", quietly = TRUE)) {
+    install.packages("car")
+  }
+  
+  residuals <- model$residuals
+  
+  layout(matrix(c(1, 1, 2, 3), nrow = 2, byrow = TRUE),
+         heights = c(1.5, 1))
+  par(mar = c(4, 4, 1, 1))
+  
+  car::qqPlot(residuals,
+              col.lines = "red",
+              xlab = "Theoretical Residuals",
+              ylab = "Sample Residuals")
+  
+  plot(model$fitted.values, residuals,
+       pch = 19,
+       xlab = "Fitted Values",
+       ylab = "Residual")
+  abline(h = 0, col = "red")
+  
+  plot(acf(residuals, plot = FALSE)[1:20])
+}
+```
+
+```{r, message=FALSE}
+residual_diagnostics(my_model2)
+```
+
+:::
+
+**2. Normality Assessment:** From the qqplot, we see there is some excess information  in the left tail. However, it is not drastic, and most of the other points are within the bounds and on the line for the QQ plot. Thus, the normality assumption seems fairly reasonable. 
+
+**3. Equal Variance Assessment:** From bottom left plot, we see a slight funneling pattern in the residual plot, which indicates a violation of the equal variance assumption. [We will need to report this as a limitation when we interpret the model results.]{style="font-size:.85em; color:#b3b3b3"}
+
+**4. Independence Assessment:** From the autocorrelation plot (bottom right), we see almost all of the lines are outside of the bounds, which indicates a violation of the independence assumption. [We will need to report this as a limitation when we interpret the model results.]{style="font-size:.85em; color:#b3b3b3"}
+
+### **Step 2: Hypothesis Tests**
+In a multiple regression model, each predictor has a set of hypotheses:
+
+*Hypothesis Set 1* -\
+$H_0:$ Controlling for color, rear width is not a linear predictor of frontal lip size in rock crabs.\
+$H_A:$ Controlling for color, rear width is a linear predictor of frontal lip size in rock crabs.
+
+*Hypothesis Set 2* -\
+$H_0:$ Controlling for rear width, blue and orange rock crabs have an equal mean frontal lip size.\
+$H_A:$ Controlling for rear width, blue and orange rock crabs do not have an equal mean frontal lip size.
+
+To perform the tests and get the model results, we use the `summary()` function on the model we defined above:
+
+```{r}
+#View regression analysis results
+summary(my_model2)
+```
+
+### **Step 3: Write a conclusion in context**
+For Color, the p-value $\approx 0 < \alpha = 0.05$. Thus, we would reject $H_{0}$, and conclude that there is sufficient evidence that rear width is partially significant for frontal lip length, while controlling for rear-width. 
+
+For rear-width, the p-value $\approx 0 < \alpha = 0.05$. Thus, we would reject $H_{0}$, and conclude that there is sufficient evidence that mean frontal lip size differs between orange and blue rock crabs. 
+
+[Again, the equal variance and independence assumptions did not seem reasonably met. Thus, we cannot confirm the results are reliable.]{style="color:red;"}
+
+### **Slope interpretations**
+
+We can plot the fitted regression line. 
+
+::: panel-tabset
+
+### ggplot
+
+```{r}
+ggplot(aes(RW, FL, color = Color), data = crabs)+
+  geom_point()+
+  geom_smooth(method = "lm", se = FALSE)+
+  scale_color_manual(values = c("blue", "orange"))
+```
+
+
+### base R
+
+```{r}
+plot(crabs$RW, crabs$FL, col = c("blue", "orange")[factor(crabs$Color)])
+abline(lm(FL ~ RW, data = crabs[crabs$Color == "blue",]), col = "blue")
+abline(lm(FL ~ RW, data = crabs[crabs$Color == "orange",]), col = "orange")
+```
+
+:::
+
+
+On average, orange crabs have a frontal lip size that is 1.17 mm larger than blue crabs, while holding rear width size constant.
+
+While holding color constant, for each 1 mm increase in rear width, frontal lip size increases by 1.16 mm, on average.
